@@ -5,6 +5,7 @@ p, li {
     font-family: "Arial", sans-serif;
     font-weight: 300;
     text-align: left;
+    background-color: white;
 
 }
 
@@ -46,4 +47,39 @@ p, li {
 
 .weight500 {
     font-weight: 500;
+}
+
+.box {
+    padding: 20px;
+    border: 2px solid yellow;
+    margin: 50px;
+    width: 200px;
+    text-align: center;
+    position: relative;
+    display: inline;
+    
+
+
+}
+
+.box2 {
+    padding: 40px;
+    border: 8px dotted red;
+    margin: 50px;
+    font-size: 40px;
+    font-weight: 700;
+    width: 400px;
+    position: relative;
+    top: 75px;
+    display: inline;
+}
+
+.box.box3{
+    float: right;
+    top: 200px;
+}
+
+.box2.box4 {
+    float: left;
+    top: 100px;
 }
