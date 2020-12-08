@@ -1,23 +1,27 @@
 
 /* SHAPES */
 
-p {
+
+.square{
     height: 100px;
     width: 100px;
     margin: 20px;
     background-color: black;
     display: inline-block;
 }
-
-
-.square{
-    height: 100px;
-    width: 100px;
-}
 .rectangle{
     height: 50px;
+    width: 100px;
+    margin: 20px;
+    background-color: black;
+    display: inline-block;
 }
 .circle{
+    height: 100px;
+    width: 100px;
+    margin: 20px;
+    background-color: black;
+    display: inline-block;
     border-radius: 50%;
 }
 

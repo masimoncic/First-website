@@ -1,7 +1,7 @@
 //set up variables for properties
-let squareP = '{';
-let rectangleP = '{';
-let circleP = '{';
+let squareP = '[[Square]] = {';
+let rectangleP = '[[Rectangle]] = {';
+let circleP = '[[Circle]] {';
 
 
 
@@ -11,18 +11,20 @@ let circleP = '{';
 //pick random values
 
 //pick random shape
-function randShape() {
+function randShape(n) {
     const shapeNum = Math.floor(Math.random()*3);
     switch(shapeNum){
       case 0:
-        return 'square'
-
+        squareP += `, obj${n}`;
+        return 'square';
         break;
       case 1:
-        return 'rectangle'
+        rectangleP += `, obj${n}`;
+        return 'rectangle';
         break;
       case 2:
-        return 'circle'
+        circleP += `, obj${n}`;
+        return 'circle';
         break;
     }
 }
@@ -57,9 +59,7 @@ function randColor() {
 function makeObj (n) {
     let obj = document.createElement('p')
     obj.id = `obj${n}`
-    console.log(obj.id)
-    obj.className += ` ${randShape()}`
-    
+    obj.className += ` ${randShape(n)}`
     obj.className += ` ${randColor()}`
     document.body.appendChild(obj)
 }
@@ -67,12 +67,43 @@ function makeObj (n) {
 let i;
 const button = document.getElementById('button');
 
-//make number of objects equal to user input
+
+
+
+//functions to create semantic value displays
+function squareFill() {
+    squareP += '}'
+    let squareVal = document.createElement('p')
+    squareVal.innerHTML = squareP;
+    squareVal.id = 'squareVal'
+    document.body.appendChild(squareVal);
+}
+function rectangleFill() {
+    rectangleP += '}'
+    let rectangleVal = document.createElement('p')
+    rectangleVal.innerHTML = squareP;
+    rectangleVal.id = 'rectangleVal'
+    document.body.appendChild(rectangleVal);
+}
+function circleFill() {
+    circleP += '}'
+    let circleVal = document.createElement('p')
+    circleVal.innerHTML = circleP;
+    circleVal.id = 'squareVal'
+    document.body.appendChild(circleVal);
+}
+
+//make number of objects equal to user input, then run all semantic value functions
 function generate() {
     const numObj = document.getElementById('numObj').value;
     for (i=0; i < numObj; i++) {
         makeObj(i);
     }
+    squareFill();
+    rectangleFill();
+    circleFill();
+
 }
+
 
 button.addEventListener('click', generate);
