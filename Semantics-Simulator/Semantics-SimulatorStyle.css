@@ -1,0 +1,35 @@
+
+/* SHAPES */
+
+p {
+    height: 100px;
+    width: 100px;
+    margin: 20px;
+    background-color: black;
+    display: inline-block;
+}
+
+
+.square{
+    height: 100px;
+    width: 100px;
+}
+.rectangle{
+    height: 50px;
+}
+.circle{
+    border-radius: 50%;
+}
+
+
+/* Colors */
+
+.blue {
+    background-color: blue;
+}
+.red {
+    background-color: red;
+}
+.yellow {
+    background-color: yellow;
+}
