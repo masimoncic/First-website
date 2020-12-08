@@ -3,22 +3,22 @@
 
 
 .square{
-    height: 100px;
-    width: 100px;
+    height: 80px;
+    width: 80px;
     margin: 20px;
     background-color: black;
     display: inline-block;
 }
 .rectangle{
-    height: 50px;
-    width: 100px;
+    height: 40px;
+    width: 80px;
     margin: 20px;
     background-color: black;
     display: inline-block;
 }
 .circle{
-    height: 100px;
-    width: 100px;
+    height: 80px;
+    width: 80px;
     margin: 20px;
     background-color: black;
     display: inline-block;

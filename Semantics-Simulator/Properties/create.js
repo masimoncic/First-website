@@ -1,7 +1,10 @@
 //set up variables for properties
 let squareP = '[[Square]] = {';
 let rectangleP = '[[Rectangle]] = {';
-let circleP = '[[Circle]] {';
+let circleP = '[[Circle]] = {';
+let redP = '[[Red]] = {';
+let blueP = '[[Blue]] = {';
+let yellowP = '[[Yellow]] = {';
 
 
 
@@ -30,25 +33,23 @@ function randShape(n) {
 }
 
 //pick random color
-function randColor() {
+function randColor(n) {
     const colorNum = Math.floor(Math.random()*3);
     switch(colorNum){
       case 0:
-        return 'blue'
+        blueP += `, obj${n}`;
+        return 'blue';
         break;
       case 1:
-        return 'red'
+        redP += `, obj${n}`;
+        return 'red';
         break;
       case 2:
-        return 'yellow'
+        yellowP += `, obj${n}`;
+        return 'yellow';
         break;
     }
 }
-
-
-
-
-
 
 
 
@@ -60,10 +61,9 @@ function makeObj (n) {
     let obj = document.createElement('p')
     obj.id = `obj${n}`
     obj.className += ` ${randShape(n)}`
-    obj.className += ` ${randColor()}`
+    obj.className += ` ${randColor(n)}`
     document.body.appendChild(obj)
 }
-
 let i;
 const button = document.getElementById('button');
 
@@ -81,7 +81,7 @@ function squareFill() {
 function rectangleFill() {
     rectangleP += '}'
     let rectangleVal = document.createElement('p')
-    rectangleVal.innerHTML = squareP;
+    rectangleVal.innerHTML = rectangleP;
     rectangleVal.id = 'rectangleVal'
     document.body.appendChild(rectangleVal);
 }
@@ -91,6 +91,27 @@ function circleFill() {
     circleVal.innerHTML = circleP;
     circleVal.id = 'squareVal'
     document.body.appendChild(circleVal);
+}
+function redFill() {
+    redP += '}'
+    let redVal = document.createElement('p')
+    redVal.innerHTML = redP;
+    redVal.id = 'redVal'
+    document.body.appendChild(redVal);
+}
+function blueFill() {
+    blueP += '}'
+    let blueVal = document.createElement('p')
+    blueVal.innerHTML = blueP;
+    blueVal.id = 'blueVal'
+    document.body.appendChild(blueVal);
+}
+function yellowFill() {
+    yellowP += '}'
+    let yellowVal = document.createElement('p')
+    yellowVal.innerHTML = yellowP;
+    yellowVal.id = 'yellowVal'
+    document.body.appendChild(yellowVal);
 }
 
 //make number of objects equal to user input, then run all semantic value functions
@@ -102,6 +123,9 @@ function generate() {
     squareFill();
     rectangleFill();
     circleFill();
+    redFill();
+    blueFill();
+    yellowFill();
 
 }
 
