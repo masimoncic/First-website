@@ -1,10 +1,10 @@
 //set up variables for properties
-let squareP = '[[Square]] = {';
-let rectangleP = '[[Rectangle]] = {';
-let circleP = '[[Circle]] = {';
-let redP = '[[Red]] = {';
-let blueP = '[[Blue]] = {';
-let yellowP = '[[Yellow]] = {';
+let squareP = '[[Square]] = {{}';
+let rectangleP = '[[Rectangle]] = {{}';
+let circleP = '[[Circle]] = {{}';
+let redP = '[[Red]] = {{}';
+let blueP = '[[Blue]] = {{}';
+let yellowP = '[[Yellow]] = {{}';
 
 
 
