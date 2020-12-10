@@ -246,7 +246,8 @@ class ChimpanzeeHouse extends House {
     console.log(moneyCount, a.expansionLevel, a.maxHousing);
 }*/
 
-
+//functions for animals
+let allAnimals = [];
 
 //functions for chimpanzees
 const buyChimpanzeeButton = document.getElementById('buyChimpanzee');
@@ -283,6 +284,28 @@ let chimpanzee1Feed = document.createElement('input');
 chimpanzee1Feed.type='submit';
 chimpanzee1Feed.value='Feed (consumes 1 food)';
 chimpanzeeFoodDiv.appendChild(chimpanzee1Feed);
+allAnimals.push(chimpanzee1);
+
+/*
+//will use chimpCount for n
+function buyChimpanzeeFunction(n) {
+    //how to make a new chimpanzee object with name based on n?
+    // let chimpanzeeN = new Chimpanzee(`chimpanzee n`);
+    // use methods instead?
+    let chimpanzeeP = document.createElement('p');
+    chimpanzeeP.innerHTML = `Chimpanzee ${n+1}`;
+    chimpanzeeFoodDiv.appendChild(chimpanzeeP);
+    let chimpanzeeFood = document.createElement('p');
+    chimpanzeeFood.innerHTML = `${chimpanzee1.food.currentFill}/${chimpanzee1.food.maxFill}`;
+    chimpanzeeFoodDiv.appendChild(chimpanzee1Food);
+    let chimpanzee1Feed = document.createElement('input');
+    chimpanzeeFeed.type='submit';
+    chimpanzeeFeed.value='Feed (consumes 1 food)';
+    chimpanzeeFoodDiv.appendChild(chimpanzee1Feed);
+    allAnimals.push(chimpanzeeN);
+
+}
+*/
 
 
 
