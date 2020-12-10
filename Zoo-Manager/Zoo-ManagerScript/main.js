@@ -5,6 +5,12 @@ const gameDay = document.getElementById('gameDay');
 let gameDayValue = 1
 let gameHour = 7;
 let ampm = 'am';
+
+//define foodIncrement, used in clockTick
+const buy10FoodButton = document.getElementById('buy10FoodButton')
+let buy10FoodCost = 1000
+const buy100FoodButton = document.getElementById('buy100FoodButton');
+let buy100FoodCost = 10000
 function clockTick() {
     if (gameHour === 11) {
         gameHour = 12;
@@ -15,6 +21,10 @@ function clockTick() {
             ampm = 'am';
             gameDayValue += 1;
             gameDay.innerHTML = `Day ${gameDayValue}`;
+            buy10FoodCost = Math.floor(buy10FoodCost * 1.05 * Math.pow(1.002, gameDayValue-1));
+            buy100FoodCost = buy10FoodCost * 10;
+            buy10FoodButton.value = `Buy 10 Food $${buy10FoodCost}`
+            buy100FoodButton.value = `Buy 100 Food $${buy100FoodCost}`
 
         }
     } else if (gameHour === 12) {
@@ -31,7 +41,7 @@ function clockTick() {
 
 //declare variables for receiveIncome
 const money = document.getElementById('money');
-let income = 1000;
+let income = 300;
 let moneyCount = 5000;
 function receiveIncome () {
     moneyCount += income;
@@ -42,10 +52,36 @@ function receiveIncome () {
 const nextIncome = document.getElementById('nextIncome');
 function updateIncome() {
     //placeholder
-    income = gameHour*10
+    income = 300;
     nextIncome.innerHTML = `Next Income: ${income}`
 
 }
+
+//buy food
+const currentFood = document.getElementById('currentFood');
+let foodCount = 0;
+
+
+function buy10FoodFunction() {
+    if (moneyCount >= buy10FoodCost) {
+        moneyCount -= buy10FoodCost;
+        foodCount += 10;
+        currentFood.innerHTML = `Food: ${foodCount}`;  
+    }
+}
+
+function buy100FoodFunction() {
+    if (moneyCount >= buy100FoodCost) {
+        moneyCount -= buy100FoodCost;
+        foodCount += 100;
+        currentFood.innerHTML = `Food: ${foodCount}`;  
+    }
+}
+
+
+
+buy10FoodButton.addEventListener('click', buy10FoodFunction);
+buy100FoodButton.addEventListener('click', buy100FoodFunction);
 
 
 //define classes
@@ -237,6 +273,14 @@ buyChimpanzeeHousingButton.addEventListener('click', buyChimpanzeeHousing);
 
 
 
+
+
+
+
+
+
+
+
 function hourTick() {
     clockTick();
     receiveIncome();
@@ -250,7 +294,7 @@ function hourTick() {
 //declare vars and functions for start button
 const start = document.getElementById('start');
 function startGame() {
-    setInterval(hourTick, 500);
+    setInterval(hourTick, 250);
 }
 start.addEventListener('click', startGame);
 
