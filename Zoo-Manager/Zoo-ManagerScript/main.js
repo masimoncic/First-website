@@ -6,7 +6,7 @@ let gameDayValue = 1
 let gameHour = 7;
 let ampm = 'am';
 
-//define foodIncrement, used in clockTick
+//define variable for food
 const buy10FoodButton = document.getElementById('buy10FoodButton')
 let buy10FoodCost = 1000
 const buy100FoodButton = document.getElementById('buy100FoodButton');
@@ -41,8 +41,11 @@ function clockTick() {
 
 //declare variables for receiveIncome
 const money = document.getElementById('money');
-let income = 300;
-let moneyCount = 5000;
+let income = 100;
+let moneyCount = 20000;
+let quantityPoints = 100;
+let varietyPoints = 1.2;
+let qualityPoints = 1.0;
 function receiveIncome () {
     moneyCount += income;
     money.innerHTML = `Money: $${moneyCount}`;
@@ -52,7 +55,7 @@ function receiveIncome () {
 const nextIncome = document.getElementById('nextIncome');
 function updateIncome() {
     //placeholder
-    income = 300;
+    income = quantityPoints * varietyPoints * qualityPoints;
     nextIncome.innerHTML = `Next Income: ${income}`
 
 }
@@ -218,9 +221,9 @@ class ChimpanzeeHouse extends House {
         this.baseQualityCost = 5000;
         this.qualityInterval = 10000;
         this.qualityPoints = 20;
-        this.maxHousing = 0;
+        this.maxHousing = 4;
         this.CurrentHousingUsed = 0;
-        this.expansionLevel = 0;
+        this.expansionLevel = 1;
         this.qualityLevel = 0;
     }
         
@@ -250,6 +253,7 @@ const buyChimpanzeeButton = document.getElementById('buyChimpanzee');
 const buyChimpanzeeHousingButton = document.getElementById('buyChimpanzeeHousing');
 const buyChimpanzeeQualityButton = document.getElementById('buyChimpanzeeQuality');
 const chimpRatio = document.getElementById('chimpRatio');
+let chimpCount = 1
 
 let chimpanzeeHouse = new ChimpanzeeHouse('Chimpanzee House');
 
@@ -261,6 +265,26 @@ function buyChimpanzeeHousing () {
 
 
 buyChimpanzeeHousingButton.addEventListener('click', buyChimpanzeeHousing);
+
+//create starting chimpanzee
+
+//make this into a method?
+//or just a function and include the function call here 
+let chimpanzee1 = new Chimpanzee('chimpanzee 1');
+const chimpanzeeFoodDiv = document.getElementById('chimpanzeeFood');
+
+let chimpanzee1P = document.createElement('p');
+chimpanzee1P.innerHTML = 'Chimpanzee 1';
+chimpanzeeFoodDiv.appendChild(chimpanzee1P);
+let chimpanzee1Food = document.createElement('p');
+chimpanzee1Food.innerHTML = `${chimpanzee1.food.currentFill}/${chimpanzee1.food.maxFill}`;
+chimpanzeeFoodDiv.appendChild(chimpanzee1Food);
+let chimpanzee1Feed = document.createElement('input');
+chimpanzee1Feed.type='submit';
+chimpanzee1Feed.value='Feed (consumes 1 food)';
+chimpanzeeFoodDiv.appendChild(chimpanzee1Feed);
+
+
 
 
 
