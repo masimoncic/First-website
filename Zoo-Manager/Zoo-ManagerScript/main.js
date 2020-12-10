@@ -85,23 +85,51 @@ function test() {
 }*/
 
 
+class Chimpanzee extends Animal {
+    constructor(name) {
+        super(name);
+        this.cost = 100;
+        this.quantityPoints = 100;
+        this.food = {
+            maxFill: 100,
+            currentFill: 50,
+            fillDecreasePerHour: 20,
+            fillIncreasePerFeed: 20,
+        }
+    }
+}
+
+//test function
+/*function testChimp() {
+    let a = new Chimpanzee('a');
+    console.log(a);
+    console.log(a.food);
+    a.hungerTick();
+    console.log(a.food);
+    a.feed();
+    console.log(a.food);
+}*/
+
+
 
 class House {
-    constructor(name, initialCost, baseExpansionCost, expansionInterval, 
-        baseQualityCost, qualityInterval, expansionHousingIncrease) {
+    constructor(name) {
         this.name = name;
-        this.initialCost = initialCost;
-        this.baseExpansionCost = baseExpansionCost;
-        this.expansionInterval = expansionInterval;
-        this.baseQualityCost = baseQualityCost;
-        this.qualityInterval = qualityInterval;
-        this.expansionHousingIncrease = expansionHousingIncrease;
+        this.initialCost = 500;
+        this.baseExpansionCost = 200;
+        this.expansionInterval = 200;
+        this.expansionHousingIncrease = 4;
+        this.baseQualityCost = 5000;
+        this.qualityInterval = 10000;
+        this.qualityPoints = 20;
+
         //predefined properties
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
         this.qualityLevel = 0;
     }
+
     //methods
     buyExpansion() {
         if (this.expansionLevel === 0) {
@@ -113,8 +141,8 @@ class House {
 
         }
         else if (this.expansionLevel > 0) { 
-            if (moneyCount >= this.expansionLevel * this.expansionHousingIncrease) {
-                moneyCount -= this.expansionLevel * this.expansionHousingIncrease;
+            if (moneyCount >= this.expansionLevel * this.expansionInterval) {
+                moneyCount -= this.expansionLevel * this.expansionInterval;
                 this.expansionLevel ++;
                 this.maxHousing += this.expansionHousingIncrease;
             } 
@@ -124,6 +152,79 @@ class House {
     }
 }
 
+
+//test for buyExpansion
+/*function testBuyExp() {
+    let a = new House('a');
+    console.log(moneyCount, a.expansionLevel, a.maxHousing);
+    a.buyExpansion();
+    console.log(moneyCount, a.expansionLevel, a.maxHousing);
+    a.buyExpansion();
+    console.log(moneyCount, a.expansionLevel, a.maxHousing);
+    a.buyExpansion();
+    console.log(moneyCount, a.expansionLevel, a.maxHousing);
+    a.buyExpansion();
+    console.log(moneyCount, a.expansionLevel, a.maxHousing);
+    a.buyExpansion();
+    console.log(moneyCount, a.expansionLevel, a.maxHousing);
+}*/
+
+
+//save element ids to variables
+
+class ChimpanzeeHouse extends House {
+    constructor(name) {
+        super(name);
+        this.initialCost = 500;
+        this.baseExpansionCost = 200;
+        this.expansionInterval = 200;
+        this.expansionHousingIncrease = 4;
+        this.baseQualityCost = 5000;
+        this.qualityInterval = 10000;
+        this.qualityPoints = 20;
+        this.maxHousing = 0;
+        this.CurrentHousingUsed = 0;
+        this.expansionLevel = 0;
+        this.qualityLevel = 0;
+    }
+        
+}
+
+
+//test for buyExpansion
+/*function testChimpBuyExp() {
+    let a = new ChimpanzeeHouse('a');
+    console.log(moneyCount, a.expansionLevel, a.maxHousing);
+    a.buyExpansion();
+    console.log(moneyCount, a.expansionLevel, a.maxHousing);
+    a.buyExpansion();
+    console.log(moneyCount, a.expansionLevel, a.maxHousing);
+    a.buyExpansion();
+    console.log(moneyCount, a.expansionLevel, a.maxHousing);
+    a.buyExpansion();
+    console.log(moneyCount, a.expansionLevel, a.maxHousing);
+    a.buyExpansion();
+    console.log(moneyCount, a.expansionLevel, a.maxHousing);
+}*/
+
+
+
+//functions for chimpanzees
+const buyChimpanzeeButton = document.getElementById('buyChimpanzee');
+const buyChimpanzeeHousingButton = document.getElementById('buyChimpanzeeHousing');
+const buyChimpanzeeQualityButton = document.getElementById('buyChimpanzeeQuality');
+const chimpRatio = document.getElementById('chimpRatio');
+
+let chimpanzeeHouse = new ChimpanzeeHouse('Chimpanzee House');
+
+function buyChimpanzeeHousing () {
+    chimpanzeeHouse.buyExpansion()
+    chimpRatio.innerHTML = (`Number of Chimpanzees: 0/${chimpanzeeHouse.maxHousing}`)
+    buyChimpanzeeHousingButton.value = `Expand Housing: $${chimpanzeeHouse.expansionLevel * chimpanzeeHouse.expansionInterval}`;
+}
+
+
+buyChimpanzeeHousingButton.addEventListener('click', buyChimpanzeeHousing);
 
 
 
