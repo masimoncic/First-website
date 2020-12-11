@@ -87,10 +87,15 @@ buy10FoodButton.addEventListener('click', buy10FoodFunction);
 buy100FoodButton.addEventListener('click', buy100FoodFunction);
 
 
+
+let allAnimals = [];
+let allChimps = [];
+let chimpCount = 0;
 //define classes
 class Animal {
-    constructor(name){
-        this.name = name;
+    constructor(num){
+        this.num = num;
+        this.name = `animal ${this.num}`
         this.cost = 100;
         this.quantityPoints = 100;
         this.food = {
@@ -104,11 +109,13 @@ class Animal {
     hungerTick() {
         this.food.currentFill -= this.food.fillDecreasePerHour;
     }
-    feed() {
+        feed() {
+        let foodId = document.getElementById(`${this.species} ${this.num} food`)
         let fillRatio = 2 - (this.food.currentFill/this.food.maxFill);
         this.food.currentFill += fillRatio * this.food.fillIncreasePerFeed;
-        //foodCount not yet defined
-        //foodCount --;
+        foodCount --;
+        foodId.innerHTML = `${this.food.currentFill}/${this.food.maxFill}`
+        currentFood.innerHTML = foodCount;
     }
 }
 
@@ -124,10 +131,18 @@ function test() {
 }*/
 
 
+function chimpFeedSuper(n) {
+    return function() {
+        allChimps[n-1].feed();
+    }
+}
+
 class Chimpanzee extends Animal {
-    constructor(name) {
-        super(name);
-        this.cost = 100;
+    constructor(num) {
+        super(num);
+        this.species = 'chimpanzee';
+        this.name = `${this.species} ${this.num}`
+        this.cost = 200;
         this.quantityPoints = 100;
         this.food = {
             maxFill: 100,
@@ -136,7 +151,118 @@ class Chimpanzee extends Animal {
             fillIncreasePerFeed: 20,
         }
     }
+    createHtml () {
+        let chimpanzeeP = document.createElement('p');
+        chimpanzeeP.innerHTML = this.name;
+        chimpanzeeFoodDiv.appendChild(chimpanzeeP);
+        let chimpanzeeFood = document.createElement('p');
+        chimpanzeeFood.innerHTML = `${this.food.currentFill}/${this.food.maxFill}`;
+        chimpanzeeFood.id = `${this.species} ${this.num} food`;
+        chimpanzeeFoodDiv.appendChild(chimpanzeeFood);
+        let chimpanzeeFeed = document.createElement('input');
+        chimpanzeeFeed.type='submit';
+        chimpanzeeFeed.value='Feed (consumes 1 food)'
+        chimpanzeeFeed.id = `chimpanzee ${this.num}`;
+        chimpanzeeFoodDiv.appendChild(chimpanzeeFeed);
+        let chimpFeedListenerFunction = chimpFeedSuper(this.num);
+        chimpanzeeFeed.addEventListener('click', chimpFeedListenerFunction);
+    }
 }
+
+const buyChimpanzeeButton = document.getElementById('buyChimpanzee');
+
+function buyChimpanzeeFunction() {
+    if (moneyCount >= 200) {
+        let a = new Chimpanzee(chimpCount+1);
+        allAnimals.push(a);
+        allChimps.push(a);
+        chimpCount++;
+        a.createHtml();
+     
+    }
+}
+
+
+/* createHtml test
+        let chimpanzeeP = document.createElement('p');
+        chimpanzeeP.innerHTML = a.name;
+        chimpanzeeFoodDiv.appendChild(chimpanzeeP);
+        let chimpanzeeFood = document.createElement('p');
+        chimpanzeeFood.innerHTML = `${a.food.currentFill}/${a.food.maxFill}`;
+        chimpanzeeFood.id = `${a.species} ${a.num} food`;
+        chimpanzeeFoodDiv.appendChild(chimpanzeeFood);
+        let chimpanzeeFeed = document.createElement('input');
+        chimpanzeeFeed.type='submit';
+        chimpanzeeFeed.value='Feed (consumes 1 food)'
+        chimpanzeeFeed.id = `chimpanzee ${a.num}`;
+        chimpanzeeFoodDiv.appendChild(chimpanzeeFeed);
+        let chimpFeedListenerFunction = chimpFeedSuper(a.num);
+        chimpanzeeFeed.addEventListener('click', chimpFeedListenerFunction);
+
+*/
+
+
+buyChimpanzeeButton.addEventListener('click', buyChimpanzeeFunction);
+
+
+
+
+//define feeding function
+
+//try having the function update the html element, modify internal values based on html
+//need 3 paragraphs for current fill / max fill
+function chimpanzeeFeedingFunction(n) {
+    let tempChimp = allChimps[n-1];
+    tempChimp.feed();
+    let chimpMeter = document.getElementById(`chimpanzee${chimpCount}Food`);
+    chimpMeter.innerHTML = `${tempChimp.food.currentFill}/${tempChimp.food.maxFill}`;
+
+    
+}
+function chimpanzeeFeedingListener() {
+    chimpanzeeFeedingFunction(chimpCount);
+}
+
+//buy chimp function
+/*function buyChimpanzeeFunction() {
+    //check if you have enough money
+    if (moneyCount >= 200) {
+        //indexing 
+        let a = new Chimpanzee(`chimpanzee ${chimpCount+1}`);
+        allAnimals.push(a);
+        allChimps.push(a);
+        chimpCount++;
+        //buy chimp
+        moneyCount -= a.cost;
+        //create html elements
+        let chimpanzeeP = document.createElement('p');
+        chimpanzeeP.innerHTML = `Chimpanzee ${chimpCount}`;
+        chimpanzeeFoodDiv.appendChild(chimpanzeeP);
+        let chimpanzeeFood = document.createElement('p');
+        chimpanzeeFood.innerHTML = `${a.food.currentFill}/${a.food.maxFill}`;
+        chimpanzeeFood.id = `chimpanzee${chimpCount}Food`;
+        chimpanzeeFoodDiv.appendChild(chimpanzeeFood);
+        let chimpanzeeFeed = document.createElement('input');
+        chimpanzeeFeed.type='submit';
+        chimpanzeeFeed.value='Feed (consumes 1 food)';
+        //Feeding function
+        chimpanzeeFoodDiv.appendChild(chimpanzeeFeed);
+        addEventListener('click', chimpanzeeFeedingListener);
+        //indexing
+    }
+}
+//create initial chimp
+
+buyChimpanzeeFunction();
+moneyCount += allChimps[(chimpCount-1)].cost;
+
+buyChimpanzeeButton.addEventListener('click', buyChimpanzeeFunction);
+
+*/
+
+
+
+
 
 //test function
 /*function testChimp() {
@@ -247,14 +373,13 @@ class ChimpanzeeHouse extends House {
 }*/
 
 //functions for animals
-let allAnimals = [];
 
 //functions for chimpanzees
-const buyChimpanzeeButton = document.getElementById('buyChimpanzee');
+
 const buyChimpanzeeHousingButton = document.getElementById('buyChimpanzeeHousing');
 const buyChimpanzeeQualityButton = document.getElementById('buyChimpanzeeQuality');
 const chimpRatio = document.getElementById('chimpRatio');
-let chimpCount = 1
+
 
 let chimpanzeeHouse = new ChimpanzeeHouse('Chimpanzee House');
 
@@ -271,9 +396,10 @@ buyChimpanzeeHousingButton.addEventListener('click', buyChimpanzeeHousing);
 
 //make this into a method?
 //or just a function and include the function call here 
-let chimpanzee1 = new Chimpanzee('chimpanzee 1');
+//let chimpanzee1 = new Chimpanzee('chimpanzee 1');
 const chimpanzeeFoodDiv = document.getElementById('chimpanzeeFood');
 
+/*unneeded?
 let chimpanzee1P = document.createElement('p');
 chimpanzee1P.innerHTML = 'Chimpanzee 1';
 chimpanzeeFoodDiv.appendChild(chimpanzee1P);
@@ -285,28 +411,63 @@ chimpanzee1Feed.type='submit';
 chimpanzee1Feed.value='Feed (consumes 1 food)';
 chimpanzeeFoodDiv.appendChild(chimpanzee1Feed);
 allAnimals.push(chimpanzee1);
-
-/*
-//will use chimpCount for n
-function buyChimpanzeeFunction(n) {
-    //how to make a new chimpanzee object with name based on n?
-    // let chimpanzeeN = new Chimpanzee(`chimpanzee n`);
-    // use methods instead?
-    let chimpanzeeP = document.createElement('p');
-    chimpanzeeP.innerHTML = `Chimpanzee ${n+1}`;
-    chimpanzeeFoodDiv.appendChild(chimpanzeeP);
-    let chimpanzeeFood = document.createElement('p');
-    chimpanzeeFood.innerHTML = `${chimpanzee1.food.currentFill}/${chimpanzee1.food.maxFill}`;
-    chimpanzeeFoodDiv.appendChild(chimpanzee1Food);
-    let chimpanzee1Feed = document.createElement('input');
-    chimpanzeeFeed.type='submit';
-    chimpanzeeFeed.value='Feed (consumes 1 food)';
-    chimpanzeeFoodDiv.appendChild(chimpanzee1Feed);
-    allAnimals.push(chimpanzeeN);
-
-}
 */
 
+
+
+//define feeding function
+
+//try having the function update the html element, modify internal values based on html
+//need 3 paragraphs for current fill / max fill
+function chimpanzeeFeedingFunction(n) {
+    let tempChimp = allChimps[n-1];
+    tempChimp.feed();
+    let chimpMeter = document.getElementById(`chimpanzee${chimpCount}Food`);
+    chimpMeter.innerHTML = `${tempChimp.food.currentFill}/${tempChimp.food.maxFill}`;
+
+    
+}
+function chimpanzeeFeedingListener() {
+    chimpanzeeFeedingFunction(chimpCount);
+}
+
+//buy chimp function
+/*
+function buyChimpanzeeFunction() {
+    //check if you have enough money
+    if (moneyCount >= 200) {
+        //indexing 
+        let a = new Chimpanzee(`chimpanzee ${chimpCount+1}`);
+        allAnimals.push(a);
+        allChimps.push(a);
+        chimpCount++;
+        //buy chimp
+        moneyCount -= a.cost;
+        //create html elements
+        let chimpanzeeP = document.createElement('p');
+        chimpanzeeP.innerHTML = `Chimpanzee ${chimpCount}`;
+        chimpanzeeFoodDiv.appendChild(chimpanzeeP);
+        let chimpanzeeFood = document.createElement('p');
+        chimpanzeeFood.innerHTML = `${a.food.currentFill}/${a.food.maxFill}`;
+        chimpanzeeFood.id = `chimpanzee${chimpCount}Food`;
+        chimpanzeeFoodDiv.appendChild(chimpanzeeFood);
+        let chimpanzeeFeed = document.createElement('input');
+        chimpanzeeFeed.type='submit';
+        chimpanzeeFeed.value='Feed (consumes 1 food)';
+        //Feeding function
+        chimpanzeeFoodDiv.appendChild(chimpanzeeFeed);
+        addEventListener('click', chimpanzeeFeedingListener);
+        //indexing
+    }
+}
+//create initial chimp
+
+buyChimpanzeeFunction();
+moneyCount += allChimps[(chimpCount-1)].cost;
+*/
+
+
+//buyChimpanzeeButton.addEventListener('click', buyChimpanzeeFunction);
 
 
 
@@ -344,4 +505,3 @@ function startGame() {
     setInterval(hourTick, 250);
 }
 start.addEventListener('click', startGame);
-
