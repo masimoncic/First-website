@@ -21,7 +21,7 @@ function clockTick() {
             ampm = 'am';
             gameDayValue += 1;
             gameDay.innerHTML = `Day ${gameDayValue}`;
-            buy10FoodCost = Math.floor(buy10FoodCost * 1.05 * Math.pow(1.002, gameDayValue-1));
+            buy10FoodCost = Math.floor(buy10FoodCost * 1.10 * Math.pow(1.005, gameDayValue-1));
             buy100FoodCost = buy10FoodCost * 10;
             buy10FoodButton.value = `Buy 10 Food $${buy10FoodCost}`
             buy100FoodButton.value = `Buy 100 Food $${buy100FoodCost}`
@@ -41,9 +41,10 @@ function clockTick() {
 
 //declare variables for receiveIncome
 const money = document.getElementById('money');
-let income = 100;
-let moneyCount = 20000;
-let quantityPoints = 100;
+let income = 200;
+let moneyCount = 500;
+let foodCount = 10;
+let quantityPoints = 0;
 let varietyPoints = 1.2;
 let qualityPoints = 1.0;
 function receiveIncome () {
@@ -54,15 +55,14 @@ function receiveIncome () {
 //updateIncome 
 const nextIncome = document.getElementById('nextIncome');
 function updateIncome() {
-    //placeholder
-    income = quantityPoints * varietyPoints * qualityPoints;
+    quantityPoints = chimpCount * chimpanzeeHouse.quantityPoints;
+    income = quantityPoints * varietyPoints;
     nextIncome.innerHTML = `Next Income: ${income}`
 
 }
 
 //buy food
 const currentFood = document.getElementById('currentFood');
-let foodCount = 0;
 
 
 function buy10FoodFunction() {
@@ -97,7 +97,6 @@ class Animal {
         this.num = num;
         this.name = `animal ${this.num}`
         this.cost = 100;
-        this.quantityPoints = 100;
         this.food = {
             maxFill: 100,
             currentFill: 50,
@@ -108,11 +107,13 @@ class Animal {
     //methods
     hungerTick() {
         this.food.currentFill -= this.food.fillDecreasePerHour;
+        let foodId = document.getElementById(`${this.species} ${this.num} food`);
+        foodId.innerHTML = `${this.food.currentFill}/${this.food.maxFill}`
     }
-        feed() {
+    feed() {
         let foodId = document.getElementById(`${this.species} ${this.num} food`)
         let fillRatio = 2 - (this.food.currentFill/this.food.maxFill);
-        this.food.currentFill += fillRatio * this.food.fillIncreasePerFeed;
+        this.food.currentFill += Math.floor(fillRatio * this.food.fillIncreasePerFeed);
         foodCount --;
         foodId.innerHTML = `${this.food.currentFill}/${this.food.maxFill}`
         currentFood.innerHTML = foodCount;
@@ -143,11 +144,10 @@ class Chimpanzee extends Animal {
         this.species = 'chimpanzee';
         this.name = `${this.species} ${this.num}`
         this.cost = 200;
-        this.quantityPoints = 100;
         this.food = {
             maxFill: 100,
             currentFill: 50,
-            fillDecreasePerHour: 20,
+            fillDecreasePerHour: 2,
             fillIncreasePerFeed: 20,
         }
     }
@@ -161,7 +161,7 @@ class Chimpanzee extends Animal {
         chimpanzeeFoodDiv.appendChild(chimpanzeeFood);
         let chimpanzeeFeed = document.createElement('input');
         chimpanzeeFeed.type='submit';
-        chimpanzeeFeed.value='Feed (consumes 1 food)'
+        chimpanzeeFeed.value='Feed 1'
         chimpanzeeFeed.id = `chimpanzee ${this.num}`;
         chimpanzeeFoodDiv.appendChild(chimpanzeeFeed);
         let chimpFeedListenerFunction = chimpFeedSuper(this.num);
@@ -171,16 +171,7 @@ class Chimpanzee extends Animal {
 
 const buyChimpanzeeButton = document.getElementById('buyChimpanzee');
 
-function buyChimpanzeeFunction() {
-    if (moneyCount >= 200) {
-        let a = new Chimpanzee(chimpCount+1);
-        allAnimals.push(a);
-        allChimps.push(a);
-        chimpCount++;
-        a.createHtml();
-     
-    }
-}
+
 
 
 /* createHtml test
@@ -202,7 +193,7 @@ function buyChimpanzeeFunction() {
 */
 
 
-buyChimpanzeeButton.addEventListener('click', buyChimpanzeeFunction);
+
 
 
 
@@ -223,42 +214,7 @@ function chimpanzeeFeedingListener() {
     chimpanzeeFeedingFunction(chimpCount);
 }
 
-//buy chimp function
-/*function buyChimpanzeeFunction() {
-    //check if you have enough money
-    if (moneyCount >= 200) {
-        //indexing 
-        let a = new Chimpanzee(`chimpanzee ${chimpCount+1}`);
-        allAnimals.push(a);
-        allChimps.push(a);
-        chimpCount++;
-        //buy chimp
-        moneyCount -= a.cost;
-        //create html elements
-        let chimpanzeeP = document.createElement('p');
-        chimpanzeeP.innerHTML = `Chimpanzee ${chimpCount}`;
-        chimpanzeeFoodDiv.appendChild(chimpanzeeP);
-        let chimpanzeeFood = document.createElement('p');
-        chimpanzeeFood.innerHTML = `${a.food.currentFill}/${a.food.maxFill}`;
-        chimpanzeeFood.id = `chimpanzee${chimpCount}Food`;
-        chimpanzeeFoodDiv.appendChild(chimpanzeeFood);
-        let chimpanzeeFeed = document.createElement('input');
-        chimpanzeeFeed.type='submit';
-        chimpanzeeFeed.value='Feed (consumes 1 food)';
-        //Feeding function
-        chimpanzeeFoodDiv.appendChild(chimpanzeeFeed);
-        addEventListener('click', chimpanzeeFeedingListener);
-        //indexing
-    }
-}
-//create initial chimp
 
-buyChimpanzeeFunction();
-moneyCount += allChimps[(chimpCount-1)].cost;
-
-buyChimpanzeeButton.addEventListener('click', buyChimpanzeeFunction);
-
-*/
 
 
 
@@ -284,32 +240,55 @@ class House {
         this.baseExpansionCost = 200;
         this.expansionInterval = 200;
         this.expansionHousingIncrease = 4;
-        this.baseQualityCost = 5000;
+        this.baseQualityCost = 2000;
         this.qualityInterval = 10000;
         this.qualityPoints = 20;
-
+        this.qualityLevel = 0;
+        this.quantityPoints = 50
         //predefined properties
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
-        this.qualityLevel = 0;
     }
 
     //methods
     buyExpansion() {
         if (this.expansionLevel === 0) {
-            if (moneyCount >= this.baseQualityCost) {
+            if (moneyCount >= this.initialCost) {
                 moneyCount -= this.initialCost;
+                money.innerHTML = `Money: $${moneyCount}`;
                 this.expansionLevel ++;
                 this.maxHousing += this.expansionHousingIncrease;
             } 
 
         }
         else if (this.expansionLevel > 0) { 
-            if (moneyCount >= this.expansionLevel * this.expansionInterval) {
-                moneyCount -= this.expansionLevel * this.expansionInterval;
+            if (moneyCount >= (this.expansionLevel+1) * this.expansionInterval) {
+                moneyCount -= (this.expansionLevel+1) * this.expansionInterval;
+                money.innerHTML = `Money: $${moneyCount}`;
                 this.expansionLevel ++;
                 this.maxHousing += this.expansionHousingIncrease;
+            } 
+
+        }
+
+    }
+    buyQuality() {
+        if (this.qualityLevel === 0) {
+            if (moneyCount >= this.baseQualityCost) {
+                moneyCount -= this.baseQualityCost;
+                money.innerHTML = `Money: $${moneyCount}`;
+                this.qualityLevel ++;
+                this.quantityPoints = (50 * (1 + (0.5 * this.qualityLevel)));
+            } 
+
+        }
+        else if (this.qualityLevel > 0) { 
+            if (moneyCount >= (this.qualityLevel+1) * this.qualityInterval) {
+                moneyCount -= (this.qualityLevel+1) * this.qualityInterval;
+                money.innerHTML = `Money: $${moneyCount}`;
+                this.qualityLevel ++;
+                this.quantityPoints = (50 * (1 + (0.5 * this.qualityLevel)));
             } 
 
         }
@@ -341,11 +320,11 @@ class ChimpanzeeHouse extends House {
     constructor(name) {
         super(name);
         this.initialCost = 500;
-        this.baseExpansionCost = 200;
-        this.expansionInterval = 200;
+        this.baseExpansionCost = 500;
+        this.expansionInterval = 500;
         this.expansionHousingIncrease = 4;
         this.baseQualityCost = 5000;
-        this.qualityInterval = 10000;
+        this.qualityInterval = 5000;
         this.qualityPoints = 20;
         this.maxHousing = 4;
         this.CurrentHousingUsed = 0;
@@ -355,7 +334,7 @@ class ChimpanzeeHouse extends House {
         
 }
 
-
+let chimpanzeeHouse = new ChimpanzeeHouse('Chimpanzee House');
 //test for buyExpansion
 /*function testChimpBuyExp() {
     let a = new ChimpanzeeHouse('a');
@@ -377,122 +356,64 @@ class ChimpanzeeHouse extends House {
 //functions for chimpanzees
 
 const buyChimpanzeeHousingButton = document.getElementById('buyChimpanzeeHousing');
+buyChimpanzeeHousingButton.value = `Expand Housing: $${(chimpanzeeHouse.expansionLevel+1) * chimpanzeeHouse.expansionInterval}`;
 const buyChimpanzeeQualityButton = document.getElementById('buyChimpanzeeQuality');
+buyChimpanzeeQualityButton.value = `Upgrade Quality: $${chimpanzeeHouse.baseQualityCost}`
 const chimpRatio = document.getElementById('chimpRatio');
+const chimpQuality = document.getElementById('chimpQuality');
 
 
-let chimpanzeeHouse = new ChimpanzeeHouse('Chimpanzee House');
 
 function buyChimpanzeeHousing () {
     chimpanzeeHouse.buyExpansion()
-    chimpRatio.innerHTML = (`Number of Chimpanzees: 0/${chimpanzeeHouse.maxHousing}`)
-    buyChimpanzeeHousingButton.value = `Expand Housing: $${chimpanzeeHouse.expansionLevel * chimpanzeeHouse.expansionInterval}`;
+    chimpRatio.innerHTML = (`Number of Chimpanzees: ${chimpCount}/${chimpanzeeHouse.maxHousing}`)
+    buyChimpanzeeHousingButton.value = `Expand Housing: $${(chimpanzeeHouse.expansionLevel+1) * chimpanzeeHouse.expansionInterval}`;
+}
+
+function buyChimpanzeeQuality() {
+    chimpanzeeHouse.buyQuality();
+    buyChimpanzeeQualityButton.value = `Upgrade Quality: $${(chimpanzeeHouse.qualityLevel+1) * chimpanzeeHouse.qualityInterval}`;
+    chimpQuality.innerHTML = `Housing Quality: ${chimpanzeeHouse.qualityLevel}`;
 }
 
 
 buyChimpanzeeHousingButton.addEventListener('click', buyChimpanzeeHousing);
-
-//create starting chimpanzee
-
-//make this into a method?
-//or just a function and include the function call here 
-//let chimpanzee1 = new Chimpanzee('chimpanzee 1');
+buyChimpanzeeQualityButton.addEventListener('click', buyChimpanzeeQuality);
+//buy chimpanzee function
 const chimpanzeeFoodDiv = document.getElementById('chimpanzeeFood');
 
-/*unneeded?
-let chimpanzee1P = document.createElement('p');
-chimpanzee1P.innerHTML = 'Chimpanzee 1';
-chimpanzeeFoodDiv.appendChild(chimpanzee1P);
-let chimpanzee1Food = document.createElement('p');
-chimpanzee1Food.innerHTML = `${chimpanzee1.food.currentFill}/${chimpanzee1.food.maxFill}`;
-chimpanzeeFoodDiv.appendChild(chimpanzee1Food);
-let chimpanzee1Feed = document.createElement('input');
-chimpanzee1Feed.type='submit';
-chimpanzee1Feed.value='Feed (consumes 1 food)';
-chimpanzeeFoodDiv.appendChild(chimpanzee1Feed);
-allAnimals.push(chimpanzee1);
-*/
 
 
-
-//define feeding function
-
-//try having the function update the html element, modify internal values based on html
-//need 3 paragraphs for current fill / max fill
-function chimpanzeeFeedingFunction(n) {
-    let tempChimp = allChimps[n-1];
-    tempChimp.feed();
-    let chimpMeter = document.getElementById(`chimpanzee${chimpCount}Food`);
-    chimpMeter.innerHTML = `${tempChimp.food.currentFill}/${tempChimp.food.maxFill}`;
-
-    
-}
-function chimpanzeeFeedingListener() {
-    chimpanzeeFeedingFunction(chimpCount);
-}
-
-//buy chimp function
-/*
 function buyChimpanzeeFunction() {
-    //check if you have enough money
-    if (moneyCount >= 200) {
-        //indexing 
-        let a = new Chimpanzee(`chimpanzee ${chimpCount+1}`);
+    if (moneyCount >= 200 && chimpCount < chimpanzeeHouse.maxHousing) {
+        let a = new Chimpanzee(chimpCount+1);
         allAnimals.push(a);
         allChimps.push(a);
         chimpCount++;
-        //buy chimp
+        a.createHtml();
+        chimpRatio.innerHTML = (`Number of Chimpanzees: ${chimpCount}/${chimpanzeeHouse.maxHousing}`);
         moneyCount -= a.cost;
-        //create html elements
-        let chimpanzeeP = document.createElement('p');
-        chimpanzeeP.innerHTML = `Chimpanzee ${chimpCount}`;
-        chimpanzeeFoodDiv.appendChild(chimpanzeeP);
-        let chimpanzeeFood = document.createElement('p');
-        chimpanzeeFood.innerHTML = `${a.food.currentFill}/${a.food.maxFill}`;
-        chimpanzeeFood.id = `chimpanzee${chimpCount}Food`;
-        chimpanzeeFoodDiv.appendChild(chimpanzeeFood);
-        let chimpanzeeFeed = document.createElement('input');
-        chimpanzeeFeed.type='submit';
-        chimpanzeeFeed.value='Feed (consumes 1 food)';
-        //Feeding function
-        chimpanzeeFoodDiv.appendChild(chimpanzeeFeed);
-        addEventListener('click', chimpanzeeFeedingListener);
-        //indexing
+        money.innerHTML = `Money: $${moneyCount}`;
+
+     
     }
 }
-//create initial chimp
-
-buyChimpanzeeFunction();
-moneyCount += allChimps[(chimpCount-1)].cost;
-*/
-
-
-//buyChimpanzeeButton.addEventListener('click', buyChimpanzeeFunction);
+buyChimpanzeeButton.addEventListener('click', buyChimpanzeeFunction);
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//hungerTick function
+function hungerAll() {
+    allAnimals.forEach(animal => animal.hungerTick());
+}
 
 
 function hourTick() {
     clockTick();
     receiveIncome();
     updateIncome();
+    hungerAll();
 }
 
 
@@ -502,6 +423,11 @@ function hourTick() {
 //declare vars and functions for start button
 const start = document.getElementById('start');
 function startGame() {
-    setInterval(hourTick, 250);
+    start.removeEventListener('click', startGame);
+    buyChimpanzeeFunction();
+    setInterval(hourTick, 3000);
+
 }
+
+
 start.addEventListener('click', startGame);
