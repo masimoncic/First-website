@@ -1,3 +1,6 @@
+p{
+    height: .35em;
+}
 .timeUI {
     display: inline-block;
     margin: 20px;
@@ -5,4 +8,37 @@
 .moneyUI {
     display: inline-block;
     margin: 20px;
+}
+.animalFood {
+    display: Flex;
+}
+.animalObject {
+    display:box;
+    width: 5em;
+}
+
+.animalPic{
+    height: 3em;
+    width: 3em;
+    display: block;
+    margin: 0px;
+}
+.animalObjectName {
+    height: .35em;
+    width:  .35em;
+}
+.animalFoodMeter {
+    height: .35em;
+}
+.animalFeedButton{
+    width: 70%;
+    height: 1.5em;
+}
+
+#animalHouses {
+    display: flex;
+}
+
+.ratio {
+    width: 14em;
 }

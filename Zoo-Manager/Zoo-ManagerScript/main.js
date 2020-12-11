@@ -21,7 +21,7 @@ function clockTick() {
             ampm = 'am';
             gameDayValue += 1;
             gameDay.innerHTML = `Day ${gameDayValue}`;
-            buy10FoodCost = Math.floor(buy10FoodCost * 1.10 * Math.pow(1.005, gameDayValue-1));
+            buy10FoodCost = Math.floor(buy10FoodCost * 1.1 * Math.pow(1.005, gameDayValue-1));
             buy100FoodCost = buy10FoodCost * 10;
             buy10FoodButton.value = `Buy 10 Food $${buy10FoodCost}`
             buy100FoodButton.value = `Buy 100 Food $${buy100FoodCost}`
@@ -41,11 +41,11 @@ function clockTick() {
 
 //declare variables for receiveIncome
 const money = document.getElementById('money');
-let income = 200;
-let moneyCount = 500;
+let income = 0;
+let moneyCount = 1000;
 let foodCount = 10;
 let quantityPoints = 0;
-let varietyPoints = 1.2;
+let varietyPoints = 1.0;
 let qualityPoints = 1.0;
 function receiveIncome () {
     moneyCount += income;
@@ -147,23 +147,36 @@ class Chimpanzee extends Animal {
         this.food = {
             maxFill: 100,
             currentFill: 50,
-            fillDecreasePerHour: 2,
+            fillDecreasePerHour: 1,
             fillIncreasePerFeed: 20,
         }
     }
     createHtml () {
-        let chimpanzeeP = document.createElement('p');
-        chimpanzeeP.innerHTML = this.name;
-        chimpanzeeFoodDiv.appendChild(chimpanzeeP);
+        let chimpanzeeDiv = document.createElement('div');
+        chimpanzeeDiv.id = `chimpanzee ${this.num} div`;
+        chimpanzeeFoodDiv.appendChild(chimpanzeeDiv);
+        chimpanzeeDiv.className = 'animalObject'
+        let chimpanzeePic = document.createElement('img');
+        chimpanzeePic.src = './Pictures/Chimpanzee.jpeg';
+        chimpanzeePic.className = 'animalPic';
+        chimpanzeeDiv.appendChild(chimpanzeePic);
+        //image source: https://lumiere-a.akamaihd.net/v1/images/open-uri20150422-20810-15bnj6w_1851a868.jpeg
+        //text instead of pic
+        //let chimpanzeeP = document.createElement('p');
+        //chimpanzeeP.innerHTML = `chimp ${this.num}`;
+        //chimpanzeeP.className = 'animalObjectName';
+        //chimpanzeeDiv.appendChild(chimpanzeeP);
         let chimpanzeeFood = document.createElement('p');
         chimpanzeeFood.innerHTML = `${this.food.currentFill}/${this.food.maxFill}`;
         chimpanzeeFood.id = `${this.species} ${this.num} food`;
-        chimpanzeeFoodDiv.appendChild(chimpanzeeFood);
+        chimpanzeeFood.className = 'animalFoodMeter'
+        chimpanzeeDiv.appendChild(chimpanzeeFood);
         let chimpanzeeFeed = document.createElement('input');
         chimpanzeeFeed.type='submit';
         chimpanzeeFeed.value='Feed 1'
         chimpanzeeFeed.id = `chimpanzee ${this.num}`;
-        chimpanzeeFoodDiv.appendChild(chimpanzeeFeed);
+        chimpanzeeFeed.className = 'animalFeedButton'
+        chimpanzeeDiv.appendChild(chimpanzeeFeed);
         let chimpFeedListenerFunction = chimpFeedSuper(this.num);
         chimpanzeeFeed.addEventListener('click', chimpFeedListenerFunction);
     }
@@ -244,7 +257,7 @@ class House {
         this.qualityInterval = 10000;
         this.qualityPoints = 20;
         this.qualityLevel = 0;
-        this.quantityPoints = 50
+        this.quantityPoints = 25
         //predefined properties
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
@@ -257,6 +270,7 @@ class House {
             if (moneyCount >= this.initialCost) {
                 moneyCount -= this.initialCost;
                 money.innerHTML = `Money: $${moneyCount}`;
+                varietyPoints += 0.2;
                 this.expansionLevel ++;
                 this.maxHousing += this.expansionHousingIncrease;
             } 
@@ -278,6 +292,7 @@ class House {
             if (moneyCount >= this.baseQualityCost) {
                 moneyCount -= this.baseQualityCost;
                 money.innerHTML = `Money: $${moneyCount}`;
+                varietyPoints += 0.05;
                 this.qualityLevel ++;
                 this.quantityPoints = (50 * (1 + (0.5 * this.qualityLevel)));
             } 
@@ -287,6 +302,7 @@ class House {
             if (moneyCount >= (this.qualityLevel+1) * this.qualityInterval) {
                 moneyCount -= (this.qualityLevel+1) * this.qualityInterval;
                 money.innerHTML = `Money: $${moneyCount}`;
+                varietyPoints += 0.05
                 this.qualityLevel ++;
                 this.quantityPoints = (50 * (1 + (0.5 * this.qualityLevel)));
             } 
@@ -425,7 +441,7 @@ const start = document.getElementById('start');
 function startGame() {
     start.removeEventListener('click', startGame);
     buyChimpanzeeFunction();
-    setInterval(hourTick, 3000);
+    setInterval(hourTick, 2000);
 
 }
 
