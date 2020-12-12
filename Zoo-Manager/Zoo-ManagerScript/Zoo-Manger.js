@@ -22,6 +22,7 @@ let quantityPoints = 0;
 let varietyPoints = 1.0;
 let qualityPoints = 1.0;
 let allAnimals = [];
+let deadContainer = [];
 
 //animal specific variables
 const buyChimpanzeeButton = document.getElementById('buyChimpanzee');
@@ -44,6 +45,16 @@ let allPenguins = [];
 let penguinCount = 0;
 let deadPenguinCount = 0;
 
+const buyTigerButton = document.getElementById('buyTiger');
+const buyTigerHousingButton = document.getElementById('buyTigerHousing');
+const buyTigerQualityButton = document.getElementById('buyTigerQuality');
+const tigerRatio = document.getElementById('tigerRatio');
+const tigerQuality = document.getElementById('tigerQuality');
+const tigerFoodDiv = document.getElementById('tigerFood');
+let allTigers = [];
+let tigerCount = 0;
+let deadTigerCount = 0;
+
 
 
 
@@ -51,6 +62,7 @@ let deadPenguinCount = 0;
 class Animal {
     constructor(num){
         this.num = num;
+        this.alive = 1;
         this.name = `animal ${this.num}`
         this.food = {
             maxFill: 100,
@@ -61,9 +73,15 @@ class Animal {
         }
     }
     hungerTick() {
-        this.food.currentFill -= this.food.fillDecreasePerHour;
-        let foodId = document.getElementById(`${this.species} ${this.num} food`);
-        foodId.innerHTML = `${this.food.currentFill}/${this.food.maxFill}`
+        if (this.alive === 1){
+            this.food.currentFill -= this.food.fillDecreasePerHour;
+            let foodId = document.getElementById(`${this.species} ${this.num} food`);
+            foodId.innerHTML = `${this.food.currentFill}/${this.food.maxFill}`
+            if (this.food.currentFill <= 0) {
+                foodId.innerHTML = 'dead';
+                this.alive = 0;
+            }
+        }
     }
     feed() {
         if (foodCount >= this.food.foodConsumed) {
@@ -87,7 +105,6 @@ class Animal {
         animalPic.src = `./Pictures/${this.species}.jpeg`;
         animalPic.className = 'animalPic';
         animalDiv.appendChild(animalPic);
-        //image source: https://lumiere-a.akamaihd.net/v1/images/open-uri20150422-20810-15bnj6w_1851a868.jpeg
         //text instead of pic
         //let animalP = document.createElement('p');
         //animalP.innerHTML = `${this.species} ${this.num}`;
@@ -185,13 +202,14 @@ class House {
 class Chimpanzee extends Animal {
     constructor(num) {
         super(num);
+        this.alive = 1;
         this.species = 'chimpanzee';
         this.name = `${this.species} ${this.num}`
         this.food = {
             maxFill: 100,
             currentFill: 50,
             fillDecreasePerHour: 1,
-            fillIncreasePerFeed: 20,
+            fillIncreasePerFeed: 30,
             foodConsumed: 1,
         }
     }
@@ -207,7 +225,7 @@ class ChimpanzeeHouse extends House {
         this.expansionHousingIncrease = 4;
         this.baseQualityCost = 4000;
         this.qualityInterval = 4000;
-        this.quantityPoints = 5;
+        this.quantityPoints = 8;
         this.maxHousing = 4;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 1;
@@ -265,12 +283,13 @@ buyChimpanzeeButton.addEventListener('click', buyChimpanzeeFunction);
 class Penguin extends Animal {
     constructor(num) {
         super(num);
+        this.alive = 1;
         this.species = 'penguin';
         this.name = `${this.species} ${this.num}`
         this.food = {
             maxFill: 100,
-            currentFill: 50,
-            fillDecreasePerHour: 3,
+            currentFill: 100,
+            fillDecreasePerHour: 4,
             fillIncreasePerFeed: 50,
             foodConsumed: 1,
         }
@@ -281,13 +300,13 @@ class Penguin extends Animal {
 class PenguinHouse extends House {
     constructor(name) {
         super(name);
-        this.animalCost = 400;
-        this.initialCost = 500;
+        this.animalCost = 500;
+        this.initialCost = 1000;
         this.expansionInterval = 3000;
         this.expansionHousingIncrease = 2;
         this.baseQualityCost = 10000;
         this.qualityInterval = 10000;
-        this.quantityPoints = 40;
+        this.quantityPoints = 80;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
@@ -340,7 +359,87 @@ buyPenguinHousingButton.addEventListener('click', buyPenguinHousing);
 buyPenguinQualityButton.addEventListener('click', buyPenguinQuality);
 buyPenguinButton.addEventListener('click', buyPenguinFunction);
 
+//Tigers
 
+
+class Tiger extends Animal {
+    constructor(num) {
+        super(num);
+        this.alive = 1;
+        this.species = 'tiger';
+        this.name = `${this.species} ${this.num}`
+        this.food = {
+            maxFill: 100,
+            currentFill: 50,
+            fillDecreasePerHour: 2,
+            fillIncreasePerFeed: 10,
+            foodConsumed: 10,
+        }
+    }
+}
+
+
+class TigerHouse extends House {
+    constructor(name) {
+        super(name);
+        this.animalCost = 1000;
+        this.initialCost = 500;
+        this.expansionInterval = 500;
+        this.expansionHousingIncrease = 4;
+        this.baseQualityCost = 4000;
+        this.qualityInterval = 4000;
+        this.quantityPoints = 200;
+        this.maxHousing = 0;
+        this.CurrentHousingUsed = 0;
+        this.expansionLevel = 0;
+        this.qualityLevel = 0;
+    }
+        
+}
+
+
+let tigerHouse = new TigerHouse('tiger House');
+
+buyTigerHousingButton.value = `Expand Housing: $${tigerHouse.initialCost}`;
+buyTigerQualityButton.value = `Upgrade Quality: $${tigerHouse.baseQualityCost}`;
+
+function buyTigerHousing () {
+    tigerHouse.buyExpansion()
+    tigerRatio.innerHTML = (`Number of Tigers: ${tigerCount}/${tigerHouse.maxHousing}`)
+    buyTigerHousingButton.value = `Expand Housing: $${(tigerHouse.expansionLevel+1) * tigerHouse.expansionInterval}`;
+}
+
+function buyTigerQuality() {
+    tigerHouse.buyQuality();
+    buyTigerQualityButton.value = `Upgrade Quality: $${(tigerHouse.qualityLevel+1) * tigerHouse.qualityInterval}`;
+    TigerQuality.innerHTML = `Housing Quality: ${tigerHouse.qualityLevel}`;
+}
+
+function tigerFeedSuper(n) {
+    return function() {
+        allTigers[n-1].feed();
+    }
+}
+function buyTigerFunction() {
+    if (moneyCount >= tigerHouse.animalCost && tigerCount < tigerHouse.maxHousing) {
+        let a = new Tiger(tigerCount+1);
+        allAnimals.push(a);
+        allTigers.push(a);
+        tigerCount++;
+        a.createHtml();
+        let tigerFeedListenerFunction = tigerFeedSuper(a.num);
+        let tigerFeed =document.getElementById(`${a.species} ${a.num}`);
+        tigerFeed.addEventListener('click', tigerFeedListenerFunction);
+        tigerRatio.innerHTML = (`Number of Tigers: ${tigerCount}/${tigerHouse.maxHousing}`);
+        moneyCount -= tigerHouse.animalCost;
+        money.innerHTML = `Money: $${moneyCount}`;
+    }
+}
+
+//add event listeners
+buyTigerHousingButton.addEventListener('click', buyTigerHousing);
+buyTigerQualityButton.addEventListener('click', buyTigerQuality);
+buyTigerButton.addEventListener('click', buyTigerFunction);
 
 
 //final functions
@@ -365,6 +464,13 @@ buy10FoodButton.addEventListener('click', buy10FoodFunction);
 buy100FoodButton.addEventListener('click', buy100FoodFunction);
 
 //Define hourTick and its subfunctions
+
+//define lifeCheck functions 
+
+
+
+
+
 function clockTick() {
     if (gameHour === 11) {
         gameHour = 12;
@@ -379,6 +485,24 @@ function clockTick() {
             buy100FoodCost = buy10FoodCost * 10;
             buy10FoodButton.value = `Buy 10 Food $${buy10FoodCost}`
             buy100FoodButton.value = `Buy 100 Food $${buy100FoodCost}`
+            allChimpanzees.forEach(element => {
+                if (element.alive === 0) {
+                    deadChimpanzeeCount ++;
+                    element.alive = 2;
+                }
+            })
+            allPenguins.forEach(element => {
+                if (element.alive === 0) {
+                    deadPenguinCount ++;
+                    element.alive = 2;
+                }
+            })
+            allTigers.forEach(element => {
+                if (element.alive === 0) {
+                    deadTigerCount ++;
+                    element.alive = 2;
+                }
+            });
 
         }
     } else if (gameHour === 12) {
@@ -396,9 +520,10 @@ function receiveIncome () {
 }
 
 function updateIncome() {
-    quantityPoints = chimpanzeeCount * chimpanzeeHouse.quantityPoints + penguinCount * penguinHouse.quantityPoints;
-    income = quantityPoints * varietyPoints;
-    nextIncome.innerHTML = `Next Income: ${income}`
+    quantityPoints = (chimpanzeeCount - deadChimpanzeeCount) * chimpanzeeHouse.quantityPoints + (penguinCount - deadPenguinCount) * penguinHouse.quantityPoints +
+     (tigerCount - deadTigerCount) * tigerHouse.quantityPoints;
+    income = Math.floor(quantityPoints * varietyPoints);
+    nextIncome.innerHTML = `Next Income: ${income}`;
 
 }
 
@@ -421,7 +546,7 @@ function hourTick() {
 function startGame() {
     start.removeEventListener('click', startGame);
     buyChimpanzeeFunction();
-    setInterval(hourTick, 3000);
+    setInterval(hourTick, 500);
 
 }
 
