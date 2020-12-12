@@ -1,32 +1,80 @@
-createHtml () {
-    let animalDiv = document.createElement('div');
-    animalDiv.id = `${this.species} ${this.num} div`;
-    animalFoodDiv.appendChild(animalDiv);
-    animalDiv.className = 'animalObject'
-    //pic instead of text
-    //let animalPic = document.createElement('img');
-    //animalPic.src = './Pictures/${this.species}.jpeg';
-    //animalPic.className = 'animalPic';
-    //animalDiv.appendChild(animalPic);
-    //image source: https://lumiere-a.akamaihd.net/v1/images/open-uri20150422-20810-15bnj6w_1851a868.jpeg
-    //text instead of pic
-    let animalP = document.createElement('p');
-    animalP.innerHTML = `${this.species} ${this.num}`;
-    animalP.className = `$animalObjectName`;
-    animalDiv.appendChild(animalP);
-    let animalFood = document.createElement('p');
-    animalFood.innerHTML = `${this.food.currentFill}/${this.food.maxFill}`;
-    animalFood.id = `${this.species} ${this.num} food`;
-    animalFood.className = `$animalFoodMeter`
-    animalDiv.appendChild(animalFood);
-    let animalFeed = document.createElement('input');
-    animalFeed.type='submit';
-    animalFeed.value=`Feed ${this.food.foodConsumed}`
-    animalFeed.id = `animal ${this.num}`;
-    animalFeed.className = 'animalFeedButton';
-    animalDiv.appendChild(animalFeed);
-
+class Penguin extends Animal {
+    constructor(num) {
+        super(num);
+        this.species = 'penguin';
+        this.name = `${this.species} ${this.num}`
+        this.cost = 200;
+        this.food = {
+            maxFill: 100,
+            currentFill: 50,
+            fillDecreasePerHour: 1,
+            fillIncreasePerFeed: 20,
+            foodConsumed: 1,
+        }
+    }
 }
 
-let animalFeedListenerFunction = animalFeedSuper(this.num);
-animalFeed.addEventListener('click', animalFeedListenerFunction);
+
+class PenguinHouse extends House {
+    constructor(name) {
+        super(name);
+        this.initialCost = 500;
+        this.baseExpansionCost = 500;
+        this.expansionInterval = 500;
+        this.expansionHousingIncrease = 4;
+        this.baseQualityCost = 5000;
+        this.qualityInterval = 5000;
+        this.qualityPoints = 20;
+        this.maxHousing = 4;
+        this.CurrentHousingUsed = 0;
+        this.expansionLevel = 1;
+        this.qualityLevel = 0;
+    }
+        
+}
+
+
+let penguinHouse = new PenguinHouse('Penguin House');
+
+buyPenguinHousingButton.value = `Expand Housing: $${(PenguinHouse.expansionLevel+1) * PenguinHouse.expansionInterval}`;
+buyPenguinQualityButton.value = `Upgrade Quality: $${PenguinHouse.baseQualityCost}`;
+
+function buyPenguinHousing () {
+    PenguinHouse.buyExpansion()
+    PenguinRatio.innerHTML = (`Number of Penguins: ${penguinCount}/${PenguinHouse.maxHousing}`)
+    buyPenguinHousingButton.value = `Expand Housing: $${(PenguinHouse.expansionLevel+1) * PenguinHouse.expansionInterval}`;
+}
+
+function buyPenguinQuality() {
+    PenguinHouse.buyQuality();
+    buyPenguinQualityButton.value = `Upgrade Quality: $${(PenguinHouse.qualityLevel+1) * PenguinHouse.qualityInterval}`;
+    penguinQuality.innerHTML = `Housing Quality: ${PenguinHouse.qualityLevel}`;
+}
+
+function PenguinFeedSuper(n) {
+    return function() {
+        allPenguins[n-1].feed();
+    }
+}
+function buyPenguinFunction() {
+    if (moneyCount >= 200 && penguinCount < PenguinHouse.maxHousing) {
+        let a = new Penguin(penguinCount+1);
+        allAnimals.push(a);
+        allPenguins.push(a);
+        penguinCount++;
+        a.createHtml();
+        let PenguinFeedListenerFunction = PenguinFeedSuper(a.num);
+        let penguinFeed =document.getElementById(`animal ${a.num}`);
+        penguinFeed.addEventListener('click', PenguinFeedListenerFunction);
+        penguinRatio.innerHTML = (`Number of Penguins: ${penguinCount}/${PenguinHouse.maxHousing}`);
+        moneyCount -= a.cost;
+        money.innerHTML = `Money: $${moneyCount}`;
+    }
+}
+
+//add event listeners
+buyPenguinHousingButton.addEventListener('click', buyPenguinHousing);
+buyPenguinQualityButton.addEventListener('click', buyPenguinQuality);
+buyPenguinButton.addEventListener('click', buyPenguinFunction);
+
+

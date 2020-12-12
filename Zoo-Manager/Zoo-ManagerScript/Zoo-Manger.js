@@ -16,7 +16,7 @@ let ampm = 'am';
 let buy10FoodCost = 1000
 let buy100FoodCost = 10000
 let income = 0;
-let moneyCount = 1000;
+let moneyCount = 1050;
 let foodCount = 10;
 let quantityPoints = 0;
 let varietyPoints = 1.0;
@@ -27,12 +27,22 @@ let allAnimals = [];
 const buyChimpanzeeButton = document.getElementById('buyChimpanzee');
 const buyChimpanzeeHousingButton = document.getElementById('buyChimpanzeeHousing');
 const buyChimpanzeeQualityButton = document.getElementById('buyChimpanzeeQuality');
-const chimpamzeeRatio = document.getElementById('chimpamzeeRatio');
-const chimpamzeeQuality = document.getElementById('chimpanzeeQuality');
+const chimpanzeeRatio = document.getElementById('chimpanzeeRatio');
+const chimpanzeeQuality = document.getElementById('chimpanzeeQuality');
 const chimpanzeeFoodDiv = document.getElementById('chimpanzeeFood');
 let allChimpanzees = [];
 let chimpanzeeCount = 0;
 let deadChimpanzeeCount = 0;
+
+const buyPenguinButton = document.getElementById('buyPenguin');
+const buyPenguinHousingButton = document.getElementById('buyPenguinHousing');
+const buyPenguinQualityButton = document.getElementById('buyPenguinQuality');
+const penguinRatio = document.getElementById('penguinRatio');
+const penguinQuality = document.getElementById('penguinQuality');
+const penguinFoodDiv = document.getElementById('penguinFood');
+let allPenguins = [];
+let penguinCount = 0;
+let deadPenguinCount = 0;
 
 
 
@@ -42,7 +52,6 @@ class Animal {
     constructor(num){
         this.num = num;
         this.name = `animal ${this.num}`
-        this.cost = 100;
         this.food = {
             maxFill: 100,
             currentFill: 50,
@@ -92,7 +101,7 @@ class Animal {
         let animalFeed = document.createElement('input');
         animalFeed.type='submit';
         animalFeed.value=`Feed ${this.food.foodConsumed}`
-        animalFeed.id = `animal ${this.num}`;
+        animalFeed.id = `${this.species} ${this.num}`;
         animalFeed.className = 'animalFeedButton';
         animalDiv.appendChild(animalFeed);
     
@@ -109,14 +118,13 @@ class House {
     constructor(name) {
         this.name = name;
         this.initialCost = 500;
-        this.baseExpansionCost = 200;
         this.expansionInterval = 200;
         this.expansionHousingIncrease = 4;
         this.baseQualityCost = 2000;
         this.qualityInterval = 10000;
         this.qualityPoints = 20;
         this.qualityLevel = 0;
-        this.quantityPoints = 25
+        this.quantityPoints = 25;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
@@ -179,7 +187,6 @@ class Chimpanzee extends Animal {
         super(num);
         this.species = 'chimpanzee';
         this.name = `${this.species} ${this.num}`
-        this.cost = 200;
         this.food = {
             maxFill: 100,
             currentFill: 50,
@@ -194,13 +201,13 @@ class Chimpanzee extends Animal {
 class ChimpanzeeHouse extends House {
     constructor(name) {
         super(name);
+        this.animalCost = 50
         this.initialCost = 500;
-        this.baseExpansionCost = 500;
-        this.expansionInterval = 500;
+        this.expansionInterval = 125;
         this.expansionHousingIncrease = 4;
-        this.baseQualityCost = 5000;
-        this.qualityInterval = 5000;
-        this.qualityPoints = 20;
+        this.baseQualityCost = 4000;
+        this.qualityInterval = 4000;
+        this.quantityPoints = 5;
         this.maxHousing = 4;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 1;
@@ -233,17 +240,17 @@ function chimpanzeeFeedSuper(n) {
     }
 }
 function buyChimpanzeeFunction() {
-    if (moneyCount >= 200 && chimpanzeeCount < chimpanzeeHouse.maxHousing) {
+    if (moneyCount >= chimpanzeeHouse.animalCost && chimpanzeeCount < chimpanzeeHouse.maxHousing) {
         let a = new Chimpanzee(chimpanzeeCount+1);
         allAnimals.push(a);
         allChimpanzees.push(a);
         chimpanzeeCount++;
         a.createHtml();
         let chimpanzeeFeedListenerFunction = chimpanzeeFeedSuper(a.num);
-        let chimpanzeeFeed =document.getElementById(`animal ${a.num}`);
+        let chimpanzeeFeed =document.getElementById(`${a.species} ${a.num}`);
         chimpanzeeFeed.addEventListener('click', chimpanzeeFeedListenerFunction);
         chimpanzeeRatio.innerHTML = (`Number of Chimpanzees: ${chimpanzeeCount}/${chimpanzeeHouse.maxHousing}`);
-        moneyCount -= a.cost;
+        moneyCount -= chimpanzeeHouse.animalCost;
         money.innerHTML = `Money: $${moneyCount}`;
     }
 }
@@ -252,6 +259,87 @@ function buyChimpanzeeFunction() {
 buyChimpanzeeHousingButton.addEventListener('click', buyChimpanzeeHousing);
 buyChimpanzeeQualityButton.addEventListener('click', buyChimpanzeeQuality);
 buyChimpanzeeButton.addEventListener('click', buyChimpanzeeFunction);
+
+//Penguins
+
+class Penguin extends Animal {
+    constructor(num) {
+        super(num);
+        this.species = 'penguin';
+        this.name = `${this.species} ${this.num}`
+        this.food = {
+            maxFill: 100,
+            currentFill: 50,
+            fillDecreasePerHour: 3,
+            fillIncreasePerFeed: 50,
+            foodConsumed: 1,
+        }
+    }
+}
+
+
+class PenguinHouse extends House {
+    constructor(name) {
+        super(name);
+        this.animalCost = 400;
+        this.initialCost = 500;
+        this.expansionInterval = 3000;
+        this.expansionHousingIncrease = 2;
+        this.baseQualityCost = 10000;
+        this.qualityInterval = 10000;
+        this.quantityPoints = 40;
+        this.maxHousing = 0;
+        this.CurrentHousingUsed = 0;
+        this.expansionLevel = 0;
+        this.qualityLevel = 0;
+    }
+        
+}
+
+
+let penguinHouse = new PenguinHouse('Penguin House');
+
+buyPenguinHousingButton.value = `Expand Housing: $${penguinHouse.initialCost}`;
+buyPenguinQualityButton.value = `Upgrade Quality: $${penguinHouse.baseQualityCost}`;
+
+function buyPenguinHousing () {
+    penguinHouse.buyExpansion()
+    penguinRatio.innerHTML = (`Number of Penguins: ${penguinCount}/${penguinHouse.maxHousing}`)
+    buyPenguinHousingButton.value = `Expand Housing: $${(penguinHouse.expansionLevel+1) * penguinHouse.expansionInterval}`;
+}
+
+function buyPenguinQuality() {
+    penguinHouse.buyQuality();
+    buyPenguinQualityButton.value = `Upgrade Quality: $${(penguinHouse.qualityLevel+1) * penguinHouse.qualityInterval}`;
+    penguinQuality.innerHTML = `Housing Quality: ${penguinHouse.qualityLevel}`;
+}
+
+function PenguinFeedSuper(n) {
+    return function() {
+        allPenguins[n-1].feed();
+    }
+}
+function buyPenguinFunction() {
+    if (moneyCount >= penguinHouse.animalCost && penguinCount < penguinHouse.maxHousing) {
+        let a = new Penguin(penguinCount+1);
+        allAnimals.push(a);
+        allPenguins.push(a);
+        penguinCount++;
+        a.createHtml();
+        let PenguinFeedListenerFunction = PenguinFeedSuper(a.num);
+        let penguinFeed =document.getElementById(`${a.species} ${a.num}`);
+        penguinFeed.addEventListener('click', PenguinFeedListenerFunction);
+        penguinRatio.innerHTML = (`Number of Penguins: ${penguinCount}/${penguinHouse.maxHousing}`);
+        moneyCount -= penguinHouse.animalCost;
+        money.innerHTML = `Money: $${moneyCount}`;
+    }
+}
+
+//add event listeners
+buyPenguinHousingButton.addEventListener('click', buyPenguinHousing);
+buyPenguinQualityButton.addEventListener('click', buyPenguinQuality);
+buyPenguinButton.addEventListener('click', buyPenguinFunction);
+
 
 
 
@@ -308,7 +396,7 @@ function receiveIncome () {
 }
 
 function updateIncome() {
-    quantityPoints = chimpanzeeCount * chimpanzeeHouse.quantityPoints;
+    quantityPoints = chimpanzeeCount * chimpanzeeHouse.quantityPoints + penguinCount * penguinHouse.quantityPoints;
     income = quantityPoints * varietyPoints;
     nextIncome.innerHTML = `Next Income: ${income}`
 
@@ -333,7 +421,7 @@ function hourTick() {
 function startGame() {
     start.removeEventListener('click', startGame);
     buyChimpanzeeFunction();
-    setInterval(hourTick, 2000);
+    setInterval(hourTick, 3000);
 
 }
 

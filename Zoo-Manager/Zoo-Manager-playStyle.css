@@ -3,11 +3,14 @@ p{
 }
 .timeUI {
     display: inline-block;
-    margin: 20px;
+    margin: 15px;
 }
 .moneyUI {
     display: inline-block;
-    margin: 20px;
+    margin: 15px;
+}
+#gameClock{
+    margin-left: 20em;
 }
 .animalFood {
     display: Flex;
