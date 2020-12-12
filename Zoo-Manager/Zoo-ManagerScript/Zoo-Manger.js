@@ -255,7 +255,7 @@ class ChimpanzeeHouse extends House {
         this.expansionHousingIncrease = 4;
         this.baseQualityCost = 5000;
         this.qualityInterval = 5000;
-        this.quantityPoints = 25;
+        this.quantityPoints = 30;
         this.maxHousing = 4;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 1;
@@ -338,7 +338,7 @@ class PenguinHouse extends House {
         this.expansionHousingIncrease = 2;
         this.baseQualityCost = 8000;
         this.qualityInterval = 8000;
-        this.quantityPoints = 60;
+        this.quantityPoints = 80;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
