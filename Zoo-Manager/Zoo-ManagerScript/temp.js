@@ -1,30 +1,31 @@
-class Alligator extends Animal {
+
+class Elephant extends Animal {
     constructor(num) {
         super(num);
         this.alive = 1;
-        this.species = 'alligator';
+        this.species = 'elephant';
         this.name = `${this.species} ${this.num}`
         this.food = {
             maxFill: 100,
-            currentFill: 50,
-            fillDecreasePerHour: 2,
-            fillIncreasePerFeed: 30,
-            foodConsumed: 4,
+            currentFill: 80,
+            fillDecreasePerHour: 5,
+            fillIncreasePerFeed: 25,
+            foodConsumed: 5,
         }
     }
 }
 
 
-class AlligatorHouse extends House {
+class ElephantHouse extends House {
     constructor(name) {
         super(name);
-        this.animalCost = 10000;
-        this.initialCost = 10000;
+        this.animalCost = 5000;
+        this.initialCost = 5000;
         this.expansionInterval = 5000;
-        this.expansionHousingIncrease = 2;
-        this.baseQualityCost = 10000;
-        this.qualityInterval = 10000;
-        this.quantityPoints = 200;
+        this.expansionHousingIncrease = 4;
+        this.baseQualityCost = 20000;
+        this.qualityInterval = 20000;
+        this.quantityPoints = 400;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
@@ -34,47 +35,47 @@ class AlligatorHouse extends House {
 }
 
 
-let alligatorHouse = new AlligatorHouse('alligator House');
+let elephantHouse = new ElephantHouse('Elephant House');
 
-buyAlligatorHousingButton.value = `Expand Housing: $${alligatorHouse.initialCost}`;
-buyAlligatorQualityButton.value = `Upgrade Quality: $${aligatorHouse.baseQualityCost}`;
+buyElephantHousingButton.value = `Expand Housing: $${elephantHouse.initialCost}`;
+buyElephantQualityButton.value = `Upgrade Quality: $${elephantHouse.baseQualityCost}`;
 
-function buyAlligatorHousing () {
-    alligatorHouse.buyExpansion()
-    alligatorRatio.innerHTML = (`Number of Alligators: ${alligatorCount}/${alligatorHouse.maxHousing}`)
-    buyAlligatorHousingButton.value = `Expand Housing: $${(alligatorHouse.expansionLevel+1) * AlligatorHouse.expansionInterval}`;
+function buyElephantHousing () {
+    elephantHouse.buyExpansion()
+    elephantRatio.innerHTML = (`Number of Elephants: ${elephantCount}/${elephantHouse.maxHousing}`)
+    buyElephantHousingButton.value = `Expand Housing: $${(elephantHouse.expansionLevel+1) * elephantHouse.expansionInterval}`;
 }
 
-function buyAlligatorQuality() {
-    alligatorHouse.buyQuality();
-    buyAlligatorQualityButton.value = `Upgrade Quality: $${(alligatorHouse.qualityLevel+1) * AlligatorHouse.qualityInterval}`;
-    alligatorQuality.innerHTML = `Housing Quality: ${alligatorHouse.qualityLevel}`;
+function buyElephantQuality() {
+    elephantHouse.buyQuality();
+    buyElephantQualityButton.value = `Upgrade Quality: $${(elephantHouse.qualityLevel+1) * elephantHouse.qualityInterval}`;
+    elephantQuality.innerHTML = `Housing Quality: ${elephantHouse.qualityLevel}`;
 }
 
-function alligatorFeedSuper(n) {
+function elephantFeedSuper(n) {
     return function() {
-        allAlligators[n-1].feed();
+        allElephants[n-1].feed();
     }
 }
-function buyAlligatorFunction() {
-    if (moneyCount >= alligatorHouse.animalCost && AlligatorCount < alligatorHouse.maxHousing) {
-        let a = new Alligator(AlligatorCount+1);
+function buyElephantFunction() {
+    if (moneyCount >= elephantHouse.animalCost && elephantCount < elephantHouse.maxHousing) {
+        let a = new Elephant(ElephantCount+1);
         allAnimals.push(a);
-        allAlligators.push(a);
-        alligatorCount++;
+        allElephants.push(a);
+        elephantCount++;
         a.createHtml();
-        let alligatorFeedListenerFunction = alligatorFeedSuper(a.num);
+        let elephantFeedListenerFunction = elephantFeedSuper(a.num);
         let tempPic = document.getElementById(`${a.species}${a.num}Pic`)
-        tempPic.src = 'https://i.pinimg.com/originals/21/26/4b/21264b254fb27dc004778df9e250110b.jpg'
-        let alligatorFeed =document.getElementById(`${a.species} ${a.num}`);
-        alligatorFeed.addEventListener('click', alligatorFeedListenerFunction);
-        alligatorRatio.innerHTML = (`Number of Alligators: ${alligatorCount}/${alligatorHouse.maxHousing}`);
-        moneyCount -= alligatorHouse.animalCost;
+        tempPic.src = 'https://i.insider.com/5ba1184f2badb916ce5e28fc?width=1100&format=jpeg&auto=webp'
+        let elephantFeed =document.getElementById(`${a.species} ${a.num}`);
+        elephantFeed.addEventListener('click', elephantFeedListenerFunction);
+        elephantRatio.innerHTML = (`Number of Elephants: ${elephantCount}/${elephantHouse.maxHousing}`);
+        moneyCount -= elephantHouse.animalCost;
         money.innerHTML = `Money: $${moneyCount}`;
     }
 }
 
 //add event listeners
-buyAlligatorHousingButton.addEventListener('click', buyAlligatorHousing);
-buyAlligatorQualityButton.addEventListener('click', buyAlligatorQuality);
-buyAlligatorButton.addEventListener('click', buyAlligatorFunction);
+buyElephantHousingButton.addEventListener('click', buyElephantHousing);
+buyElephantQualityButton.addEventListener('click', buyElephantQuality);
+buyElephantButton.addEventListener('click', buyElephantFunction);

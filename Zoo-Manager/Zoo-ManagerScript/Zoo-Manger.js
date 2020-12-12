@@ -16,7 +16,7 @@ let ampm = 'am';
 let buy10FoodCost = 1000
 let buy100FoodCost = 10000
 let income = 0;
-let moneyCount = 50050;
+let moneyCount = 1050;
 let foodCount = 10;
 let quantityPoints = 0;
 let varietyPoints = 1.0;
@@ -74,6 +74,16 @@ const alligatorFoodDiv = document.getElementById('alligatorFood');
 let allAlligators = [];
 let alligatorCount = 0;
 let deadAlligatorCount = 0;
+
+const buyElephantButton = document.getElementById('buyElephant');
+const buyElephantHousingButton = document.getElementById('buyElephantHousing');
+const buyElephantQualityButton = document.getElementById('buyElephantQuality');
+const elephantRatio = document.getElementById('elephantRatio');
+const elephantQuality = document.getElementById('elephantQuality');
+const elephantFoodDiv = document.getElementById('elephantFood');
+let allElephants = [];
+let elephantCount = 0;
+let deadElephantCount = 0;
 
 
 
@@ -196,7 +206,7 @@ class House {
                 money.innerHTML = `Money: $${moneyCount}`;
                 varietyPoints += 0.05;
                 this.qualityLevel ++;
-                this.quantityPoints = (this.quantityPoints * (1 + (0.5 * this.qualityLevel)));
+                this.quantityPoints = (this.quantityPoints * (1 + (0.2 * this.qualityLevel)));
             } 
 
         }
@@ -206,7 +216,7 @@ class House {
                 money.innerHTML = `Money: $${moneyCount}`;
                 varietyPoints += 0.05
                 this.qualityLevel ++;
-                this.quantityPoints = (50 * (1 + (0.5 * this.qualityLevel)));
+                this.quantityPoints = (50 * (1 + (0.2 * this.qualityLevel)));
             } 
 
         }
@@ -243,8 +253,8 @@ class ChimpanzeeHouse extends House {
         this.initialCost = 500;
         this.expansionInterval = 125;
         this.expansionHousingIncrease = 4;
-        this.baseQualityCost = 4000;
-        this.qualityInterval = 4000;
+        this.baseQualityCost = 3000;
+        this.qualityInterval = 3000;
         this.quantityPoints = 8;
         this.maxHousing = 4;
         this.CurrentHousingUsed = 0;
@@ -410,8 +420,8 @@ class TigerHouse extends House {
         this.initialCost = 500;
         this.expansionInterval = 500;
         this.expansionHousingIncrease = 4;
-        this.baseQualityCost = 4000;
-        this.qualityInterval = 4000;
+        this.baseQualityCost = 3000;
+        this.qualityInterval = 3000;
         this.quantityPoints = 300;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
@@ -494,8 +504,8 @@ class PandaHouse extends House {
         this.initialCost = 10000;
         this.expansionInterval = 5000;
         this.expansionHousingIncrease = 2;
-        this.baseQualityCost = 50000;
-        this.qualityInterval = 50000;
+        this.baseQualityCost = 30000;
+        this.qualityInterval = 30000;
         this.quantityPoints = 300;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
@@ -577,8 +587,8 @@ class AlligatorHouse extends House {
         this.initialCost = 5000;
         this.expansionInterval = 5000;
         this.expansionHousingIncrease = 4;
-        this.baseQualityCost = 20000;
-        this.qualityInterval = 20000;
+        this.baseQualityCost = 8000;
+        this.qualityInterval = 8000;
         this.quantityPoints = 400;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
@@ -634,6 +644,89 @@ buyAlligatorHousingButton.addEventListener('click', buyAlligatorHousing);
 buyAlligatorQualityButton.addEventListener('click', buyAlligatorQuality);
 buyAlligatorButton.addEventListener('click', buyAlligatorFunction);
 
+//elephants
+
+
+class Elephant extends Animal {
+    constructor(num) {
+        super(num);
+        this.alive = 1;
+        this.species = 'elephant';
+        this.name = `${this.species} ${this.num}`
+        this.food = {
+            maxFill: 100,
+            currentFill: 50,
+            fillDecreasePerHour: 2,
+            fillIncreasePerFeed: 20,
+            foodConsumed: 30,
+        }
+    }
+}
+
+
+class ElephantHouse extends House {
+    constructor(name) {
+        super(name);
+        this.animalCost = 20000;
+        this.initialCost = 50000;
+        this.expansionInterval = 50000;
+        this.expansionHousingIncrease = 4;
+        this.baseQualityCost = 30000;
+        this.qualityInterval = 30000;
+        this.quantityPoints = 2000;
+        this.maxHousing = 0;
+        this.CurrentHousingUsed = 0;
+        this.expansionLevel = 0;
+        this.qualityLevel = 0;
+    }
+        
+}
+
+
+let elephantHouse = new ElephantHouse('Elephant House');
+
+buyElephantHousingButton.value = `Expand Housing: $${elephantHouse.initialCost}`;
+buyElephantQualityButton.value = `Upgrade Quality: $${elephantHouse.baseQualityCost}`;
+
+function buyElephantHousing () {
+    elephantHouse.buyExpansion()
+    elephantRatio.innerHTML = (`Number of Elephants: ${elephantCount}/${elephantHouse.maxHousing}`)
+    buyElephantHousingButton.value = `Expand Housing: $${(elephantHouse.expansionLevel+1) * elephantHouse.expansionInterval}`;
+}
+
+function buyElephantQuality() {
+    elephantHouse.buyQuality();
+    buyElephantQualityButton.value = `Upgrade Quality: $${(elephantHouse.qualityLevel+1) * elephantHouse.qualityInterval}`;
+    elephantQuality.innerHTML = `Housing Quality: ${elephantHouse.qualityLevel}`;
+}
+
+function elephantFeedSuper(n) {
+    return function() {
+        allElephants[n-1].feed();
+    }
+}
+function buyElephantFunction() {
+    if (moneyCount >= elephantHouse.animalCost && elephantCount < elephantHouse.maxHousing) {
+        let a = new Elephant(elephantCount+1);
+        allAnimals.push(a);
+        allElephants.push(a);
+        elephantCount++;
+        a.createHtml();
+        let elephantFeedListenerFunction = elephantFeedSuper(a.num);
+        let tempPic = document.getElementById(`${a.species}${a.num}Pic`)
+        tempPic.src = 'https://i.insider.com/5ba1184f2badb916ce5e28fc?width=1100&format=jpeg&auto=webp'
+        let elephantFeed =document.getElementById(`${a.species} ${a.num}`);
+        elephantFeed.addEventListener('click', elephantFeedListenerFunction);
+        elephantRatio.innerHTML = (`Number of Elephants: ${elephantCount}/${elephantHouse.maxHousing}`);
+        moneyCount -= elephantHouse.animalCost;
+        money.innerHTML = `Money: $${moneyCount}`;
+    }
+}
+
+//add event listeners
+buyElephantHousingButton.addEventListener('click', buyElephantHousing);
+buyElephantQualityButton.addEventListener('click', buyElephantQuality);
+buyElephantButton.addEventListener('click', buyElephantFunction);
 
 
 //final functions
@@ -675,7 +768,7 @@ function clockTick() {
             ampm = 'am';
             gameDayValue += 1;
             gameDay.innerHTML = `Day ${gameDayValue}`;
-            buy10FoodCost = Math.floor(buy10FoodCost * 1.10 * Math.pow(1.005, gameDayValue-1));
+            buy10FoodCost = Math.floor(buy10FoodCost * 1.10 * Math.pow(1.01, gameDayValue-1));
             buy100FoodCost = buy10FoodCost * 10;
             buy10FoodButton.value = `Buy 10 Food $${buy10FoodCost}`
             buy100FoodButton.value = `Buy 100 Food $${buy100FoodCost}`
@@ -709,6 +802,12 @@ function clockTick() {
                     element.alive = 2;
                 }
             })
+            allElephants.forEach(element => {
+                if (element.alive === 0) {
+                    deadElephantCount ++;
+                    element.alive = 2;
+                }
+            })
 
         }
     } else if (gameHour === 12) {
@@ -728,7 +827,7 @@ function receiveIncome () {
 function updateIncome() {
     quantityPoints = (chimpanzeeCount - deadChimpanzeeCount) * chimpanzeeHouse.quantityPoints + (penguinCount - deadPenguinCount) * penguinHouse.quantityPoints +
      (tigerCount - deadTigerCount) * tigerHouse.quantityPoints + (pandaCount - deadPandaCount) * pandaHouse.quantityPoints +
-     (alligatorCount - deadAlligatorCount) * alligatorHouse.quantityPoints;
+     (alligatorCount - deadAlligatorCount) * alligatorHouse.quantityPoints + (elephantCount - deadElephantCount) * elephantHouse.quantityPoints;
     income = Math.floor(quantityPoints * varietyPoints);
     nextIncome.innerHTML = `Next Income: ${income}`;
 
@@ -753,7 +852,7 @@ function hourTick() {
 function startGame() {
     start.removeEventListener('click', startGame);
     buyChimpanzeeFunction();
-    setInterval(hourTick, 500);
+    setInterval(hourTick, 4000);
 
 }
 
