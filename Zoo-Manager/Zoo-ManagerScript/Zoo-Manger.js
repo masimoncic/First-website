@@ -216,7 +216,7 @@ class House {
                 money.innerHTML = `Money: $${moneyCount}`;
                 varietyPoints += 0.05
                 this.qualityLevel ++;
-                this.quantityPoints = (50 * (1 + (0.2 * this.qualityLevel)));
+                this.quantityPoints = (this.quantityPoints * (1 + (0.2 * this.qualityLevel)));
             } 
 
         }
@@ -334,10 +334,10 @@ class PenguinHouse extends House {
         super(name);
         this.animalCost = 500;
         this.initialCost = 1000;
-        this.expansionInterval = 2000;
+        this.expansionInterval = 3000;
         this.expansionHousingIncrease = 2;
-        this.baseQualityCost = 10000;
-        this.qualityInterval = 10000;
+        this.baseQualityCost = 8000;
+        this.qualityInterval = 8000;
         this.quantityPoints = 60;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
@@ -500,12 +500,12 @@ class Panda extends Animal {
 class PandaHouse extends House {
     constructor(name) {
         super(name);
-        this.animalCost = 20000;
-        this.initialCost = 20000;
-        this.expansionInterval = 20000;
+        this.animalCost = 15000;
+        this.initialCost = 15000;
+        this.expansionInterval = 15000;
         this.expansionHousingIncrease = 2;
-        this.baseQualityCost = 30000;
-        this.qualityInterval = 30000;
+        this.baseQualityCost = 20000;
+        this.qualityInterval = 20000;
         this.quantityPoints = 200;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
@@ -587,9 +587,9 @@ class AlligatorHouse extends House {
         this.initialCost = 5000;
         this.expansionInterval = 5000;
         this.expansionHousingIncrease = 4;
-        this.baseQualityCost = 8000;
-        this.qualityInterval = 8000;
-        this.quantityPoints = 300;
+        this.baseQualityCost = 10000;
+        this.qualityInterval = 10000;
+        this.quantityPoints = 250;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
