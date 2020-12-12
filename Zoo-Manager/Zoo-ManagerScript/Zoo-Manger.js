@@ -6,6 +6,7 @@ const buy100FoodButton = document.getElementById('buy100FoodButton');
 const money = document.getElementById('money');
 const nextIncome = document.getElementById('nextIncome');
 const currentFood = document.getElementById('currentFood');
+const difficulty = document.getElementById('difficulty'); 
 const start = document.getElementById('start');
 
 
@@ -13,8 +14,8 @@ const start = document.getElementById('start');
 let gameDayValue = 1
 let gameHour = 7;
 let ampm = 'am';
-let buy10FoodCost = 1000
-let buy100FoodCost = 10000
+let buy5FoodCost = 500
+let buy50FoodCost = 5000
 let income = 0;
 let moneyCount = 1550;
 let foodCount = 10;
@@ -23,6 +24,7 @@ let varietyPoints = 1.0;
 let qualityPoints = 1.0;
 let allAnimals = [];
 let deadContainer = [];
+let difficultyLevel = -1;
 
 //animal specific variables
 const buyChimpanzeeButton = document.getElementById('buyChimpanzee');
@@ -238,7 +240,7 @@ class Chimpanzee extends Animal {
         this.food = {
             maxFill: 100,
             currentFill: 100,
-            fillDecreasePerHour: 6,
+            fillDecreasePerHour: 6 + (2*difficultyLevel),
             fillIncreasePerFeed: 20,
             foodConsumed: 1,
         }
@@ -322,7 +324,7 @@ class Penguin extends Animal {
         this.food = {
             maxFill: 100,
             currentFill: 50,
-            fillDecreasePerHour: 6,
+            fillDecreasePerHour: 6 + (4*difficultyLevel),
             fillIncreasePerFeed: 80,
             foodConsumed: 1,
         }
@@ -339,8 +341,8 @@ class PenguinHouse extends House {
         this.expansionHousingIncrease = 2;
         this.baseQualityCost = 8000;
         this.qualityInterval = 8000;
-        this.quantityPoints = 80;
-        this.baseQuantityPoints = 80;
+        this.quantityPoints = 75;
+        this.baseQuantityPoints = 75;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
@@ -407,7 +409,7 @@ class Tiger extends Animal {
         this.food = {
             maxFill: 100,
             currentFill: 50,
-            fillDecreasePerHour: 5,
+            fillDecreasePerHour: 5 + (2*difficultyLevel),
             fillIncreasePerFeed: 30,
             foodConsumed: 10,
         }
@@ -418,14 +420,14 @@ class Tiger extends Animal {
 class TigerHouse extends House {
     constructor(name) {
         super(name);
-        this.animalCost = 1000;
+        this.animalCost = 750;
         this.initialCost = 500;
         this.expansionInterval = 500;
         this.expansionHousingIncrease = 4;
         this.baseQualityCost = 5000;
         this.qualityInterval = 5000;
-        this.quantityPoints = 175;
-        this.baseQuantityPoints = 175;
+        this.quantityPoints = 150;
+        this.baseQuantityPoints = 150;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
@@ -492,7 +494,7 @@ class Panda extends Animal {
         this.food = {
             maxFill: 100,
             currentFill: 50,
-            fillDecreasePerHour: 4,
+            fillDecreasePerHour: 4 +(2*difficultyLevel),
             fillIncreasePerFeed: 40,
             foodConsumed: 2,
         }
@@ -576,7 +578,7 @@ class Alligator extends Animal {
         this.food = {
             maxFill: 100,
             currentFill: 80,
-            fillDecreasePerHour: 8,
+            fillDecreasePerHour: 8 +(3*difficultyLevel),
             fillIncreasePerFeed: 25,
             foodConsumed: 4,
         }
@@ -661,7 +663,7 @@ class Elephant extends Animal {
         this.food = {
             maxFill: 100,
             currentFill: 50,
-            fillDecreasePerHour: 5,
+            fillDecreasePerHour: 6 + (2*difficultyLevel),
             fillIncreasePerFeed: 25,
             foodConsumed: 20,
         }
@@ -675,11 +677,11 @@ class ElephantHouse extends House {
         this.animalCost = 50000;
         this.initialCost = 50000;
         this.expansionInterval = 50000;
-        this.expansionHousingIncrease = 3;
+        this.expansionHousingIncrease = 2;
         this.baseQualityCost = 30000;
         this.qualityInterval = 30000;
-        this.quantityPoints = 1200;
-        this.baseQuantityPoints = 1200;
+        this.quantityPoints = 1500;
+        this.baseQuantityPoints = 1500;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
@@ -738,25 +740,25 @@ buyElephantButton.addEventListener('click', buyElephantFunction);
 //final functions
 
 //buy food functions
-function buy10FoodFunction() {
-    if (moneyCount >= buy10FoodCost) {
-        moneyCount -= buy10FoodCost;
+function buy5FoodFunction() {
+    if (moneyCount >= buy5FoodCost) {
+        moneyCount -= buy5FoodCost;
         money.innerHTML = `Money: $${moneyCount}`;
-        foodCount += 10;
+        foodCount += 5;
         currentFood.innerHTML = `Food: ${foodCount}`;  
     }
 }
-function buy100FoodFunction() {
-    if (moneyCount >= buy100FoodCost) {
-        moneyCount -= buy100FoodCost;
+function buy50FoodFunction() {
+    if (moneyCount >= buy50FoodCost) {
+        moneyCount -= buy50FoodCost;
         money.innerHTML = `Money: $${moneyCount}`;
-        foodCount += 100;
+        foodCount += 50;
         currentFood.innerHTML = `Food: ${foodCount}`;  
     }
 }
 
-buy10FoodButton.addEventListener('click', buy10FoodFunction);
-buy100FoodButton.addEventListener('click', buy100FoodFunction);
+buy5FoodButton.addEventListener('click', buy5FoodFunction);
+buy50FoodButton.addEventListener('click', buy50FoodFunction);
 
 //Define hourTick and its subfunctions
 
@@ -776,10 +778,10 @@ function clockTick() {
             ampm = 'am';
             gameDayValue += 1;
             gameDay.innerHTML = `Day ${gameDayValue}`;
-            buy10FoodCost = Math.floor(buy10FoodCost * 1.3 * Math.pow(1.05, gameDayValue-1));
-            buy100FoodCost = buy10FoodCost * 10;
-            buy10FoodButton.value = `Buy 10 Food $${buy10FoodCost}`
-            buy100FoodButton.value = `Buy 100 Food $${buy100FoodCost}`
+            buy5FoodCost = Math.floor(buy5FoodCost * 1.25 * Math.pow(1.04, gameDayValue-1));
+            buy50FoodCost = buy5FoodCost * 10;
+            buy10FoodButton.value = `Buy 5 Food $${buy5FoodCost}`
+            buy100FoodButton.value = `Buy 50 Food $${buy50FoodCost}`
             allChimpanzees.forEach(element => {
                 if (element.alive === 0) {
                     deadChimpanzeeCount ++;
@@ -857,8 +859,18 @@ function hourTick() {
 
 
 //define startGame
+function setDifficulty() {
+    if (difficulty.value === 'easy'){
+        difficultyLevel = -1;
+    }
+    else {
+        difficultyLevel = 0;
+    }
+}
+
 function startGame() {
     start.removeEventListener('click', startGame);
+    setDifficulty();
     buyChimpanzeeFunction();
     setInterval(hourTick, 5000);
 
