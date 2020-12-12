@@ -16,7 +16,7 @@ let ampm = 'am';
 let buy10FoodCost = 1000
 let buy100FoodCost = 10000
 let income = 0;
-let moneyCount = 1050;
+let moneyCount = 50050;
 let foodCount = 10;
 let quantityPoints = 0;
 let varietyPoints = 1.0;
@@ -55,6 +55,25 @@ let allTigers = [];
 let tigerCount = 0;
 let deadTigerCount = 0;
 
+const buyPandaButton = document.getElementById('buyPanda');
+const buyPandaHousingButton = document.getElementById('buyPandaHousing');
+const buyPandaQualityButton = document.getElementById('buyPandaQuality');
+const pandaRatio = document.getElementById('pandaRatio');
+const pandaQuality = document.getElementById('pandaQuality');
+const pandaFoodDiv = document.getElementById('pandaFood');
+let allPandas = [];
+let pandaCount = 0;
+let deadPandaCount = 0;
+
+const buyAlligatorButton = document.getElementById('buyAlligator');
+const buyAlligatorHousingButton = document.getElementById('buyAlligatorHousing');
+const buyAlligatorQualityButton = document.getElementById('buyAlligatorQuality');
+const alligatorRatio = document.getElementById('alligatorRatio');
+const alligatorQuality = document.getElementById('alligatorQuality');
+const alligatorFoodDiv = document.getElementById('alligatorFood');
+let allAlligators = [];
+let alligatorCount = 0;
+let deadAlligatorCount = 0;
 
 
 
@@ -177,7 +196,7 @@ class House {
                 money.innerHTML = `Money: $${moneyCount}`;
                 varietyPoints += 0.05;
                 this.qualityLevel ++;
-                this.quantityPoints = (50 * (1 + (0.5 * this.qualityLevel)));
+                this.quantityPoints = (this.quantityPoints * (1 + (0.5 * this.qualityLevel)));
             } 
 
         }
@@ -375,8 +394,8 @@ class Tiger extends Animal {
         this.name = `${this.species} ${this.num}`
         this.food = {
             maxFill: 100,
-            currentFill: 50,
-            fillDecreasePerHour: 2,
+            currentFill: 80,
+            fillDecreasePerHour: 3,
             fillIncreasePerFeed: 10,
             foodConsumed: 10,
         }
@@ -393,7 +412,7 @@ class TigerHouse extends House {
         this.expansionHousingIncrease = 4;
         this.baseQualityCost = 4000;
         this.qualityInterval = 4000;
-        this.quantityPoints = 200;
+        this.quantityPoints = 300;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
@@ -449,6 +468,174 @@ buyTigerQualityButton.addEventListener('click', buyTigerQuality);
 buyTigerButton.addEventListener('click', buyTigerFunction);
 
 
+//Pandas
+
+class Panda extends Animal {
+    constructor(num) {
+        super(num);
+        this.alive = 1;
+        this.species = 'panda';
+        this.name = `${this.species} ${this.num}`
+        this.food = {
+            maxFill: 100,
+            currentFill: 50,
+            fillDecreasePerHour: 3,
+            fillIncreasePerFeed: 40,
+            foodConsumed: 3,
+        }
+    }
+}
+
+
+class PandaHouse extends House {
+    constructor(name) {
+        super(name);
+        this.animalCost = 10000;
+        this.initialCost = 10000;
+        this.expansionInterval = 5000;
+        this.expansionHousingIncrease = 2;
+        this.baseQualityCost = 50000;
+        this.qualityInterval = 50000;
+        this.quantityPoints = 300;
+        this.maxHousing = 0;
+        this.CurrentHousingUsed = 0;
+        this.expansionLevel = 0;
+        this.qualityLevel = 0;
+    }
+        
+}
+
+
+let pandaHouse = new PandaHouse('Panda House');
+
+buyPandaHousingButton.value = `Expand Housing: $${pandaHouse.initialCost}`;
+buyPandaQualityButton.value = `Upgrade Quality: $${pandaHouse.baseQualityCost}`;
+
+function buyPandaHousing () {
+    pandaHouse.buyExpansion()
+    pandaRatio.innerHTML = (`Number of Pandas: ${pandaCount}/${pandaHouse.maxHousing}`)
+    buyPandaHousingButton.value = `Expand Housing: $${(pandaHouse.expansionLevel+1) * pandaHouse.expansionInterval}`;
+}
+
+function buyPandaQuality() {
+    pandaHouse.buyQuality();
+    buyPandaQualityButton.value = `Upgrade Quality: $${(pandaHouse.qualityLevel+1) * pandaHouse.qualityInterval}`;
+    pandaQuality.innerHTML = `Housing Quality: ${pandaHouse.qualityLevel}`;
+}
+
+function pandaFeedSuper(n) {
+    return function() {
+        allPandas[n-1].feed();
+    }
+}
+function buyPandaFunction() {
+    if (moneyCount >= pandaHouse.animalCost && pandaCount < pandaHouse.maxHousing) {
+        let a = new Panda(pandaCount+1);
+        allAnimals.push(a);
+        allPandas.push(a);
+        pandaCount++;
+        a.createHtml();
+        let pandaFeedListenerFunction = pandaFeedSuper(a.num);
+        let tempPic = document.getElementById(`${a.species}${a.num}Pic`)
+        tempPic.src = 'https://media4.s-nbcnews.com/j/newscms/2016_36/1685951/ss-160826-twip-05_8cf6d4cb83758449fd400c7c3d71aa1f.fit-760w.jpg'
+        let pandaFeed =document.getElementById(`${a.species} ${a.num}`);
+        pandaFeed.addEventListener('click', pandaFeedListenerFunction);
+        pandaRatio.innerHTML = (`Number of Pandas: ${pandaCount}/${pandaHouse.maxHousing}`);
+        moneyCount -= pandaHouse.animalCost;
+        money.innerHTML = `Money: $${moneyCount}`;
+    }
+}
+
+//add event listeners
+buyPandaHousingButton.addEventListener('click', buyPandaHousing);
+buyPandaQualityButton.addEventListener('click', buyPandaQuality);
+buyPandaButton.addEventListener('click', buyPandaFunction);
+
+//alligators
+
+class Alligator extends Animal {
+    constructor(num) {
+        super(num);
+        this.alive = 1;
+        this.species = 'alligator';
+        this.name = `${this.species} ${this.num}`
+        this.food = {
+            maxFill: 100,
+            currentFill: 80,
+            fillDecreasePerHour: 5,
+            fillIncreasePerFeed: 25,
+            foodConsumed: 5,
+        }
+    }
+}
+
+
+class AlligatorHouse extends House {
+    constructor(name) {
+        super(name);
+        this.animalCost = 5000;
+        this.initialCost = 5000;
+        this.expansionInterval = 5000;
+        this.expansionHousingIncrease = 4;
+        this.baseQualityCost = 20000;
+        this.qualityInterval = 20000;
+        this.quantityPoints = 400;
+        this.maxHousing = 0;
+        this.CurrentHousingUsed = 0;
+        this.expansionLevel = 0;
+        this.qualityLevel = 0;
+    }
+        
+}
+
+
+let alligatorHouse = new AlligatorHouse('alligator House');
+
+buyAlligatorHousingButton.value = `Expand Housing: $${alligatorHouse.initialCost}`;
+buyAlligatorQualityButton.value = `Upgrade Quality: $${alligatorHouse.baseQualityCost}`;
+
+function buyAlligatorHousing () {
+    alligatorHouse.buyExpansion()
+    alligatorRatio.innerHTML = (`Number of Alligators: ${alligatorCount}/${alligatorHouse.maxHousing}`)
+    buyAlligatorHousingButton.value = `Expand Housing: $${(alligatorHouse.expansionLevel+1) * alligatorHouse.expansionInterval}`;
+}
+
+function buyAlligatorQuality() {
+    alligatorHouse.buyQuality();
+    buyAlligatorQualityButton.value = `Upgrade Quality: $${(alligatorHouse.qualityLevel+1) * alligatorHouse.qualityInterval}`;
+    alligatorQuality.innerHTML = `Housing Quality: ${alligatorHouse.qualityLevel}`;
+}
+
+function alligatorFeedSuper(n) {
+    return function() {
+        allAlligators[n-1].feed();
+    }
+}
+function buyAlligatorFunction() {
+    if (moneyCount >= alligatorHouse.animalCost && alligatorCount < alligatorHouse.maxHousing) {
+        let a = new Alligator(alligatorCount+1);
+        allAnimals.push(a);
+        allAlligators.push(a);
+        alligatorCount++;
+        a.createHtml();
+        let alligatorFeedListenerFunction = alligatorFeedSuper(a.num);
+        let tempPic = document.getElementById(`${a.species}${a.num}Pic`)
+        tempPic.src = 'https://i.pinimg.com/originals/21/26/4b/21264b254fb27dc004778df9e250110b.jpg'
+        let alligatorFeed =document.getElementById(`${a.species} ${a.num}`);
+        alligatorFeed.addEventListener('click', alligatorFeedListenerFunction);
+        alligatorRatio.innerHTML = (`Number of Alligators: ${alligatorCount}/${alligatorHouse.maxHousing}`);
+        moneyCount -= alligatorHouse.animalCost;
+        money.innerHTML = `Money: $${moneyCount}`;
+    }
+}
+
+//add event listeners
+buyAlligatorHousingButton.addEventListener('click', buyAlligatorHousing);
+buyAlligatorQualityButton.addEventListener('click', buyAlligatorQuality);
+buyAlligatorButton.addEventListener('click', buyAlligatorFunction);
+
+
+
 //final functions
 
 //buy food functions
@@ -488,7 +675,7 @@ function clockTick() {
             ampm = 'am';
             gameDayValue += 1;
             gameDay.innerHTML = `Day ${gameDayValue}`;
-            buy10FoodCost = Math.floor(buy10FoodCost * 1.1 * Math.pow(1.005, gameDayValue-1));
+            buy10FoodCost = Math.floor(buy10FoodCost * 1.10 * Math.pow(1.005, gameDayValue-1));
             buy100FoodCost = buy10FoodCost * 10;
             buy10FoodButton.value = `Buy 10 Food $${buy10FoodCost}`
             buy100FoodButton.value = `Buy 100 Food $${buy100FoodCost}`
@@ -509,7 +696,19 @@ function clockTick() {
                     deadTigerCount ++;
                     element.alive = 2;
                 }
-            });
+            })
+            allPandas.forEach(element => {
+                if (element.alive === 0) {
+                    deadPandaCount ++;
+                    element.alive = 2;
+                }
+            })
+            allAlligators.forEach(element => {
+                if (element.alive === 0) {
+                    deadAlligatorCount ++;
+                    element.alive = 2;
+                }
+            })
 
         }
     } else if (gameHour === 12) {
@@ -528,7 +727,8 @@ function receiveIncome () {
 
 function updateIncome() {
     quantityPoints = (chimpanzeeCount - deadChimpanzeeCount) * chimpanzeeHouse.quantityPoints + (penguinCount - deadPenguinCount) * penguinHouse.quantityPoints +
-     (tigerCount - deadTigerCount) * tigerHouse.quantityPoints;
+     (tigerCount - deadTigerCount) * tigerHouse.quantityPoints + (pandaCount - deadPandaCount) * pandaHouse.quantityPoints +
+     (alligatorCount - deadAlligatorCount) * alligatorHouse.quantityPoints;
     income = Math.floor(quantityPoints * varietyPoints);
     nextIncome.innerHTML = `Next Income: ${income}`;
 
