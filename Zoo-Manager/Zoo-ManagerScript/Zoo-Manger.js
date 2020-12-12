@@ -238,7 +238,7 @@ class Chimpanzee extends Animal {
         this.food = {
             maxFill: 100,
             currentFill: 100,
-            fillDecreasePerHour: 4,
+            fillDecreasePerHour: 5,
             fillIncreasePerFeed: 20,
             foodConsumed: 1,
         }
@@ -251,11 +251,11 @@ class ChimpanzeeHouse extends House {
         super(name);
         this.animalCost = 50
         this.initialCost = 500;
-        this.expansionInterval = 125;
+        this.expansionInterval = 250;
         this.expansionHousingIncrease = 4;
         this.baseQualityCost = 5000;
         this.qualityInterval = 5000;
-        this.quantityPoints = 10;
+        this.quantityPoints = 20;
         this.maxHousing = 4;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 1;
