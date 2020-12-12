@@ -500,9 +500,9 @@ class Panda extends Animal {
 class PandaHouse extends House {
     constructor(name) {
         super(name);
-        this.animalCost = 10000;
-        this.initialCost = 10000;
-        this.expansionInterval = 5000;
+        this.animalCost = 20000;
+        this.initialCost = 20000;
+        this.expansionInterval = 20000;
         this.expansionHousingIncrease = 2;
         this.baseQualityCost = 30000;
         this.qualityInterval = 30000;
@@ -656,7 +656,7 @@ class Elephant extends Animal {
         this.food = {
             maxFill: 100,
             currentFill: 50,
-            fillDecreasePerHour: 8,
+            fillDecreasePerHour: 10,
             fillIncreasePerFeed: 20,
             foodConsumed: 10,
         }
@@ -667,7 +667,7 @@ class Elephant extends Animal {
 class ElephantHouse extends House {
     constructor(name) {
         super(name);
-        this.animalCost = 20000;
+        this.animalCost = 40000;
         this.initialCost = 50000;
         this.expansionInterval = 50000;
         this.expansionHousingIncrease = 4;
@@ -770,7 +770,7 @@ function clockTick() {
             ampm = 'am';
             gameDayValue += 1;
             gameDay.innerHTML = `Day ${gameDayValue}`;
-            buy10FoodCost = Math.floor(buy10FoodCost * 1.15 * Math.pow(1.004, gameDayValue-1));
+            buy10FoodCost = Math.floor(buy10FoodCost * 1.30 * Math.pow(1.01, gameDayValue-1));
             buy100FoodCost = buy10FoodCost * 10;
             buy10FoodButton.value = `Buy 10 Food $${buy10FoodCost}`
             buy100FoodButton.value = `Buy 100 Food $${buy100FoodCost}`
