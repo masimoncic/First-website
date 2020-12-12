@@ -237,9 +237,9 @@ class Chimpanzee extends Animal {
         this.name = `${this.species} ${this.num}`
         this.food = {
             maxFill: 100,
-            currentFill: 50,
-            fillDecreasePerHour: 1,
-            fillIncreasePerFeed: 30,
+            currentFill: 100,
+            fillDecreasePerHour: 3,
+            fillIncreasePerFeed: 20,
             foodConsumed: 1,
         }
     }
@@ -253,9 +253,9 @@ class ChimpanzeeHouse extends House {
         this.initialCost = 500;
         this.expansionInterval = 125;
         this.expansionHousingIncrease = 4;
-        this.baseQualityCost = 3000;
-        this.qualityInterval = 3000;
-        this.quantityPoints = 8;
+        this.baseQualityCost = 5000;
+        this.qualityInterval = 5000;
+        this.quantityPoints = 15;
         this.maxHousing = 4;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 1;
@@ -320,7 +320,7 @@ class Penguin extends Animal {
         this.name = `${this.species} ${this.num}`
         this.food = {
             maxFill: 100,
-            currentFill: 100,
+            currentFill: 50,
             fillDecreasePerHour: 4,
             fillIncreasePerFeed: 50,
             foodConsumed: 1,
@@ -420,8 +420,8 @@ class TigerHouse extends House {
         this.initialCost = 500;
         this.expansionInterval = 500;
         this.expansionHousingIncrease = 4;
-        this.baseQualityCost = 3000;
-        this.qualityInterval = 3000;
+        this.baseQualityCost = 5000;
+        this.qualityInterval = 5000;
         this.quantityPoints = 300;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
