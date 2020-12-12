@@ -16,7 +16,7 @@ let ampm = 'am';
 let buy10FoodCost = 1000
 let buy100FoodCost = 10000
 let income = 0;
-let moneyCount = 2050;
+let moneyCount = 1550;
 let foodCount = 10;
 let quantityPoints = 0;
 let varietyPoints = 1.0;
@@ -206,7 +206,7 @@ class House {
                 money.innerHTML = `Money: $${moneyCount}`;
                 varietyPoints += 0.05;
                 this.qualityLevel ++;
-                this.quantityPoints = (this.quantityPoints * (1 + (0.2 * this.qualityLevel)));
+                this.quantityPoints = (this.baseQuantityPoints * (1 + (0.25 * this.qualityLevel)));
             } 
 
         }
@@ -335,7 +335,7 @@ class PenguinHouse extends House {
         super(name);
         this.animalCost = 500;
         this.initialCost = 1000;
-        this.expansionInterval = 3000;
+        this.expansionInterval = 2000;
         this.expansionHousingIncrease = 2;
         this.baseQualityCost = 8000;
         this.qualityInterval = 8000;
@@ -406,8 +406,8 @@ class Tiger extends Animal {
         this.name = `${this.species} ${this.num}`
         this.food = {
             maxFill: 100,
-            currentFill: 80,
-            fillDecreasePerHour: 5,
+            currentFill: 50,
+            fillDecreasePerHour: 6,
             fillIncreasePerFeed: 30,
             foodConsumed: 10,
         }
@@ -503,14 +503,14 @@ class Panda extends Animal {
 class PandaHouse extends House {
     constructor(name) {
         super(name);
-        this.animalCost = 20000;
+        this.animalCost = 30000;
         this.initialCost = 10000;
         this.expansionInterval = 10000;
         this.expansionHousingIncrease = 2;
         this.baseQualityCost = 15000;
         this.qualityInterval = 15000;
-        this.quantityPoints = 200;
-        this.baseQuantityPoints = 200;
+        this.quantityPoints = 300;
+        this.baseQuantityPoints = 300;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
@@ -776,7 +776,7 @@ function clockTick() {
             ampm = 'am';
             gameDayValue += 1;
             gameDay.innerHTML = `Day ${gameDayValue}`;
-            buy10FoodCost = Math.floor(buy10FoodCost * 1.3 * Math.pow(1.01, gameDayValue-1));
+            buy10FoodCost = Math.floor(buy10FoodCost * 1.3 * Math.pow(1.05, gameDayValue-1));
             buy100FoodCost = buy10FoodCost * 10;
             buy10FoodButton.value = `Buy 10 Food $${buy10FoodCost}`
             buy100FoodButton.value = `Buy 100 Food $${buy100FoodCost}`
