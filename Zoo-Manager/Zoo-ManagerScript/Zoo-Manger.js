@@ -255,7 +255,7 @@ class ChimpanzeeHouse extends House {
         this.expansionHousingIncrease = 4;
         this.baseQualityCost = 5000;
         this.qualityInterval = 5000;
-        this.quantityPoints = 20;
+        this.quantityPoints = 25;
         this.maxHousing = 4;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 1;
@@ -334,7 +334,7 @@ class PenguinHouse extends House {
         super(name);
         this.animalCost = 500;
         this.initialCost = 1000;
-        this.expansionInterval = 3000;
+        this.expansionInterval = 2500;
         this.expansionHousingIncrease = 2;
         this.baseQualityCost = 8000;
         this.qualityInterval = 8000;
@@ -500,12 +500,12 @@ class Panda extends Animal {
 class PandaHouse extends House {
     constructor(name) {
         super(name);
-        this.animalCost = 15000;
-        this.initialCost = 15000;
-        this.expansionInterval = 15000;
+        this.animalCost = 20000;
+        this.initialCost = 10000;
+        this.expansionInterval = 10000;
         this.expansionHousingIncrease = 2;
-        this.baseQualityCost = 20000;
-        this.qualityInterval = 20000;
+        this.baseQualityCost = 15000;
+        this.qualityInterval = 15000;
         this.quantityPoints = 200;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
@@ -586,10 +586,10 @@ class AlligatorHouse extends House {
         this.animalCost = 5000;
         this.initialCost = 5000;
         this.expansionInterval = 5000;
-        this.expansionHousingIncrease = 4;
-        this.baseQualityCost = 10000;
-        this.qualityInterval = 10000;
-        this.quantityPoints = 250;
+        this.expansionHousingIncrease = 3;
+        this.baseQualityCost = 15000;
+        this.qualityInterval = 15000;
+        this.quantityPoints = 240;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
@@ -667,13 +667,13 @@ class Elephant extends Animal {
 class ElephantHouse extends House {
     constructor(name) {
         super(name);
-        this.animalCost = 40000;
+        this.animalCost = 50000;
         this.initialCost = 50000;
         this.expansionInterval = 50000;
-        this.expansionHousingIncrease = 4;
+        this.expansionHousingIncrease = 3;
         this.baseQualityCost = 30000;
         this.qualityInterval = 30000;
-        this.quantityPoints = 1500;
+        this.quantityPoints = 1200;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
@@ -770,7 +770,7 @@ function clockTick() {
             ampm = 'am';
             gameDayValue += 1;
             gameDay.innerHTML = `Day ${gameDayValue}`;
-            buy10FoodCost = Math.floor(buy10FoodCost * 1.25 * Math.pow(1.01, gameDayValue-1));
+            buy10FoodCost = Math.floor(buy10FoodCost * 1.3 * Math.pow(1.01, gameDayValue-1));
             buy100FoodCost = buy10FoodCost * 10;
             buy10FoodButton.value = `Buy 10 Food $${buy10FoodCost}`
             buy100FoodButton.value = `Buy 100 Food $${buy100FoodCost}`
