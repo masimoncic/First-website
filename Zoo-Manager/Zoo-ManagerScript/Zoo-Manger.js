@@ -16,7 +16,7 @@ let ampm = 'am';
 let buy10FoodCost = 1000
 let buy100FoodCost = 10000
 let income = 0;
-let moneyCount = 1450;
+let moneyCount = 2050;
 let foodCount = 10;
 let quantityPoints = 0;
 let varietyPoints = 1.0;
@@ -238,7 +238,7 @@ class Chimpanzee extends Animal {
         this.food = {
             maxFill: 100,
             currentFill: 100,
-            fillDecreasePerHour: 3,
+            fillDecreasePerHour: 4,
             fillIncreasePerFeed: 20,
             foodConsumed: 1,
         }
@@ -255,7 +255,7 @@ class ChimpanzeeHouse extends House {
         this.expansionHousingIncrease = 4;
         this.baseQualityCost = 5000;
         this.qualityInterval = 5000;
-        this.quantityPoints = 15;
+        this.quantityPoints = 10;
         this.maxHousing = 4;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 1;
@@ -321,8 +321,8 @@ class Penguin extends Animal {
         this.food = {
             maxFill: 100,
             currentFill: 50,
-            fillDecreasePerHour: 4,
-            fillIncreasePerFeed: 50,
+            fillDecreasePerHour: 10,
+            fillIncreasePerFeed: 80,
             foodConsumed: 1,
         }
     }
@@ -338,7 +338,7 @@ class PenguinHouse extends House {
         this.expansionHousingIncrease = 2;
         this.baseQualityCost = 10000;
         this.qualityInterval = 10000;
-        this.quantityPoints = 80;
+        this.quantityPoints = 60;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
@@ -405,8 +405,8 @@ class Tiger extends Animal {
         this.food = {
             maxFill: 100,
             currentFill: 80,
-            fillDecreasePerHour: 3,
-            fillIncreasePerFeed: 10,
+            fillDecreasePerHour: 8,
+            fillIncreasePerFeed: 30,
             foodConsumed: 10,
         }
     }
@@ -422,7 +422,7 @@ class TigerHouse extends House {
         this.expansionHousingIncrease = 4;
         this.baseQualityCost = 5000;
         this.qualityInterval = 5000;
-        this.quantityPoints = 300;
+        this.quantityPoints = 200;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
@@ -489,9 +489,9 @@ class Panda extends Animal {
         this.food = {
             maxFill: 100,
             currentFill: 50,
-            fillDecreasePerHour: 3,
+            fillDecreasePerHour: 6,
             fillIncreasePerFeed: 40,
-            foodConsumed: 3,
+            foodConsumed: 2,
         }
     }
 }
@@ -506,7 +506,7 @@ class PandaHouse extends House {
         this.expansionHousingIncrease = 2;
         this.baseQualityCost = 30000;
         this.qualityInterval = 30000;
-        this.quantityPoints = 300;
+        this.quantityPoints = 200;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
@@ -572,9 +572,9 @@ class Alligator extends Animal {
         this.food = {
             maxFill: 100,
             currentFill: 80,
-            fillDecreasePerHour: 5,
+            fillDecreasePerHour: 12,
             fillIncreasePerFeed: 25,
-            foodConsumed: 5,
+            foodConsumed: 4,
         }
     }
 }
@@ -589,7 +589,7 @@ class AlligatorHouse extends House {
         this.expansionHousingIncrease = 4;
         this.baseQualityCost = 8000;
         this.qualityInterval = 8000;
-        this.quantityPoints = 400;
+        this.quantityPoints = 300;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
@@ -656,9 +656,9 @@ class Elephant extends Animal {
         this.food = {
             maxFill: 100,
             currentFill: 50,
-            fillDecreasePerHour: 2,
+            fillDecreasePerHour: 10,
             fillIncreasePerFeed: 20,
-            foodConsumed: 30,
+            foodConsumed: 10,
         }
     }
 }
@@ -673,7 +673,7 @@ class ElephantHouse extends House {
         this.expansionHousingIncrease = 4;
         this.baseQualityCost = 30000;
         this.qualityInterval = 30000;
-        this.quantityPoints = 2000;
+        this.quantityPoints = 1500;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
@@ -735,6 +735,7 @@ buyElephantButton.addEventListener('click', buyElephantFunction);
 function buy10FoodFunction() {
     if (moneyCount >= buy10FoodCost) {
         moneyCount -= buy10FoodCost;
+        money.innerHTML = `Money: $${moneyCount}`;
         foodCount += 10;
         currentFood.innerHTML = `Food: ${foodCount}`;  
     }
@@ -742,6 +743,7 @@ function buy10FoodFunction() {
 function buy100FoodFunction() {
     if (moneyCount >= buy100FoodCost) {
         moneyCount -= buy100FoodCost;
+        money.innerHTML = `Money: $${moneyCount}`;
         foodCount += 100;
         currentFood.innerHTML = `Food: ${foodCount}`;  
     }
