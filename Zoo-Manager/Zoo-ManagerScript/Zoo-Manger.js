@@ -102,8 +102,9 @@ class Animal {
         animalDiv.className = 'animalObject'
         //pic instead of text
         let animalPic = document.createElement('img');
-        animalPic.src = `./Pictures/${this.species}.jpeg`;
+        //animalPic.src = `./Pictures/${this.species}.jpeg`;
         animalPic.className = 'animalPic';
+        animalPic.id = `${this.species}${this.num}Pic`
         animalDiv.appendChild(animalPic);
         //text instead of pic
         //let animalP = document.createElement('p');
@@ -265,6 +266,8 @@ function buyChimpanzeeFunction() {
         chimpanzeeCount++;
         a.createHtml();
         let chimpanzeeFeedListenerFunction = chimpanzeeFeedSuper(a.num);
+        let tempPic = document.getElementById(`${a.species}${a.num}Pic`)
+        tempPic.src = 'https://lumiere-a.akamaihd.net/v1/images/open-uri20150422-20810-15bnj6w_1851a868.jpeg'
         let chimpanzeeFeed =document.getElementById(`${a.species} ${a.num}`);
         chimpanzeeFeed.addEventListener('click', chimpanzeeFeedListenerFunction);
         chimpanzeeRatio.innerHTML = (`Number of Chimpanzees: ${chimpanzeeCount}/${chimpanzeeHouse.maxHousing}`);
@@ -346,6 +349,8 @@ function buyPenguinFunction() {
         penguinCount++;
         a.createHtml();
         let PenguinFeedListenerFunction = PenguinFeedSuper(a.num);
+        let tempPic = document.getElementById(`${a.species}${a.num}Pic`)
+        tempPic.src = 'https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iKIWgaiJUtss/v2/1000x-1.jpg';
         let penguinFeed =document.getElementById(`${a.species} ${a.num}`);
         penguinFeed.addEventListener('click', PenguinFeedListenerFunction);
         penguinRatio.innerHTML = (`Number of Penguins: ${penguinCount}/${penguinHouse.maxHousing}`);
@@ -428,6 +433,8 @@ function buyTigerFunction() {
         tigerCount++;
         a.createHtml();
         let tigerFeedListenerFunction = tigerFeedSuper(a.num);
+        let tempPic = document.getElementById(`${a.species}${a.num}Pic`)
+        tempPic.src = 'https://moffitt.org/media/13049/malayan-tiger-1440.jpg?center=0.36923076923076925,0.33275563258232238&mode=crop&width=375&height=340&rnd=132465452190000000';
         let tigerFeed =document.getElementById(`${a.species} ${a.num}`);
         tigerFeed.addEventListener('click', tigerFeedListenerFunction);
         tigerRatio.innerHTML = (`Number of Tigers: ${tigerCount}/${tigerHouse.maxHousing}`);
