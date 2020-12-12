@@ -70,20 +70,19 @@ class Animal {
     createHtml () {
         let animalDiv = document.createElement('div');
         animalDiv.id = `${this.species} ${this.num} div`;
-        let animalFoodDiv = document.getElementById(`${this.species}Food`);
         animalFoodDiv.appendChild(animalDiv);
         animalDiv.className = 'animalObject'
         //pic instead of text
-        let animalPic = document.createElement('img');
-        animalPic.src = `./Pictures/${this.species}.jpeg`;
-        animalPic.className = 'animalPic';
-        animalDiv.appendChild(animalPic);
+        //let animalPic = document.createElement('img');
+        //animalPic.src = './Pictures/${this.species}.jpeg';
+        //animalPic.className = 'animalPic';
+        //animalDiv.appendChild(animalPic);
         //image source: https://lumiere-a.akamaihd.net/v1/images/open-uri20150422-20810-15bnj6w_1851a868.jpeg
         //text instead of pic
-        //let animalP = document.createElement('p');
-        //animalP.innerHTML = `${this.species} ${this.num}`;
-        //animalP.className = `$animalObjectName`;
-        //animalDiv.appendChild(animalP);
+        let animalP = document.createElement('p');
+        animalP.innerHTML = `${this.species} ${this.num}`;
+        animalP.className = `$animalObjectName`;
+        animalDiv.appendChild(animalP);
         let animalFood = document.createElement('p');
         animalFood.innerHTML = `${this.food.currentFill}/${this.food.maxFill}`;
         animalFood.id = `${this.species} ${this.num} food`;
@@ -96,6 +95,21 @@ class Animal {
         animalFeed.className = 'animalFeedButton';
         animalDiv.appendChild(animalFeed);
     
+    }
+}
+class Chimpanzee extends Animal {
+    constructor(num) {
+        super(num);
+        this.species = 'chimpanzee';
+        this.name = `${this.species} ${this.num}`
+        this.cost = 200;
+        this.food = {
+            maxFill: 100,
+            currentFill: 50,
+            fillDecreasePerHour: 1,
+            fillIncreasePerFeed: 20,
+            foodConsumed: 1,
+        }
     }
 }
 
@@ -170,27 +184,6 @@ class House {
 }
 
 
-//animal specific section
-
-//chimpanzee
-
-class Chimpanzee extends Animal {
-    constructor(num) {
-        super(num);
-        this.species = 'chimpanzee';
-        this.name = `${this.species} ${this.num}`
-        this.cost = 200;
-        this.food = {
-            maxFill: 100,
-            currentFill: 50,
-            fillDecreasePerHour: 1,
-            fillIncreasePerFeed: 20,
-            foodConsumed: 1,
-        }
-    }
-}
-
-
 class ChimpanzeeHouse extends House {
     constructor(name) {
         super(name);
@@ -210,6 +203,11 @@ class ChimpanzeeHouse extends House {
 }
 
 
+
+
+
+
+//animal functions
 let chimpanzeeHouse = new ChimpanzeeHouse('Chimpanzee House');
 
 buyChimpanzeeHousingButton.value = `Expand Housing: $${(chimpanzeeHouse.expansionLevel+1) * chimpanzeeHouse.expansionInterval}`;
@@ -240,7 +238,6 @@ function buyChimpanzeeFunction() {
         chimpanzeeCount++;
         a.createHtml();
         let chimpanzeeFeedListenerFunction = chimpanzeeFeedSuper(a.num);
-        let chimpanzeeFeed =document.getElementById(`animal ${a.num}`);
         chimpanzeeFeed.addEventListener('click', chimpanzeeFeedListenerFunction);
         chimpanzeeRatio.innerHTML = (`Number of Chimpanzees: ${chimpanzeeCount}/${chimpanzeeHouse.maxHousing}`);
         moneyCount -= a.cost;
