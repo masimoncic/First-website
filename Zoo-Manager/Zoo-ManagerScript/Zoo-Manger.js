@@ -321,7 +321,7 @@ class Penguin extends Animal {
         this.food = {
             maxFill: 100,
             currentFill: 50,
-            fillDecreasePerHour: 8,
+            fillDecreasePerHour: 6,
             fillIncreasePerFeed: 80,
             foodConsumed: 1,
         }
@@ -405,7 +405,7 @@ class Tiger extends Animal {
         this.food = {
             maxFill: 100,
             currentFill: 80,
-            fillDecreasePerHour: 6,
+            fillDecreasePerHour: 5,
             fillIncreasePerFeed: 30,
             foodConsumed: 10,
         }
@@ -572,7 +572,7 @@ class Alligator extends Animal {
         this.food = {
             maxFill: 100,
             currentFill: 80,
-            fillDecreasePerHour: 10,
+            fillDecreasePerHour: 8,
             fillIncreasePerFeed: 25,
             foodConsumed: 4,
         }
@@ -656,9 +656,9 @@ class Elephant extends Animal {
         this.food = {
             maxFill: 100,
             currentFill: 50,
-            fillDecreasePerHour: 10,
-            fillIncreasePerFeed: 20,
-            foodConsumed: 10,
+            fillDecreasePerHour: 5,
+            fillIncreasePerFeed: 25,
+            foodConsumed: 20,
         }
     }
 }
@@ -770,7 +770,7 @@ function clockTick() {
             ampm = 'am';
             gameDayValue += 1;
             gameDay.innerHTML = `Day ${gameDayValue}`;
-            buy10FoodCost = Math.floor(buy10FoodCost * 1.30 * Math.pow(1.01, gameDayValue-1));
+            buy10FoodCost = Math.floor(buy10FoodCost * 1.25 * Math.pow(1.01, gameDayValue-1));
             buy100FoodCost = buy10FoodCost * 10;
             buy10FoodButton.value = `Buy 10 Food $${buy10FoodCost}`
             buy100FoodButton.value = `Buy 100 Food $${buy100FoodCost}`
@@ -854,7 +854,7 @@ function hourTick() {
 function startGame() {
     start.removeEventListener('click', startGame);
     buyChimpanzeeFunction();
-    setInterval(hourTick, 4000);
+    setInterval(hourTick, 5000);
 
 }
 
