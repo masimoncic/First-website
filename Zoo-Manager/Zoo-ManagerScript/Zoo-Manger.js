@@ -407,7 +407,7 @@ class Tiger extends Animal {
         this.food = {
             maxFill: 100,
             currentFill: 50,
-            fillDecreasePerHour: 6,
+            fillDecreasePerHour: 5,
             fillIncreasePerFeed: 30,
             foodConsumed: 10,
         }
@@ -424,8 +424,8 @@ class TigerHouse extends House {
         this.expansionHousingIncrease = 4;
         this.baseQualityCost = 5000;
         this.qualityInterval = 5000;
-        this.quantityPoints = 180;
-        this.baseQuantityPoints = 180;
+        this.quantityPoints = 175;
+        this.baseQuantityPoints = 175;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
