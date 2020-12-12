@@ -321,7 +321,7 @@ class Penguin extends Animal {
         this.food = {
             maxFill: 100,
             currentFill: 50,
-            fillDecreasePerHour: 10,
+            fillDecreasePerHour: 8,
             fillIncreasePerFeed: 80,
             foodConsumed: 1,
         }
@@ -405,7 +405,7 @@ class Tiger extends Animal {
         this.food = {
             maxFill: 100,
             currentFill: 80,
-            fillDecreasePerHour: 8,
+            fillDecreasePerHour: 6,
             fillIncreasePerFeed: 30,
             foodConsumed: 10,
         }
@@ -489,7 +489,7 @@ class Panda extends Animal {
         this.food = {
             maxFill: 100,
             currentFill: 50,
-            fillDecreasePerHour: 6,
+            fillDecreasePerHour: 4,
             fillIncreasePerFeed: 40,
             foodConsumed: 2,
         }
@@ -572,7 +572,7 @@ class Alligator extends Animal {
         this.food = {
             maxFill: 100,
             currentFill: 80,
-            fillDecreasePerHour: 12,
+            fillDecreasePerHour: 10,
             fillIncreasePerFeed: 25,
             foodConsumed: 4,
         }
@@ -656,7 +656,7 @@ class Elephant extends Animal {
         this.food = {
             maxFill: 100,
             currentFill: 50,
-            fillDecreasePerHour: 10,
+            fillDecreasePerHour: 8,
             fillIncreasePerFeed: 20,
             foodConsumed: 10,
         }
