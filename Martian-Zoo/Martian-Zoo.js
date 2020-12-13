@@ -215,9 +215,9 @@ class House {
             if (moneyCount >= this.baseQualityCost) {
                 moneyCount -= this.baseQualityCost;
                 money.innerHTML = `Money: $${moneyCount}`;
-                varietyPoints += 0.05;
+                varietyPoints += 0.03;
                 this.qualityLevel ++;
-                this.quantityPoints = (this.baseQuantityPoints * (1 + (0.3 * this.qualityLevel)));
+                this.quantityPoints = (this.baseQuantityPoints * (1 + (0.2 * this.qualityLevel)));
             } 
 
         }
@@ -225,9 +225,9 @@ class House {
             if (moneyCount >= (this.qualityLevel+1) * this.qualityInterval) {
                 moneyCount -= (this.qualityLevel+1) * this.qualityInterval;
                 money.innerHTML = `Money: $${moneyCount}`;
-                varietyPoints += 0.05
+                varietyPoints += 0.03
                 this.qualityLevel ++;
-                this.quantityPoints = (this.baseQuantityPoints * (1 + (0.3 * this.qualityLevel)));
+                this.quantityPoints = (this.baseQuantityPoints * (1 + (0.2 * this.qualityLevel)));
             } 
 
         }
