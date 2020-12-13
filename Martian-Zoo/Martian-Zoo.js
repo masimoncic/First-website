@@ -280,7 +280,7 @@ class Chimpanzee extends Animal {
             maxFill: 100,
             currentFill: 100,
             fillDecreasePerHour: 10 + (2*difficultyLevel),
-            fillIncreasePerFeed: 20,
+            fillIncreasePerFeed: 40,
             foodConsumed: 2,
         }
     }
@@ -379,8 +379,8 @@ class PenguinHouse extends House {
     constructor(name) {
         super(name);
         this.animalCost = 500;
-        this.initialCost = 3000;
-        this.expansionInterval = 6000;
+        this.initialCost = 2000;
+        this.expansionInterval = 4000;
         this.expansionHousingIncrease = 2;
         this.baseQualityCost = 10000;
         this.qualityInterval = 10000;
@@ -469,8 +469,8 @@ class TigerHouse extends House {
         this.expansionHousingIncrease = 4;
         this.baseQualityCost = 10000;
         this.qualityInterval = 10000;
-        this.quantityPoints = 180;
-        this.baseQuantityPoints = 180;
+        this.quantityPoints = 185;
+        this.baseQuantityPoints = 185;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
@@ -554,8 +554,8 @@ class PandaHouse extends House {
         this.expansionHousingIncrease = 2;
         this.baseQualityCost = 25000;
         this.qualityInterval = 25000;
-        this.quantityPoints = 700;
-        this.baseQuantityPoints = 700;
+        this.quantityPoints = 800;
+        this.baseQuantityPoints = 800;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
@@ -636,10 +636,10 @@ class AlligatorHouse extends House {
         this.initialCost = 8000;
         this.expansionInterval = 8000;
         this.expansionHousingIncrease = 3;
-        this.baseQualityCost = 16000;
-        this.qualityInterval = 16000;
-        this.quantityPoints = 300;
-        this.baseQuantityPoints = 300;
+        this.baseQualityCost = 20000;
+        this.qualityInterval = 20000;
+        this.quantityPoints = 350;
+        this.baseQuantityPoints = 350;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
@@ -721,10 +721,10 @@ class ElephantHouse extends House {
         this.initialCost = 100000;
         this.expansionInterval = 50000;
         this.expansionHousingIncrease = 2;
-        this.baseQualityCost = 40000;
-        this.qualityInterval = 40000;
-        this.quantityPoints = 2500;
-        this.baseQuantityPoints = 2500;
+        this.baseQualityCost = 50000;
+        this.qualityInterval = 50000;
+        this.quantityPoints = 3000;
+        this.baseQuantityPoints = 3000;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
