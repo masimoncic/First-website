@@ -31,7 +31,7 @@ p{
     width:  .35em;
 }
 .animalFoodMeter {
-    height: .35em;
+    height: .30em;
 }
 .animalFeedButton{
     width: 80%;
@@ -52,4 +52,9 @@ p{
 #formSpace{
     display:inline-block;
     width: 2em;
+}
+
+#martian1Pic{
+    height: 6em;
+    width: 6em;
 }
