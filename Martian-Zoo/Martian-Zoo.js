@@ -18,8 +18,8 @@ const start = document.getElementById('start');
 let gameDayValue = 1
 let gameHour = 7;
 let ampm = 'am';
-let buy5FoodCost = 600
-let buy50FoodCost = 6000
+let buy5FoodCost = 700
+let buy50FoodCost = 7000
 let income = 0;
 let moneyCount = 200;
 let foodCount = 10;
@@ -469,8 +469,8 @@ class TigerHouse extends House {
         this.expansionHousingIncrease = 4;
         this.baseQualityCost = 10000;
         this.qualityInterval = 10000;
-        this.quantityPoints = 175;
-        this.baseQuantityPoints = 175;
+        this.quantityPoints = 180;
+        this.baseQuantityPoints = 180;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
@@ -633,8 +633,8 @@ class AlligatorHouse extends House {
     constructor(name) {
         super(name);
         this.animalCost = 6000;
-        this.initialCost = 10000;
-        this.expansionInterval = 10000;
+        this.initialCost = 8000;
+        this.expansionInterval = 8000;
         this.expansionHousingIncrease = 3;
         this.baseQualityCost = 16000;
         this.qualityInterval = 16000;
@@ -821,7 +821,7 @@ function clockTick() {
             ampm = 'am';
             gameDayValue += 1;
             gameDay.innerHTML = `Day ${gameDayValue}`;
-            buy5FoodCost = Math.floor(buy5FoodCost * 1 * Math.pow(1.12, gameDayValue));
+            buy5FoodCost = Math.floor(buy5FoodCost * 1 * Math.pow(1.115, gameDayValue));
             buy50FoodCost = buy5FoodCost * 10;
             buy5FoodButton.value = `Buy 5 Food $${buy5FoodCost}`;
             buy50FoodButton.value = `Buy 50 Food $${buy50FoodCost}`;
