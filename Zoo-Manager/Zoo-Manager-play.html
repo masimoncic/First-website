@@ -6,159 +6,171 @@
 
 
     <body>
-            <div class='flex'>
-                <form>
-                    <label for="difficulty" id='diffLabel'>Difficulty: </label>
-                    <select id="difficulty" name="difficulty">
-                        <option value="easy">Easy</option>
-                        <option value="hard">Hard</option>
-                    </select>
-                </form>
-                <p class='formSpace'>
 
-                </p>
-                <form>
-                    <label for='gameSpeed'>Game Speed:</label>
-                    <select id='gameSpeed' name='gameSpeed'>
-                        <option value='slow'>Slow</option>
-                        <option value='medium'>Medium</option>
-                        <option value ='fast'>Fast</option>
-                        <option value='veryFast'>Very Fast</option>
-                    </select>
-                </form>
-                <p class='formSpace'></p>
-                <input id='start' type='submit' value='Start'>
-            </div>
+
+        <div id='main'>
+                <div class='flex'>
+                    <form>
+                        <label for="difficulty" id='diffLabel'>Difficulty: </label>
+                        <select id="difficulty" name="difficulty">
+                            <option value="easy">Easy</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                    </form>
+                    <p class='formSpace'>
+
+                    </p>
+                    <form>
+                        <label for='gameSpeed'>Game Speed:</label>
+                        <select id='gameSpeed' name='gameSpeed'>
+                            <option value='slow'>Slow</option>
+                            <option value='medium'>Medium</option>
+                            <option value ='fast'>Fast</option>
+                            <option value='veryFast'>Very Fast</option>
+                        </select>
+                    </form>
+                    <p class='formSpace'></p>
+                    <input id='start' type='submit' value='Start'>
+                </div>
+                
+                <div>
+                    <p id='money' class='moneyUI'>Money: $0</p>
+                    <p id='nextIncome' class='moneyUI'>Next Income: $0</p> 
+                    <p id='gameClock' class='timeUI'>7:00 a.m.</p>
+                    <p id='gameDay' class='timeUI'>Day 1</p>
+                </div>
             
-            <div>
-                <p id='money' class='moneyUI'>Money: $0</p>
-                <p id='nextIncome' class='moneyUI'>Next Income: $0</p> 
-                <p id='gameClock' class='timeUI'>7:00 a.m.</p>
-                <p id='gameDay' class='timeUI'>Day 1</p>
-    </div>
-        
 
-        <div id='animalHouses'>
-            <div id="chimpanzeeHouse">
-                <p class='ratio' id='chimpanzeeRatio'>Number of Chimpanzees: 0/4</p>
-                <div id= chimpanzeeBackground>
-                    <br>
-                    <input id='buyChimpanzee' type='submit' value='Buy Chimpanzee: $50'><br><br><br>
-                    <input id='buyChimpanzeeHousing' type='submit' value='Expand Housing: $500'>
-                    <br><br><br>
-                    <input id='buyChimpanzeeQuality' type='submit' value='Upgrade quality: $0'><br><br>
+            <div id='animalHouses'>
+                <div id="chimpanzeeHouse">
+                    <p class='ratio' id='chimpanzeeRatio'>Number of Chimpanzees: 0/4</p>
+                    <div id= chimpanzeeBackground>
+                        <br>
+                        <input id='buyChimpanzee' type='submit' value='Buy Chimpanzee: $50'><br><br><br>
+                        <input id='buyChimpanzeeHousing' type='submit' value='Expand Housing: $500'>
+                        <br><br><br>
+                        <input id='buyChimpanzeeQuality' type='submit' value='Upgrade quality: $0'><br><br>
+                    </div>
+                        <p id='chimpanzeeQuality' class='qualityC'>Housing quality: 0</p>
                 </div>
-                    <p id='chimpanzeeQuality' class='qualityC'>Housing quality: 0</p>
+
+                <div id='tigerHouse'>
+                    <p class='ratio' id='tigerRatio'>Number of Tigers 0/0 </p>
+                    <div id='tigerBackground'>
+                        <br>
+                        <input id='buyTiger' type='submit' value = 'Buy Tiger: 1000$'><br><br><br>
+                        <input id = 'buyTigerHousing' type='submit' value='Expand Housing: $500'><br><br><br>
+                        <input id='buyTigerQuality' type='submit' value='Upgrade Quality: $5000'><br><br>
+                    </div>
+                    <p id ='tigerQuality' class='qualityC'>Housing quality: 0</p>
+                </div>
+
+                <div id='penguinHouse'>
+                    <p class='ratio' id='penguinRatio'>Number of Penguins 0/0 </p>
+                    <div id='penguinBackground'>
+                        <br>
+                        <input id='buyPenguin' type='submit' value = 'Buy Penguin: 1000$'><br><br><br>
+                        <input id = 'buyPenguinHousing' type='submit' value='Expand Housing: $1000'><br><br><br>
+                        <input id='buyPenguinQuality' type='submit' value='Upgrade Quality: $7000'><br><br>
+                    </div>
+                    <p id ='penguinQuality' class='qualityC'>Housing quality: 0</p>
+                </div>
+
+
+
+                <div id='alligatorHouse'>
+                    <p class='ratio' id='alligatorRatio'>Number of Alligators 0/0 </p>
+                    <div id='alligatorBackground'>
+                        <br>
+                        <input id='buyAlligator' type='submit' value = 'Buy Alligator: 8000$'><br><br><br>
+                        <input id = 'buyAlligatorHousing' type='submit' value='Expand Housing: $10000'><br><br><br>
+                        <input id='buyAlligatorQuality' type='submit' value='Upgrade Quality: $5000'><br><br>
+                    </div>
+                    <p id ='alligatorQuality' class='qualityC'>Housing quality: 0</p>
+                </div>
+
+                <div id='pandaHouse'>
+                    <p class='ratio' id='pandaRatio'>Number of Pandas 0/0 </p>
+                    <div id='pandaBackground'>
+                        <br>
+                        <input id='buyPanda' type='submit' value = 'Buy Panda: 30000$'><br><br><br>
+                        <input id = 'buyPandaHousing' type='submit' value='Expand Housing: $5000'><br><br><br>
+                        <input id='buyPandaQuality' type='submit' value='Upgrade Quality: $10000'><br><br>
+                    </div>
+                    <p id ='pandaQuality' class='qualityC'>Housing quality: 0</p>
+                </div>
+
+            
+                <div id='elephantHouse'>
+                    <p class='ratio' id='elephantRatio'>Number of Elephants 0/0 </p>
+                    <div id='elephantBackground'>
+                        <br>
+                        <input id='buyElephant' type='submit' value = 'Buy Elephant: 50000$'><br><br><br>
+                        <input id = 'buyElephantHousing' type='submit' value='Expand Housing: $100000'>  <br><br><br>  
+                        <input id='buyElephantQuality' type='submit' value='Upgrade Quality: $5000'><br><br>
+                    </div>
+                    <p id ='elephantQuality' class='qualityC'>Housing quality: 0</p>
+                </div>
+
+
+
             </div>
 
-            <div id='tigerHouse'>
-                <p class='ratio' id='tigerRatio'>Number of Tigers 0/0 </p>
-                <div id='tigerBackground'>
-                    <br>
-                    <input id='buyTiger' type='submit' value = 'Buy Tiger: 1000$'><br><br><br>
-                    <input id = 'buyTigerHousing' type='submit' value='Expand Housing: $500'><br><br><br>
-                    <input id='buyTigerQuality' type='submit' value='Upgrade Quality: $5000'><br><br>
+
+
+            <br>
+            <div class="flex">
+                <p id='currentFood'>Food: 10</p>
+                <input class='foodUiButton' id='buy5FoodButton' type='submit' value='Buy 5 Food: $500'>
+                <input class='foodUiButton' id='buy50FoodButton' type='submit' value='Buy 50 Food: $5000'>
+
+
+
+
+            </div>
+            <br>
+
+
+            <div id='martianFood' class='animalFood'>
+                <div id='martian1' class='animalObject'>
+                    <img id='martian1Pic' class='animalPic' src='https://i.pinimg.com/originals/ea/ec/05/eaec05c2b8274f2a5f9fe950d6d7baa6.jpg'>
+                    <p id='martian 1 food' class='animalFoodMeter'>100/100</p>
+                    <input type='submit' value='Feed 5' id='martian 1' class='animalFeedButton'>
                 </div>
-                <p id ='tigerQuality' class='qualityC'>Housing quality: 0</p>
+
+
             </div>
 
-            <div id='penguinHouse'>
-                <p class='ratio' id='penguinRatio'>Number of Penguins 0/0 </p>
-                <div id='penguinBackground'>
-                    <br>
-                    <input id='buyPenguin' type='submit' value = 'Buy Penguin: 1000$'><br><br><br>
-                    <input id = 'buyPenguinHousing' type='submit' value='Expand Housing: $1000'><br><br><br>
-                    <input id='buyPenguinQuality' type='submit' value='Upgrade Quality: $7000'><br><br>
-                </div>
-                <p id ='penguinQuality' class='qualityC'>Housing quality: 0</p>
-            </div>
+            <div id='elephantFood' class='animalFood'></div>
+
+            <div id='pandaFood' class='animalFood'></div>
+
+            <div id='alligatorFood' class='animalFood'></div>
+
+            <div id='penguinFood' class='animalFood'></div>
+
+            <div id='tigerFood' class='animalFood'></div>
+
+            <div id='chimpanzeeFood' class='animalFood'></div>
 
 
 
-            <div id='alligatorHouse'>
-                <p class='ratio' id='alligatorRatio'>Number of Alligators 0/0 </p>
-                <div id='alligatorBackground'>
-                    <br>
-                    <input id='buyAlligator' type='submit' value = 'Buy Alligator: 8000$'><br><br><br>
-                    <input id = 'buyAlligatorHousing' type='submit' value='Expand Housing: $10000'><br><br><br>
-                    <input id='buyAlligatorQuality' type='submit' value='Upgrade Quality: $5000'><br><br>
-                </div>
-                <p id ='alligatorQuality' class='qualityC'>Housing quality: 0</p>
-            </div>
 
-            <div id='pandaHouse'>
-                <p class='ratio' id='pandaRatio'>Number of Pandas 0/0 </p>
-                <div id='pandaBackground'>
-                    <br>
-                    <input id='buyPanda' type='submit' value = 'Buy Panda: 30000$'><br><br><br>
-                    <input id = 'buyPandaHousing' type='submit' value='Expand Housing: $5000'><br><br><br>
-                    <input id='buyPandaQuality' type='submit' value='Upgrade Quality: $10000'><br><br>
-                </div>
-                <p id ='pandaQuality' class='qualityC'>Housing quality: 0</p>
-            </div>
 
-           
-            <div id='elephantHouse'>
-                <p class='ratio' id='elephantRatio'>Number of Elephants 0/0 </p>
-                <div id='elephantBackground'>
-                    <br>
-                    <input id='buyElephant' type='submit' value = 'Buy Elephant: 50000$'><br><br><br>
-                    <input id = 'buyElephantHousing' type='submit' value='Expand Housing: $100000'>  <br><br><br>  
-                    <input id='buyElephantQuality' type='submit' value='Upgrade Quality: $5000'><br><br>
-                </div>
-                <p id ='elephantQuality' class='qualityC'>Housing quality: 0</p>
-            </div>
+
 
 
 
         </div>
 
-
-
-        <br>
-        <div class="flex">
-            <p id='currentFood'>Food: 10</p>
-            <input class='foodUiButton' id='buy5FoodButton' type='submit' value='Buy 5 Food: $500'>
-            <input class='foodUiButton' id='buy50FoodButton' type='submit' value='Buy 50 Food: $5000'>
-
-
-
-
-        </div>
-        <br>
-
-
-        <div id='martianFood' class='animalFood'>
-            <div id='martian1' class='animalObject'>
-                <img id='martian1Pic' class='animalPic' src='https://i.pinimg.com/originals/ea/ec/05/eaec05c2b8274f2a5f9fe950d6d7baa6.jpg'>
-                <p id='martian 1 food' class='animalFoodMeter'>100/100</p>
-                <input type='submit' value='Feed 5' id='martian 1' class='animalFeedButton'>
-            </div>
-
-
+        <div id='gameOver'>
+            <h1>The Martian Died</h1>
+            <h1>Game Over</h1>
         </div>
 
-        <div id='elephantFood' class='animalFood'></div>
-
-        <div id='pandaFood' class='animalFood'></div>
-
-        <div id='alligatorFood' class='animalFood'></div>
-
-        <div id='penguinFood' class='animalFood'></div>
-
-        <div id='tigerFood' class='animalFood'></div>
-
-        <div id='chimpanzeeFood' class='animalFood'></div>
-
-
-
-
-
-
-
-
-
-
+        <div id='victoryScreen'>
+            <h1>You Win!</h1>
+        </div>
 
         <script src='./Zoo-ManagerScript/Zoo-Manger.js'></script>
     </body>

@@ -110,3 +110,15 @@ p{
     background-image: url(https://greenglobaltravel.com/wp-content/uploads/Tarangire-Elephants-e1470843044830.jpg);
     background-size: 100%;
 }
+
+#gameOver{
+    text-align: center;
+    visibility: hidden;
+    font-size: 50px;
+}
+
+#victoryScreen {
+    visibility: hidden;
+    text-align: center;
+    font-size: 50px;
+}

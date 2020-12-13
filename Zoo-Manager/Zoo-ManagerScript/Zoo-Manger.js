@@ -6,6 +6,9 @@ const buy100FoodButton = document.getElementById('buy100FoodButton');
 const money = document.getElementById('money');
 const nextIncome = document.getElementById('nextIncome');
 const currentFood = document.getElementById('currentFood');
+const mainDiv = document.getElementById('main');
+const gameOver = document.getElementById('gameOver');
+const victoryScreen = document.getElementById('victoryScreen');
 const difficulty = document.getElementById('difficulty'); 
 const gameSpeed = document.getElementById('gameSpeed')
 const start = document.getElementById('start');
@@ -246,7 +249,7 @@ class Martian extends Animal {
         this.food = {
             maxFill: 100,
             currentFill: 100,
-            fillDecreasePerHour: 8 + (3* difficultyLevel),
+            fillDecreasePerHour: 5,
             fillIncreasePerFeed: 20,
             foodConsumed: 5,
 
@@ -864,6 +867,11 @@ function clockTick() {
                 martian.food.fillDecreasePerHour = 15 + (7 * difficultyLevel);
                 martianFeed.value = `Feed ${martian.food.foodConsumed}`;
             }
+            if (gameDayValue === 10) {
+                mainDiv.style.display = 'none';
+                victoryScreen.style.visibility = 'visible';
+                martian.food.fillDecreasePerHour = 0;
+            }
 
         }
     } else if (gameHour === 12) {
@@ -894,13 +902,19 @@ function updateIncome() {
 function hungerAll() {
     allAnimals.forEach(animal => animal.hungerTick());
 }
-
+function checkMartian() {
+    if (martian.alive === 0) {
+        mainDiv.style.display = 'none';
+        gameOver.style.visibility = 'visible';
+    }
+}
 
 function hourTick() {
     clockTick();
     receiveIncome();
     updateIncome();
     hungerAll();
+    checkMartian();
 }
 
 
