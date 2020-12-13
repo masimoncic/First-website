@@ -379,8 +379,8 @@ class PenguinHouse extends House {
     constructor(name) {
         super(name);
         this.animalCost = 500;
-        this.initialCost = 5000;
-        this.expansionInterval = 5000;
+        this.initialCost = 4000;
+        this.expansionInterval = 4000;
         this.expansionHousingIncrease = 2;
         this.baseQualityCost = 12000;
         this.qualityInterval = 12000;
