@@ -1,11 +1,13 @@
 body {
     background-image: url(https://nssdc.gsfc.nasa.gov/planetary/image/mera_hills.jpg);
-    background-size: 200%;
+    background-size: 250%;
 }
 
 p{
     display: block;
     background-color: white;
+    padding:.1em .5em;
+    margin:.3em;
 }
 .timeUI {
     display: inline-block;
@@ -31,22 +33,24 @@ p{
 }
 
 .animalPic{
-    height: 3em;
-    width: 3em;
+    height: 3.4em;
+    width: 3.9em;
     display: block;
-    margin: 0px;
+    margin: .1em .3em 0em 0em;
 }
 .animalObjectName {
 
 }
 .animalFoodMeter {
-
+    padding: 0em;
+    margin: 0em .3em 0em 0em;
+    width: 3.9em;
 }
 #currentFood{
     width: 7em;
 }
 .animalFeedButton{
-    width: 80%;
+    width: 4.8em;
     height: 1.5em;
 }
 
@@ -55,20 +59,27 @@ p{
 }
 
 .ratio {
-    width: 20em;
+    width: 16em;
+    margin: 0em;
 }
-
-#radio{
+.qualityC{
+    margin:0em;
+}
+.foodUiButton{
+    height: 2em;
+}
+.flex{
     display: flex;
 }
 .formSpace{
     display:inline-block;
     width: 2em;
+    background-color: transparent;
 }
 
 #martian1Pic{
-    height: 8em;
-    width: 12em;
+    height: 7em;
+    width: 10.5em;
 }
 
 #chimpanzeeBackground {

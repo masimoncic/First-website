@@ -925,7 +925,7 @@ function speedInt() {
         return 5000;
     }
     if (gameSpeed.value === 'veryFast') {
-        return 3000;
+        return 2000;
     }
 }
 function startGame() {
