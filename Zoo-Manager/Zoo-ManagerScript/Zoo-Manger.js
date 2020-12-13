@@ -14,10 +14,10 @@ const start = document.getElementById('start');
 let gameDayValue = 1
 let gameHour = 7;
 let ampm = 'am';
-let buy5FoodCost = 500
-let buy50FoodCost = 5000
+let buy5FoodCost = 600
+let buy50FoodCost = 6000
 let income = 0;
-let moneyCount = 1550;
+let moneyCount = 50;
 let foodCount = 10;
 let quantityPoints = 0;
 let varietyPoints = 1.0;
@@ -27,6 +27,9 @@ let deadContainer = [];
 let difficultyLevel = -1;
 
 //animal specific variables
+const martianFoodDiv = document.getElementById('martianFood');
+
+
 const buyChimpanzeeButton = document.getElementById('buyChimpanzee');
 const buyChimpanzeeHousingButton = document.getElementById('buyChimpanzeeHousing');
 const buyChimpanzeeQualityButton = document.getElementById('buyChimpanzeeQuality');
@@ -116,13 +119,15 @@ class Animal {
     }
     feed() {
         if (foodCount >= this.food.foodConsumed) {
-            let foodId = document.getElementById(`${this.species} ${this.num} food`)
-            let fillRatio = 2 - (this.food.currentFill/this.food.maxFill);
-            let fillCount = Math.floor(fillRatio * this.food.fillIncreasePerFeed)
-            this.food.currentFill = Math.min(this.food.currentFill + fillCount, 100);
-            foodCount -= this.food.foodConsumed;
-            foodId.innerHTML = `${this.food.currentFill}/${this.food.maxFill}`
-            currentFood.innerHTML = foodCount;
+            if (this.alive === 1) {
+                let foodId = document.getElementById(`${this.species} ${this.num} food`)
+                let fillRatio = 2 - (this.food.currentFill/this.food.maxFill);
+                let fillCount = Math.floor(fillRatio * this.food.fillIncreasePerFeed)
+                this.food.currentFill = Math.min(this.food.currentFill + fillCount, 100);
+                foodCount -= this.food.foodConsumed;
+                foodId.innerHTML = `${this.food.currentFill}/${this.food.maxFill}`
+                currentFood.innerHTML = foodCount;
+            }
         }
     }
     createHtml () {
@@ -145,7 +150,7 @@ class Animal {
         let animalFood = document.createElement('p');
         animalFood.innerHTML = `${this.food.currentFill}/${this.food.maxFill}`;
         animalFood.id = `${this.species} ${this.num} food`;
-        animalFood.className = `$animalFoodMeter`
+        animalFood.className = `animalFoodMeter`
         animalDiv.appendChild(animalFood);
         let animalFeed = document.createElement('input');
         animalFeed.type='submit';
@@ -208,7 +213,7 @@ class House {
                 money.innerHTML = `Money: $${moneyCount}`;
                 varietyPoints += 0.05;
                 this.qualityLevel ++;
-                this.quantityPoints = (this.baseQuantityPoints * (1 + (0.25 * this.qualityLevel)));
+                this.quantityPoints = (this.baseQuantityPoints * (1 + (0.3 * this.qualityLevel)));
             } 
 
         }
@@ -218,7 +223,7 @@ class House {
                 money.innerHTML = `Money: $${moneyCount}`;
                 varietyPoints += 0.05
                 this.qualityLevel ++;
-                this.quantityPoints = (this.baseQuantityPoints * (1 + (0.25 * this.qualityLevel)));
+                this.quantityPoints = (this.baseQuantityPoints * (1 + (0.3 * this.qualityLevel)));
             } 
 
         }
@@ -231,6 +236,36 @@ class House {
 
 //chimpanzee
 
+class Martian extends Animal {
+    constructor(num) {
+        super(num);
+        this.alive = 1;
+        this.species = 'martian';
+        this.name = 'martian 1';
+        this.food = {
+            maxFill: 100,
+            currentFill: 100,
+            fillDecreasePerHour: 8 + (3* difficultyLevel),
+            fillIncreasePerFeed: 20,
+            foodConsumed: 5,
+
+        }
+    }
+}
+
+let martian = new Martian(1);
+let martianQuantityPoints= 300;
+allAnimals.push(martian);
+function martianFeedListener() {
+    martian.feed();
+}
+let martianFeed = document.getElementById('martian 1');
+martianFeed.addEventListener('click', martianFeedListener);
+
+//chimpanzees
+
+
+
 class Chimpanzee extends Animal {
     constructor(num) {
         super(num);
@@ -242,7 +277,7 @@ class Chimpanzee extends Animal {
             currentFill: 100,
             fillDecreasePerHour: 6 + (2*difficultyLevel),
             fillIncreasePerFeed: 20,
-            foodConsumed: 1,
+            foodConsumed: 2,
         }
     }
 }
@@ -253,12 +288,12 @@ class ChimpanzeeHouse extends House {
         super(name);
         this.animalCost = 50
         this.initialCost = 500;
-        this.expansionInterval = 250;
+        this.expansionInterval = 500;
         this.expansionHousingIncrease = 4;
         this.baseQualityCost = 5000;
         this.qualityInterval = 5000;
-        this.quantityPoints = 40;
-        this.baseQuantityPoints=40;
+        this.quantityPoints = 60;
+        this.baseQuantityPoints=60;
         this.maxHousing = 4;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 1;
@@ -268,6 +303,10 @@ class ChimpanzeeHouse extends House {
 }
 
 
+
+
+
+//chimpanzees
 let chimpanzeeHouse = new ChimpanzeeHouse('Chimpanzee House');
 
 buyChimpanzeeHousingButton.value = `Expand Housing: $${(chimpanzeeHouse.expansionLevel+1) * chimpanzeeHouse.expansionInterval}`;
@@ -335,14 +374,14 @@ class Penguin extends Animal {
 class PenguinHouse extends House {
     constructor(name) {
         super(name);
-        this.animalCost = 500;
-        this.initialCost = 1000;
-        this.expansionInterval = 2000;
+        this.animalCost = 1000;
+        this.initialCost = 1500;
+        this.expansionInterval = 1500;
         this.expansionHousingIncrease = 2;
         this.baseQualityCost = 8000;
         this.qualityInterval = 8000;
-        this.quantityPoints = 75;
-        this.baseQuantityPoints = 75;
+        this.quantityPoints = 90;
+        this.baseQuantityPoints = 90;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
@@ -420,14 +459,14 @@ class Tiger extends Animal {
 class TigerHouse extends House {
     constructor(name) {
         super(name);
-        this.animalCost = 750;
+        this.animalCost = 1000;
         this.initialCost = 500;
         this.expansionInterval = 500;
         this.expansionHousingIncrease = 4;
-        this.baseQualityCost = 5000;
-        this.qualityInterval = 5000;
-        this.quantityPoints = 150;
-        this.baseQuantityPoints = 150;
+        this.baseQualityCost = 10000;
+        this.qualityInterval = 10000;
+        this.quantityPoints = 160;
+        this.baseQuantityPoints = 160;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
@@ -495,7 +534,7 @@ class Panda extends Animal {
             maxFill: 100,
             currentFill: 50,
             fillDecreasePerHour: 4 +(2*difficultyLevel),
-            fillIncreasePerFeed: 40,
+            fillIncreasePerFeed: 30,
             foodConsumed: 2,
         }
     }
@@ -506,13 +545,13 @@ class PandaHouse extends House {
     constructor(name) {
         super(name);
         this.animalCost = 30000;
-        this.initialCost = 10000;
-        this.expansionInterval = 10000;
+        this.initialCost = 25000;
+        this.expansionInterval = 25000;
         this.expansionHousingIncrease = 2;
-        this.baseQualityCost = 15000;
-        this.qualityInterval = 15000;
-        this.quantityPoints = 300;
-        this.baseQuantityPoints = 300;
+        this.baseQualityCost = 30000;
+        this.qualityInterval = 30000;
+        this.quantityPoints = 500;
+        this.baseQuantityPoints = 500;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
@@ -589,14 +628,14 @@ class Alligator extends Animal {
 class AlligatorHouse extends House {
     constructor(name) {
         super(name);
-        this.animalCost = 5000;
-        this.initialCost = 5000;
+        this.animalCost = 8000;
+        this.initialCost = 10000;
         this.expansionInterval = 5000;
         this.expansionHousingIncrease = 3;
-        this.baseQualityCost = 15000;
-        this.qualityInterval = 15000;
-        this.quantityPoints = 240;
-        this.baseQuantityPoints = 240;
+        this.baseQualityCost = 25000;
+        this.qualityInterval = 25000;
+        this.quantityPoints = 280;
+        this.baseQuantityPoints = 280;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
@@ -675,13 +714,13 @@ class ElephantHouse extends House {
     constructor(name) {
         super(name);
         this.animalCost = 50000;
-        this.initialCost = 50000;
+        this.initialCost = 100000;
         this.expansionInterval = 50000;
         this.expansionHousingIncrease = 2;
-        this.baseQualityCost = 30000;
-        this.qualityInterval = 30000;
-        this.quantityPoints = 1500;
-        this.baseQuantityPoints = 1500;
+        this.baseQualityCost = 80000;
+        this.qualityInterval = 80000;
+        this.quantityPoints = 2000;
+        this.baseQuantityPoints = 2000;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
@@ -778,10 +817,12 @@ function clockTick() {
             ampm = 'am';
             gameDayValue += 1;
             gameDay.innerHTML = `Day ${gameDayValue}`;
-            buy5FoodCost = Math.floor(buy5FoodCost * 1.25 * Math.pow(1.04, gameDayValue-1));
+            buy5FoodCost = Math.floor(buy5FoodCost * 1.1 * Math.pow(1.07, gameDayValue-1));
             buy50FoodCost = buy5FoodCost * 10;
-            buy10FoodButton.value = `Buy 5 Food $${buy5FoodCost}`
-            buy100FoodButton.value = `Buy 50 Food $${buy50FoodCost}`
+            buy5FoodButton.value = `Buy 5 Food $${buy5FoodCost}`;
+            buy50FoodButton.value = `Buy 50 Food $${buy50FoodCost}`;
+            martian.food.foodConsumed += 5;
+            martianFeed.value = `Feed ${martian.food.foodConsumed}`;
             allChimpanzees.forEach(element => {
                 if (element.alive === 0) {
                     deadChimpanzeeCount ++;
@@ -818,6 +859,10 @@ function clockTick() {
                     element.alive = 2;
                 }
             })
+            if (gameDayValue === 8) {
+                martian.food.fillDecreasePerHour = 15 + (7 * difficultyLevel);
+                martianFeed.value = `Feed ${martian.food.foodConsumed}`;
+            }
 
         }
     } else if (gameHour === 12) {
@@ -835,7 +880,7 @@ function receiveIncome () {
 }
 
 function updateIncome() {
-    quantityPoints = (chimpanzeeCount - deadChimpanzeeCount) * chimpanzeeHouse.quantityPoints + (penguinCount - deadPenguinCount) * penguinHouse.quantityPoints +
+    quantityPoints = martianQuantityPoints + (chimpanzeeCount - deadChimpanzeeCount) * chimpanzeeHouse.quantityPoints + (penguinCount - deadPenguinCount) * penguinHouse.quantityPoints +
      (tigerCount - deadTigerCount) * tigerHouse.quantityPoints + (pandaCount - deadPandaCount) * pandaHouse.quantityPoints +
      (alligatorCount - deadAlligatorCount) * alligatorHouse.quantityPoints + (elephantCount - deadElephantCount) * elephantHouse.quantityPoints;
     income = Math.floor(quantityPoints * varietyPoints);
@@ -872,6 +917,7 @@ function startGame() {
     start.removeEventListener('click', startGame);
     setDifficulty();
     buyChimpanzeeFunction();
+    updateIncome();
     setInterval(hourTick, 5000);
 
 }
