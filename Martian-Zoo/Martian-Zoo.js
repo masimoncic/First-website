@@ -821,7 +821,7 @@ function clockTick() {
             ampm = 'am';
             gameDayValue += 1;
             gameDay.innerHTML = `Day ${gameDayValue}`;
-            buy5FoodCost = Math.floor(buy5FoodCost * 1 * Math.pow(1.115, gameDayValue));
+            buy5FoodCost = Math.floor(buy5FoodCost * 1 * Math.pow(1.1125, gameDayValue));
             buy50FoodCost = buy5FoodCost * 10;
             buy5FoodButton.value = `Buy 5 Food $${buy5FoodCost}`;
             buy50FoodButton.value = `Buy 50 Food $${buy50FoodCost}`;
