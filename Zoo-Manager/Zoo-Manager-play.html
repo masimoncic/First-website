@@ -6,13 +6,27 @@
 
 
     <body>
-        <form>
-            <label for="difficulty">Difficulty: </label>
-            <select id="difficulty" name="difficulty">
-                <option value="easy">Easy</option>
-                <option value="hard">Hard</option>
-            </select>
-        </form>
+        <div id='radio'>
+            <form>
+                <label for="difficulty" id='diffLabel'>Difficulty: </label>
+                <select id="difficulty" name="difficulty">
+                    <option value="easy">Easy</option>
+                    <option value="hard">Hard</option>
+                </select>
+            </form>
+            <p id='formSpace'>
+                
+            </p>
+            <form>
+                <label for='gameSpeed'>Game Speed:</label>
+                <select id='gameSpeed' name='gameSpeed'>
+                    <option value='slow'>Slow</option>
+                    <option value='medium'>Medium</option>
+                    <option value ='fast'>Fast</option>
+                    <option value='veryFast'>Very Fast</option>
+                </select>
+            </form>
+        </div>
         <input id='start' type='submit' value='Start'>
         <div>
             <p id='money' class='moneyUI'>Money: $0</p>
@@ -61,7 +75,7 @@
                 <p class='ratio' id='pandaRatio'>Number of Pandas 0/0 </p>
                 <input id='buyPanda' type='submit' value = 'Buy Panda: 30000$'><br><br>
                 <input id = 'buyPandaHousing' type='submit' value='Expand Housing: $5000'>
-                <p id ='PandaQuality'>Housing quality: 0</p>
+                <p id ='pandaQuality'>Housing quality: 0</p>
                 <input id='buyPandaQuality' type='submit' value='Upgrade Quality: $10000'>
             </div>
 

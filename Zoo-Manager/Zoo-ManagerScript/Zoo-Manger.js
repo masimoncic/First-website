@@ -7,6 +7,7 @@ const money = document.getElementById('money');
 const nextIncome = document.getElementById('nextIncome');
 const currentFood = document.getElementById('currentFood');
 const difficulty = document.getElementById('difficulty'); 
+const gameSpeed = document.getElementById('gameSpeed')
 const start = document.getElementById('start');
 
 
@@ -463,8 +464,8 @@ class TigerHouse extends House {
         this.initialCost = 500;
         this.expansionInterval = 500;
         this.expansionHousingIncrease = 4;
-        this.baseQualityCost = 10000;
-        this.qualityInterval = 10000;
+        this.baseQualityCost = 12000;
+        this.qualityInterval = 12000;
         this.quantityPoints = 160;
         this.baseQuantityPoints = 160;
         this.maxHousing = 0;
@@ -545,11 +546,11 @@ class PandaHouse extends House {
     constructor(name) {
         super(name);
         this.animalCost = 30000;
-        this.initialCost = 25000;
-        this.expansionInterval = 25000;
+        this.initialCost = 20000;
+        this.expansionInterval = 20000;
         this.expansionHousingIncrease = 2;
-        this.baseQualityCost = 30000;
-        this.qualityInterval = 30000;
+        this.baseQualityCost = 25000;
+        this.qualityInterval = 25000;
         this.quantityPoints = 500;
         this.baseQuantityPoints = 500;
         this.maxHousing = 0;
@@ -632,8 +633,8 @@ class AlligatorHouse extends House {
         this.initialCost = 10000;
         this.expansionInterval = 5000;
         this.expansionHousingIncrease = 3;
-        this.baseQualityCost = 25000;
-        this.qualityInterval = 25000;
+        this.baseQualityCost = 20000;
+        this.qualityInterval = 20000;
         this.quantityPoints = 280;
         this.baseQuantityPoints = 280;
         this.maxHousing = 0;
@@ -717,8 +718,8 @@ class ElephantHouse extends House {
         this.initialCost = 100000;
         this.expansionInterval = 50000;
         this.expansionHousingIncrease = 2;
-        this.baseQualityCost = 80000;
-        this.qualityInterval = 80000;
+        this.baseQualityCost = 60000;
+        this.qualityInterval = 60000;
         this.quantityPoints = 2000;
         this.baseQuantityPoints = 2000;
         this.maxHousing = 0;
@@ -912,13 +913,27 @@ function setDifficulty() {
         difficultyLevel = 0;
     }
 }
-
+speedVar = 10000;
+function speedInt() {
+    if (gameSpeed.value === 'slow') {
+        return 10000
+    }
+    if (gameSpeed.value === 'medium') {
+        return 7000;
+    }
+    if (gameSpeed.value === 'fast') {
+        return 5000;
+    }
+    if (gameSpeed.value === 'veryFast') {
+        return 3000;
+    }
+}
 function startGame() {
     start.removeEventListener('click', startGame);
     setDifficulty();
     buyChimpanzeeFunction();
     updateIncome();
-    setInterval(hourTick, 5000);
+    setInterval(hourTick, speedInt());
 
 }
 

@@ -45,3 +45,11 @@ p{
 .ratio {
     width: 14em;
 }
+
+#radio{
+    display: flex;
+}
+#formSpace{
+    display:inline-block;
+    width: 2em;
+}
