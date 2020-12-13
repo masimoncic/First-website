@@ -1,5 +1,11 @@
+body {
+    background-image: url(https://nssdc.gsfc.nasa.gov/planetary/image/mera_hills.jpg);
+    background-size: 200%;
+}
+
 p{
-    height: .35em;
+    display: block;
+    background-color: white;
 }
 .timeUI {
     display: inline-block;
@@ -11,6 +17,10 @@ p{
 }
 #gameClock{
     margin-left: 20em;
+}
+#start{
+    height: 1.75em;
+    width: 8em;
 }
 .animalFood {
     display: Flex;
@@ -27,11 +37,13 @@ p{
     margin: 0px;
 }
 .animalObjectName {
-    height: .35em;
-    width:  .35em;
+
 }
 .animalFoodMeter {
-    height: .30em;
+
+}
+#currentFood{
+    width: 7em;
 }
 .animalFeedButton{
     width: 80%;
@@ -43,18 +55,47 @@ p{
 }
 
 .ratio {
-    width: 14em;
+    width: 20em;
 }
 
 #radio{
     display: flex;
 }
-#formSpace{
+.formSpace{
     display:inline-block;
     width: 2em;
 }
 
 #martian1Pic{
-    height: 6em;
-    width: 6em;
+    height: 8em;
+    width: 12em;
+}
+
+#chimpanzeeBackground {
+    background-image: url(https://www.zoochat.com/community/media/chimpanzee-habitat.121111/full?d=1284959120);
+    background-size: 100%;
+}
+#tigerBackground{
+    background-image: url(https://www.animalspot.net/wp-content/uploads/2020/01/Tiger-Habitat.jpg);
+    background-size: 100%;
+}
+
+#penguinBackground{
+    background-image: url(https://penguingeek.files.wordpress.com/2013/04/adelie-penguin-pygoscelis-adeliae-on-iceberg-antarctic-peninsula_c08b.jpg);
+    background-size: 100%;
+}
+
+#alligatorBackground{
+    background-image: url(http://dinets.info/amgatorhabitat1.jpg);
+    background-size: 100%;
+}
+
+#pandaBackground{
+    background-image: url(https://images.squarespace-cdn.com/content/v1/5c2aec4b1137a6d8849debf1/1594254006343-XVA34NGX9BDFFXH01JGN/ke17ZwdGBToddI8pDm48kDHPSfPanjkWqhH6pl6g5ph7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0mwONMR1ELp49Lyc52iWr5dNb1QJw9casjKdtTg1_-y4jz4ptJBmI9gQmbjSQnNGng/image-asset.jpeg?format=1000w);
+    background-size: 100%;
+}
+
+#elephantBackground{
+    background-image: url(https://greenglobaltravel.com/wp-content/uploads/Tarangire-Elephants-e1470843044830.jpg);
+    background-size: 100%;
 }
