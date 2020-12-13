@@ -463,14 +463,14 @@ class Tiger extends Animal {
 class TigerHouse extends House {
     constructor(name) {
         super(name);
-        this.animalCost = 1000;
+        this.animalCost = 1500;
         this.initialCost = 500;
-        this.expansionInterval = 500;
+        this.expansionInterval = 1000;
         this.expansionHousingIncrease = 4;
         this.baseQualityCost = 10000;
         this.qualityInterval = 10000;
-        this.quantityPoints = 165;
-        this.baseQuantityPoints = 165;
+        this.quantityPoints = 175;
+        this.baseQuantityPoints = 175;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
