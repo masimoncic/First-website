@@ -264,7 +264,7 @@ class Martian extends Animal {
 }
 
 let martian = new Martian(1);
-let martianQuantityPoints= 400;
+let martianQuantityPoints= 450;
 allAnimals.push(martian);
 function martianFeedListener() {
     martian.feed();
