@@ -930,7 +930,7 @@ function hourTick() {
 
 //define startGame
 function setDifficulty() {
-    if (difficulty.value === 'easy'){
+    if (difficulty.value === 'normal'){
         difficultyLevel = -1;
     }
     else {
