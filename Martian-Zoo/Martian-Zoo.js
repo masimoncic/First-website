@@ -287,7 +287,7 @@ class Chimpanzee extends Animal {
             currentFill: 100,
             fillDecreasePerHour: 10 + (2*difficultyLevel),
             fillIncreasePerFeed: 40,
-            foodConsumed: 2,
+            foodConsumed: 3,
         }
     }
 }
@@ -827,7 +827,7 @@ function clockTick() {
             ampm = 'am';
             gameDayValue += 1;
             gameDay.innerHTML = `Day ${gameDayValue}`;
-            buy5FoodCost = Math.floor(buy5FoodCost * 1 * Math.pow(1.1125, gameDayValue));
+            buy5FoodCost = Math.floor(buy5FoodCost * 1 * Math.pow(1.1125, gameDayValue)) + 100;
             buy50FoodCost = buy5FoodCost * 10;
             buy5FoodButton.value = `Buy 5 Food $${buy5FoodCost}`;
             buy50FoodButton.value = `Buy 50 Food $${buy50FoodCost}`;
