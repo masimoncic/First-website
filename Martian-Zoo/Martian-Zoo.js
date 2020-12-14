@@ -940,10 +940,10 @@ function setDifficulty() {
 speedVar = 10000;
 function speedInt() {
     if (gameSpeed.value === 'slow') {
-        return 10000
+        return 12000
     }
     if (gameSpeed.value === 'medium') {
-        return 7000;
+        return 8000;
     }
     if (gameSpeed.value === 'fast') {
         return 5000;
