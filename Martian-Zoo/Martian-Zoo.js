@@ -388,8 +388,8 @@ class PenguinHouse extends House {
         this.initialCost = 4000;
         this.expansionInterval = 4000;
         this.expansionHousingIncrease = 2;
-        this.baseQualityCost = 8000;
-        this.qualityInterval = 8000;
+        this.baseQualityCost = 5000;
+        this.qualityInterval = 5000;
         this.quantityPoints = 130;
         this.baseQuantityPoints = 130;
         this.maxHousing = 0;
