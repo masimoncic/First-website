@@ -34,24 +34,78 @@ p{
 
 .animalPic{
     height: 3.4em;
-    width: 3.9em;
+    width: 4em;
     display: block;
-    margin: .1em .3em 0em 0em;
+    margin: 3.4em .3em 0em 0em;
 }
 .animalObjectName {
 
 }
-.animalFoodMeter {
-    padding: 0em;
-    margin: 0em .3em 0em 0em;
-    width: 3.9em;
+
+
+.martianFoodContainer {
+    display: box;
+    height: 1.1em;
+    width: 5em;
+    position: absolute;
+    background-color: white;
+    border: 0.2em solid #000;
 }
+
+.martianFoodMeter {
+    display: block;
+    position: relative;
+    background-color: green;
+    width: 100%;
+    top: .2em;
+    left: .2em;
+    height: 1.2em;
+}
+
+.martianFeedButton{
+    width: 7em;
+    height: 1.5em;
+    position: relative;
+    display: block;
+    margin: .2em .0em -3.5em 0em;
+    left: .5em;
+    top: .3em;
+}
+
+.animalFoodContainer {
+    display: box;
+    height: 1.1em;
+    width: 3.1em;
+    position: absolute;
+    background-color: white;
+    border: 0.2em solid #000;
+    margin: .1em .3em 0em 0em;
+}
+
+
+
+
+.animalFoodMeter {
+    display: block;
+    position: relative;
+    background-color: green;
+    width: 100%;
+    top:  -.2em;
+    left: -.5em;
+    height: 1.2em;
+    margin: .1em .0em 0em 0em;
+}
+
+
 #currentFood{
     width: 7em;
 }
 .animalFeedButton{
-    width: 4.8em;
+    width: 5em;
     height: 1.5em;
+    position: relative;
+    margin: .1em .0em 0em 0em;
+    left: -.5em;
 }
 
 #animalHouses {
@@ -80,6 +134,9 @@ p{
 #martian1Pic{
     height: 7em;
     width: 10.5em;
+    display: block;
+    margin-bottom: .1em;
+    margin-top: -.5em;
 }
 
 #chimpanzeeBackground {

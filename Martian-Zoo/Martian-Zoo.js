@@ -115,6 +115,7 @@ class Animal {
             this.food.currentFill -= this.food.fillDecreasePerHour;
             let foodId = document.getElementById(`${this.species} ${this.num} food`);
             foodId.innerHTML = `${this.food.currentFill}/${this.food.maxFill}`
+            foodId.style.width = `${this.food.currentFill}%`;
             if (this.food.currentFill <= 0) {
                 foodId.innerHTML = 'dead';
                 this.alive = 0;
@@ -130,6 +131,7 @@ class Animal {
                 this.food.currentFill = Math.min(this.food.currentFill + fillCount, 100);
                 foodCount -= this.food.foodConsumed;
                 foodId.innerHTML = `${this.food.currentFill}/${this.food.maxFill}`
+                foodId.style.width = `${this.food.currentFill}%`;
                 currentFood.innerHTML = foodCount;
             }
         }
@@ -151,17 +153,21 @@ class Animal {
         //animalP.innerHTML = `${this.species} ${this.num}`;
         //animalP.className = `$animalObjectName`;
         //animalDiv.appendChild(animalP);
+        let animalFoodContainer = document.createElement('p');
+        animalFoodContainer.className = 'animalFoodContainer';
+        animalDiv.appendChild(animalFoodContainer);
         let animalFood = document.createElement('p');
         animalFood.innerHTML = `${this.food.currentFill}/${this.food.maxFill}`;
+        animalFood.style.width = `${this.food.currentFill}%`;
         animalFood.id = `${this.species} ${this.num} food`;
-        animalFood.className = `animalFoodMeter`
-        animalDiv.appendChild(animalFood);
+        animalFoodContainer.appendChild(animalFood);
+        animalFood.className = `animalFoodMeter`;
         let animalFeed = document.createElement('input');
         animalFeed.type='submit';
         animalFeed.value=`Feed ${this.food.foodConsumed}`
         animalFeed.id = `${this.species} ${this.num}`;
         animalFeed.className = 'animalFeedButton';
-        animalDiv.appendChild(animalFeed);
+        animalFoodContainer.appendChild(animalFeed);
     
     }
 }
@@ -217,7 +223,7 @@ class House {
                 money.innerHTML = `Money: $${moneyCount}`;
                 varietyPoints += 0.03;
                 this.qualityLevel ++;
-                this.quantityPoints = (this.baseQuantityPoints * (1 + (0.2 * this.qualityLevel)));
+                this.quantityPoints = (this.baseQuantityPoints * (1 + (0.25 * this.qualityLevel)));
             } 
 
         }
@@ -227,7 +233,7 @@ class House {
                 money.innerHTML = `Money: $${moneyCount}`;
                 varietyPoints += 0.03
                 this.qualityLevel ++;
-                this.quantityPoints = (this.baseQuantityPoints * (1 + (0.2 * this.qualityLevel)));
+                this.quantityPoints = (this.baseQuantityPoints * (1 + (0.25 * this.qualityLevel)));
             } 
 
         }
@@ -258,7 +264,7 @@ class Martian extends Animal {
 }
 
 let martian = new Martian(1);
-let martianQuantityPoints= 300;
+let martianQuantityPoints= 400;
 allAnimals.push(martian);
 function martianFeedListener() {
     martian.feed();
@@ -367,7 +373,7 @@ class Penguin extends Animal {
         this.food = {
             maxFill: 100,
             currentFill: 50,
-            fillDecreasePerHour: 5 + (3*difficultyLevel),
+            fillDecreasePerHour: 6 + (4*difficultyLevel),
             fillIncreasePerFeed: 80,
             foodConsumed: 1,
         }
@@ -379,13 +385,13 @@ class PenguinHouse extends House {
     constructor(name) {
         super(name);
         this.animalCost = 500;
-        this.initialCost = 2000;
+        this.initialCost = 4000;
         this.expansionInterval = 4000;
         this.expansionHousingIncrease = 2;
-        this.baseQualityCost = 10000;
-        this.qualityInterval = 10000;
-        this.quantityPoints = 120;
-        this.baseQuantityPoints = 120;
+        this.baseQualityCost = 8000;
+        this.qualityInterval = 8000;
+        this.quantityPoints = 130;
+        this.baseQuantityPoints = 130;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
@@ -453,7 +459,7 @@ class Tiger extends Animal {
             maxFill: 100,
             currentFill: 50,
             fillDecreasePerHour: 4 + (1*difficultyLevel),
-            fillIncreasePerFeed: 30,
+            fillIncreasePerFeed: 26 - (4*difficultyLevel),
             foodConsumed: 10,
         }
     }
@@ -469,8 +475,8 @@ class TigerHouse extends House {
         this.expansionHousingIncrease = 4;
         this.baseQualityCost = 10000;
         this.qualityInterval = 10000;
-        this.quantityPoints = 185;
-        this.baseQuantityPoints = 185;
+        this.quantityPoints = 190;
+        this.baseQuantityPoints = 190;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
@@ -549,13 +555,13 @@ class PandaHouse extends House {
     constructor(name) {
         super(name);
         this.animalCost = 40000;
-        this.initialCost = 25000;
-        this.expansionInterval = 25000;
+        this.initialCost = 30000;
+        this.expansionInterval = 30000;
         this.expansionHousingIncrease = 2;
         this.baseQualityCost = 25000;
         this.qualityInterval = 25000;
-        this.quantityPoints = 800;
-        this.baseQuantityPoints = 800;
+        this.quantityPoints = 1200;
+        this.baseQuantityPoints = 1200;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
@@ -638,8 +644,8 @@ class AlligatorHouse extends House {
         this.expansionHousingIncrease = 3;
         this.baseQualityCost = 20000;
         this.qualityInterval = 20000;
-        this.quantityPoints = 350;
-        this.baseQuantityPoints = 350;
+        this.quantityPoints = 400;
+        this.baseQuantityPoints = 400;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
@@ -706,9 +712,9 @@ class Elephant extends Animal {
         this.food = {
             maxFill: 100,
             currentFill: 50,
-            fillDecreasePerHour: 5 + (1*difficultyLevel),
+            fillDecreasePerHour: 5 + (2*difficultyLevel),
             fillIncreasePerFeed: 25,
-            foodConsumed: 20,
+            foodConsumed: 30,
         }
     }
 }
@@ -721,10 +727,10 @@ class ElephantHouse extends House {
         this.initialCost = 100000;
         this.expansionInterval = 50000;
         this.expansionHousingIncrease = 2;
-        this.baseQualityCost = 50000;
-        this.qualityInterval = 50000;
-        this.quantityPoints = 3000;
-        this.baseQuantityPoints = 3000;
+        this.baseQualityCost = 75000;
+        this.qualityInterval = 75000;
+        this.quantityPoints = 4000;
+        this.baseQuantityPoints = 4000;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
@@ -821,11 +827,11 @@ function clockTick() {
             ampm = 'am';
             gameDayValue += 1;
             gameDay.innerHTML = `Day ${gameDayValue}`;
-            buy5FoodCost = Math.floor(buy5FoodCost * 1 * Math.pow(1.112, gameDayValue));
+            buy5FoodCost = Math.floor(buy5FoodCost * 1 * Math.pow(1.1125, gameDayValue));
             buy50FoodCost = buy5FoodCost * 10;
             buy5FoodButton.value = `Buy 5 Food $${buy5FoodCost}`;
             buy50FoodButton.value = `Buy 50 Food $${buy50FoodCost}`;
-            martian.food.foodConsumed += 4;
+            martian.food.foodConsumed += 6 + (2*difficultyLevel);
             martianFeed.value = `Feed ${martian.food.foodConsumed}`;
             allChimpanzees.forEach(element => {
                 if (element.alive === 0) {
@@ -864,7 +870,11 @@ function clockTick() {
                 }
             })
             if (gameDayValue === 6) {
-                martian.food.fillDecreasePerHour = 15 + (7 * difficultyLevel);
+                martian.food.fillDecreasePerHour = 10 + (3 * difficultyLevel);
+                martianFeed.value = `Feed ${martian.food.foodConsumed}`;
+            }
+            if (gameDayValue === 9) {
+                martian.food.fillDecreasePerHour = 20 + (10 * difficultyLevel);
                 martianFeed.value = `Feed ${martian.food.foodConsumed}`;
             }
             if (gameDayValue === 10) {
