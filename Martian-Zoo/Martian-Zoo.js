@@ -287,7 +287,7 @@ class Chimpanzee extends Animal {
             currentFill: 100,
             fillDecreasePerHour: 10 + (2*difficultyLevel),
             fillIncreasePerFeed: 40,
-            foodConsumed: 3,
+            foodConsumed: 2,
         }
     }
 }
