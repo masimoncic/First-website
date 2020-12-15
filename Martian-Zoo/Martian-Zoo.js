@@ -814,10 +814,48 @@ buy50FoodButton.addEventListener('click', buy50FoodFunction);
 //define lifeCheck functions 
 
 
-
+function deadCheck() {
+    allChimpanzees.forEach(element => {
+        if (element.alive === 0) {
+            deadChimpanzeeCount ++;
+            element.alive = 2;
+        }
+    })
+    allPenguins.forEach(element => {
+        if (element.alive === 0) {
+            deadPenguinCount ++;
+            element.alive = 2;
+        }
+    })
+    allTigers.forEach(element => {
+        if (element.alive === 0) {
+            deadTigerCount ++;
+            element.alive = 2;
+        }
+    })
+    allPandas.forEach(element => {
+        if (element.alive === 0) {
+            deadPandaCount ++;
+            element.alive = 2;
+        }
+    })
+    allAlligators.forEach(element => {
+        if (element.alive === 0) {
+            deadAlligatorCount ++;
+            element.alive = 2;
+        }
+    })
+    allElephants.forEach(element => {
+        if (element.alive === 0) {
+            deadElephantCount ++;
+            element.alive = 2;
+        }
+    })
+}
 
 
 function clockTick() {
+    deadCheck();
     if (gameHour === 11) {
         gameHour = 12;
         if (ampm === 'am') {
@@ -833,42 +871,6 @@ function clockTick() {
             buy50FoodButton.value = `Buy 50 Food $${buy50FoodCost}`;
             martian.food.foodConsumed += 6 + (2*difficultyLevel);
             martianFeed.value = `Feed ${martian.food.foodConsumed}`;
-            allChimpanzees.forEach(element => {
-                if (element.alive === 0) {
-                    deadChimpanzeeCount ++;
-                    element.alive = 2;
-                }
-            })
-            allPenguins.forEach(element => {
-                if (element.alive === 0) {
-                    deadPenguinCount ++;
-                    element.alive = 2;
-                }
-            })
-            allTigers.forEach(element => {
-                if (element.alive === 0) {
-                    deadTigerCount ++;
-                    element.alive = 2;
-                }
-            })
-            allPandas.forEach(element => {
-                if (element.alive === 0) {
-                    deadPandaCount ++;
-                    element.alive = 2;
-                }
-            })
-            allAlligators.forEach(element => {
-                if (element.alive === 0) {
-                    deadAlligatorCount ++;
-                    element.alive = 2;
-                }
-            })
-            allElephants.forEach(element => {
-                if (element.alive === 0) {
-                    deadElephantCount ++;
-                    element.alive = 2;
-                }
-            })
             if (gameDayValue === 6) {
                 martian.food.fillDecreasePerHour = 10 + (3 * difficultyLevel);
                 martianFeed.value = `Feed ${martian.food.foodConsumed}`;
