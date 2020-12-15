@@ -475,8 +475,8 @@ class TigerHouse extends House {
         this.expansionHousingIncrease = 4;
         this.baseQualityCost = 10000;
         this.qualityInterval = 10000;
-        this.quantityPoints = 190;
-        this.baseQuantityPoints = 190;
+        this.quantityPoints = 205;
+        this.baseQuantityPoints = 205;
         this.maxHousing = 0;
         this.CurrentHousingUsed = 0;
         this.expansionLevel = 0;
