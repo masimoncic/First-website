@@ -471,10 +471,10 @@ class TigerHouse extends House {
         super(name);
         this.animalCost = 1500;
         this.initialCost = 500;
-        this.expansionInterval = 1000;
+        this.expansionInterval = 500;
         this.expansionHousingIncrease = 4;
-        this.baseQualityCost = 10000;
-        this.qualityInterval = 10000;
+        this.baseQualityCost = 8000;
+        this.qualityInterval = 8000;
         this.quantityPoints = 205;
         this.baseQuantityPoints = 205;
         this.maxHousing = 0;
@@ -641,9 +641,9 @@ class AlligatorHouse extends House {
         this.animalCost = 6000;
         this.initialCost = 8000;
         this.expansionInterval = 8000;
-        this.expansionHousingIncrease = 3;
-        this.baseQualityCost = 20000;
-        this.qualityInterval = 20000;
+        this.expansionHousingIncrease = 4;
+        this.baseQualityCost = 18000;
+        this.qualityInterval = 18000;
         this.quantityPoints = 400;
         this.baseQuantityPoints = 400;
         this.maxHousing = 0;
@@ -918,6 +918,7 @@ function checkMartian() {
     if (martian.alive === 0) {
         mainDiv.style.display = 'none';
         gameOver.style.visibility = 'visible';
+        clearInterval(hourTick, speedInt());
     }
 }
 
@@ -951,9 +952,11 @@ function speedInt() {
         return 5000;
     }
     if (gameSpeed.value === 'veryFast') {
-        return 2000;
+        return 500;
     }
 }
+
+
 function startGame() {
     start.removeEventListener('click', startGame);
     setDifficulty();
