@@ -1,39 +1,35 @@
-
-
 class Timer {
     constructor(durationInput, startButton, pauseButton) {
-        durationInput;
-        startButton;
-        pauseButton;
+        this.durationInput = durationInput;
+        this.startButton = startButton;
+        this.pauseButton = pauseButton;
 
-        //this.startButton.addEventListener('click', this.start.bind(this));
         this.startButton.addEventListener('click', this.start);
+        this.pauseButton.addEventListener('click', this.pause);
     }
-
-
-
-
 
     start = () => {
-        //note: this will bind to button when start is called by event listener
-        //f.call( {o} ) and f.apply( {o} ) will use {o} as this.
-        //but for reasons, if we use an arrow function, it will bind the the class instance
-
-        console.log(this);
+        this.tick();
+        this.interval = setInterval(this.tick, 1000);
 
     }
 
-    pause() {
-
+    pause = () => {
+        clearInterval(this.interval);
     }
 
-    onDurationChange() {
-
+    tick = () => {
+        this.timeRemaining = this.timeRemaining- 1;
     }
 
-    tick() {
-
+    get timeRemaining() {
+        return parseFloat(this.durationInput.value);
     }
+
+    set timeRemaining(time) {
+        this.durationInput.value = time;
+    }
+
 }
 
 const durationInput = document.getElementById("durationInput");
@@ -42,5 +38,3 @@ const pauseButton = document.getElementById("pauseButton");
 
 const timer = new Timer(durationInput, startButton, pauseButton);
 
-
-timer.start();
