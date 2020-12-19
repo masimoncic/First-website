@@ -555,11 +555,11 @@ class PandaHouse extends House {
     constructor(name) {
         super(name);
         this.animalCost = 40000;
-        this.initialCost = 30000;
-        this.expansionInterval = 30000;
+        this.initialCost = 40000;
+        this.expansionInterval = 40000;
         this.expansionHousingIncrease = 2;
-        this.baseQualityCost = 25000;
-        this.qualityInterval = 25000;
+        this.baseQualityCost = 35000;
+        this.qualityInterval = 35000;
         this.quantityPoints = 1200;
         this.baseQuantityPoints = 1200;
         this.maxHousing = 0;
@@ -641,7 +641,7 @@ class AlligatorHouse extends House {
         this.animalCost = 6000;
         this.initialCost = 8000;
         this.expansionInterval = 8000;
-        this.expansionHousingIncrease = 4;
+        this.expansionHousingIncrease = 5;
         this.baseQualityCost = 18000;
         this.qualityInterval = 18000;
         this.quantityPoints = 400;
@@ -724,11 +724,11 @@ class ElephantHouse extends House {
     constructor(name) {
         super(name);
         this.animalCost = 50000;
-        this.initialCost = 100000;
-        this.expansionInterval = 50000;
+        this.initialCost = 120000;
+        this.expansionInterval = 60000;
         this.expansionHousingIncrease = 2;
-        this.baseQualityCost = 75000;
-        this.qualityInterval = 75000;
+        this.baseQualityCost = 100000;
+        this.qualityInterval = 100000;
         this.quantityPoints = 4000;
         this.baseQuantityPoints = 4000;
         this.maxHousing = 0;
